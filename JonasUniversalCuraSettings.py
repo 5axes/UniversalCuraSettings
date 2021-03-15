@@ -61,7 +61,6 @@ class JonasUniversalCuraSettings(Extension, QObject,):
                 VersC = int(CuraVersion.split(".")[0])+int(CuraVersion.split(".")[1])/10
             except:
                 pass
-
                 
         # thanks to Aldo Hoeben / fieldOfView for this code
         self._dialog_options = QFileDialog.Options()
@@ -76,13 +75,12 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self.addMenuItem(catalog.i18nc("@item:inmenu", "Merge a profile"), self.importData)
 
     def setProfile(self) -> None:
-
         machine_manager = CuraApplication.getInstance().getMachineManager()        
         stack = CuraApplication.getInstance().getGlobalContainerStack()
 
         global_stack = machine_manager.activeMachine
 
-        #Get extruder count
+        # Get extruder count
         extruder_count=stack.getProperty("machine_extruder_count", "value")
         
         # Profile
@@ -90,17 +88,25 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         # Quality
         Q_Name = global_stack.quality.getMetaData().get("name", "")
 
-        # Global stack
-        modified_count=2
-        stack.setProperty("layer_height","value",0.2)
-        
-        # Extruder[0]
-        container=extruders[0]
-        
-        container.setProperty("infill_pattern","value",	'zigzag')
+        modified_count=0
+        # Extruder
+        extruders = list(global_stack.extruders.values())      
+        for Extrud in extruders:
+            PosE = int(Extrud.getMetaDataEntry("position"))
+            PosE += 1
+            # Material
+            M_Name = Extrud.material.getMetaData().get("material", "")
+            
+            modified_count+=1
+            Extrud.setProperty("infill_pattern","value",'zigzag')
   
+        # Global stack
+        modified_count+=1
+        stack.setProperty("layer_height","value",0.2)
+            
+            
         Message().hide()
-        Message("Changed keys for %d settings" % modified_count , title = "Jonas Universal Cura Settings").show()
+        Message("Set values for %d parameters" % modified_count , title = "Jonas Universal Cura Settings").show()
         
         
     def exportData(self) -> None:
