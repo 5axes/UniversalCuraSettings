@@ -1,10 +1,10 @@
-# Copyright (c) 2020 5@xes
-# ImportExportProfiles is released under the terms of the AGPLv3 or higher.
+# Copyright (c) 2021 5@xes
+# JonasUniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 
-from . import ImportExportProfiles
+from . import JonasUniversalCuraSettings
 
 def getMetaData():
     return {}
 
 def register(app):
-    return {"extension": ImportExportProfiles.ImportExportProfiles()}
+    return {"extension": JonasUniversalCuraSettings.JonasUniversalCuraSettings()}

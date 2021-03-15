@@ -1,10 +1,9 @@
 #-------------------------------------------------------------------------------------------
 # Copyright (c) 2020-2021 5@xes
 # 
-# ImportExportProfiles is released under the terms of the AGPLv3 or higher.
+# JonasUniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 #
-# Version 0.0.3 : First functionnal release
-# Version 1.0.5 : top_bottom for new release (Ready Arachne or futur 4.9?)
+# Version 0.0.1 : First prototype
 #
 #-------------------------------------------------------------------------------------------
 
@@ -40,7 +39,7 @@ from UM.Message import Message
 from UM.i18n import i18nCatalog
 catalog = i18nCatalog("cura")
 
-class ImportExportProfiles(Extension, QObject,):
+class JonasUniversalCuraSettings(Extension, QObject,):
     def __init__(self, parent = None) -> None:
         QObject.__init__(self, parent)
         Extension.__init__(self)
@@ -49,7 +48,7 @@ class ImportExportProfiles(Extension, QObject,):
 
         self._application = Application.getInstance()
         self._preferences = self._application.getPreferences()
-        self._preferences.addPreference("import_export_tools/dialog_path", "")
+        self._preferences.addPreference("JonasUniversalCuraSettings/dialog_path", "")
         
         VersC=1.0
 
@@ -69,18 +68,47 @@ class ImportExportProfiles(Extension, QObject,):
         if sys.platform == "linux" and "KDE_FULL_SESSION" in os.environ:
             self._dialog_options |= QFileDialog.DontUseNativeDialog
 
-        self.setMenuName(catalog.i18nc("@item:inmenu", "Import Export Profiles"))
-        self.addMenuItem(catalog.i18nc("@item:inmenu", "Export current profile"), self.exportData)
+        self.setMenuName(catalog.i18nc("@item:inmenu", "Jonas Universal Settings"))
+        self.addMenuItem(catalog.i18nc("@item:inmenu", "Set Jonas Universal Settings"), self.setProfile)
         self.addMenuItem("", lambda: None)
+        self.addMenuItem(catalog.i18nc("@item:inmenu", "Export current profile"), self.exportData)
+        self.addMenuItem(" ", lambda: None)
         self.addMenuItem(catalog.i18nc("@item:inmenu", "Merge a profile"), self.importData)
 
+    def setProfile(self) -> None:
 
+        machine_manager = CuraApplication.getInstance().getMachineManager()        
+        stack = CuraApplication.getInstance().getGlobalContainerStack()
+
+        global_stack = machine_manager.activeMachine
+
+        #Get extruder count
+        extruder_count=stack.getProperty("machine_extruder_count", "value")
+        
+        # Profile
+        P_Name = global_stack.qualityChanges.getMetaData().get("name", "")
+        # Quality
+        Q_Name = global_stack.quality.getMetaData().get("name", "")
+
+        # Global stack
+        modified_count=2
+        stack.setProperty("layer_height","value",0.2)
+        
+        # Extruder[0]
+        container=extruders[0]
+        
+        container.setProperty("infill_pattern","value",	'zigzag')
+  
+        Message().hide()
+        Message("Changed keys for %d settings" % modified_count , title = "Jonas Universal Cura Settings").show()
+        
+        
     def exportData(self) -> None:
         # thanks to Aldo Hoeben / fieldOfView for this part of the code
         file_name = QFileDialog.getSaveFileName(
             parent = None,
             caption = catalog.i18nc("@title:window", "Save as"),
-            directory = self._preferences.getValue("import_export_tools/dialog_path"),
+            directory = self._preferences.getValue("JonasUniversalCuraSettings/dialog_path"),
             filter = "CSV files (*.csv)",
             options = self._dialog_options
         )[0]
@@ -89,7 +117,7 @@ class ImportExportProfiles(Extension, QObject,):
             Logger.log("d", "No file to export selected")
             return
 
-        self._preferences.setValue("import_export_tools/dialog_path", os.path.dirname(file_name))
+        self._preferences.setValue("JonasUniversalCuraSettings/dialog_path", os.path.dirname(file_name))
         # -----
         
         machine_manager = CuraApplication.getInstance().getMachineManager()        
