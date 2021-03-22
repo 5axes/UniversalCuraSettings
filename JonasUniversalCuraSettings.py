@@ -421,8 +421,8 @@ class JonasUniversalCuraSettings(Extension, QObject,):
 
         Message().hide()
         Message("Imported profil %d changed keys from %s" % (imported_count, CPro) , title = "Import Export CSV Profiles Tools").show()
-    
-    def _setValue(self,key,c_val) -> int:
+
+    def _getValue(self,key) -> str:
         
         stack = CuraApplication.getInstance().getGlobalContainerStack()
         
@@ -446,17 +446,29 @@ class JonasUniversalCuraSettings(Extension, QObject,):
                 GelValStr=GetOptionDetail
                 # Logger.log("d", "GetType_doTree = %s ; %s ; %s ; %s",definition_option, GelValStr, GetOption, GetOptionDetail)
             else:
-                GelValStr=str(GetVal)
-
+                GelValStr=str(GetVal)      
+        
+        return GelValStr
+        
+    def _setValue(self,key,c_val) -> int:
+        machine_manager = CuraApplication.getInstance().getMachineManager()  
+        stack = CuraApplication.getInstance().getGlobalContainerStack()
+        
+        # settable_per_extruder
+        # type 
+        GetType=stack.getProperty(key,"type")
+        GetVal=stack.getProperty(key,"value")
+        GetExtruder=stack.getProperty(key,"settable_per_extruder")
+        
         if GetExtruder == True:
             global_stack = machine_manager.activeMachine
             extruders = list(global_stack.extruders.values())      
             for Extrud in extruders:
                 Extrud.setProperty(key,"value",c_val)
-                self.writeToLog("setValue Extruder: " + GelValStr)                
+                self.writeToLog("setValue Extruder: " + str(c_val))                
         else:
             stack.setProperty(key,"value",c_val)
-            self.writeToLog("setValue Global : " + GelValStr)  
+            self.writeToLog("setValue Global : " + str(c_val))  
         
         modified_c = 1
         
@@ -509,39 +521,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self.writeToLog("With machine_nozzle_size : " + str(machine_nozzle_size))
         
         modified_count=0
-        #------------------
-        # Extruder
-        #------------------
-        extruders = list(global_stack.extruders.values())      
-        modified_count += self._setValue("layer_height",0.2)
         
-        for Extrud in extruders:
-            PosE = int(Extrud.getMetaDataEntry("position"))
-            PosE += 1
-            # Material
-            M_Name = Extrud.material.getMetaData().get("material", "")
-            
-            # General settings
-            modified_count+=1
-            Extrud.setProperty("infill_pattern","value",'zigzag')
-
-            # Profile Material settings
-            if M_Name == "PLA" :
-                Extrud.setProperty("material_bed_temperature","value",55)
-        
-            # Profile Mode settings
-            if currMode == "mechanical" :
-                Extrud.setProperty("brim_line_count","value",10)
-            
-            elif currMode == "figurine" :
-                Extrud.setProperty("brim_line_count","value",2)
-                   
-            # Profile Extruder settings
-            if currExtruder == "bowden" :
-                Extrud.setProperty("retraction_hop","value",0.16)
-                Extrud.setProperty("retraction_hop_enabled","value",True)
-                Extrud.setProperty("retraction_retract_speed","value",50)
- 
         #------------------
         # Global stack
         #------------------
@@ -558,6 +538,36 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("layer_height",0.1)
             
         # Profile Extruder settings
+        
+        #------------------
+        # Extruder
+        #------------------
+        extruders = list(global_stack.extruders.values())             
+        for Extrud in extruders:
+            # Material
+            M_Name = Extrud.material.getMetaData().get("material", "")
+            
+            # General settings
+            modified_count+=1
+            Extrud.setProperty("infill_pattern","value",'zigzag')
+
+            # Profile Material settings
+            if M_Name == "PLA" :
+                Extrud.setProperty("material_bed_temperature","value",55)
+        
+        # Profile Mode settings
+        if currMode == "mechanical" :
+            modified_count += self._setValue("brim_line_count",10)
+        
+        elif currMode == "figurine" :
+            modified_count += self._setValue("brim_line_count",2)
+               
+        # Profile Extruder settings
+        if currExtruder == "bowden" :
+            modified_count += self._setValue("retraction_hop",0.16)
+            modified_count += self._setValue("retraction_hop_enabled",True)
+            modified_count += self._setValue("retraction_retract_speed",50)
+ 
             
         Message().hide()
         Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Jonas Universal Cura Settings").show()
