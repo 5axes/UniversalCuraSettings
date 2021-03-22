@@ -27,10 +27,10 @@ UM.Dialog
     flags: Qt.Dialog | Qt.WindowTitleHint | Qt.WindowCloseButtonHint | Qt.WindowStaysOnTopHint
 
     // Setting the dimensions of the dialog window
-    width: 350
-    height: 100
-    minimumWidth: 350
-    minimumHeight: 100
+    width: 325
+    height: 125
+    minimumWidth: 325
+    minimumHeight: 125
 
     // Position of the window
     x: Screen.width*0.5 - width - 100
@@ -42,8 +42,10 @@ UM.Dialog
     // Connecting our variable to the computed property of the manager
 	property string modeInput: manager.modeInput
 	property string extruderInput: manager.extruderInput
+	property string materialInput: manager.materialInput
 	property string modeCurrent: manager.modeInput
 	property string extruderCurrent: manager.extruderInput
+	property string matrialCurrent: manager.materialInput
 
     Column
     {
@@ -91,6 +93,39 @@ UM.Dialog
 				}
 			}	
 
+			Label
+			{
+				height: UM.Theme.getSize("setting_control").height;
+				text: catalog.i18nc("@label","Material:");
+				font: UM.Theme.getFont("default");
+				color: UM.Theme.getColor("text");
+				verticalAlignment: Text.AlignVCenter;
+				renderType: Text.NativeRendering
+				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
+			}
+			
+			
+			//User input of Mode
+			ComboBox {
+				id: material_input
+				objectName: "Combo_Material"
+				model: ListModel {
+				   id: cbmItems
+				   ListElement { text: "pla"}
+				   ListElement { text: "abs"}
+				   ListElement { text: "petg"}
+				}
+				width: UM.Theme.getSize("setting_control").width
+				height: UM.Theme.getSize("setting_control").height
+
+				Component.onCompleted: currentIndex = find(materialInput)
+				
+				onCurrentIndexChanged: 
+				{ 
+				    materialCurrent = cbmItems.get(currentIndex).text;
+					manager.materialEntered(cbmItems.get(currentIndex).text)
+				}
+			}
 			
 			Label
 			{

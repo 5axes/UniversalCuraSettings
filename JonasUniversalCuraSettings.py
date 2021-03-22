@@ -59,6 +59,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self._continueDialog = None
         self._mode = "mechanical"
         self._extruder = "bowden"
+        self._material = "pla"
         
         # set the preferences to store the default value
         self._application = Application.getInstance()
@@ -66,12 +67,15 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self._preferences.addPreference("JonasUniversalCuraSettings/dialog_path", "")
         self._preferences.addPreference("JonasUniversalCuraSettings/mode", "mechanical")
         self._preferences.addPreference("JonasUniversalCuraSettings/extruder", "bowden")
+        self._preferences.addPreference("JonasUniversalCuraSettings/material", "pla")
 
         
         # Mode
         self._mode = self._preferences.getValue("JonasUniversalCuraSettings/mode")
         # Extruder type
-        self._extruder= self._preferences.getValue("JonasUniversalCuraSettings/extruder")
+        self._extruder= self._preferences.getValue("JonasUniversalCuraSettings/extruder") 
+        # Material type
+        self._material= self._preferences.getValue("JonasUniversalCuraSettings/material")
         
         # Test version for futur release 4.9 or Arachne
         VersC=1.0
@@ -119,7 +123,10 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     @pyqtProperty(str, notify= userModeChanged)
     def extruderInput(self):
         return str(self._extruder) 
- 
+
+    @pyqtProperty(str, notify= userModeChanged)
+    def materialInput(self):
+        return str(self._material)  
  
     #This method builds the dialog from the qml file and registers this class
     #as the manager variable
@@ -127,14 +134,6 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "JonasCuraSettings.qml")
         component_with_context = Application.getInstance().createQmlComponent(qml_file_path, {"manager": self})
         return component_with_context
-
-    def getmode(self) -> float:
-    
-        return self._mode
- 
-    def getextruder(self) -> float:
-    
-        return self._extruder
         
     # is called when a key gets released in the mode inputField (twice for some reason)
     @pyqtSlot(str)
@@ -144,6 +143,14 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self.writeToLog("Set JonasUniversalCuraSettings/Mode set to : " + text)
         self._preferences.setValue("JonasUniversalCuraSettings/mode", self._mode)
 
+    # is called when a key gets released in the mode inputField (twice for some reason)
+    @pyqtSlot(str)
+    def materialEntered(self, text) -> None:
+        self._material = text
+
+        self.writeToLog("Set JonasUniversalCuraSettings/Material set to : " + text)
+        self._preferences.setValue("JonasUniversalCuraSettings/mode", self._material)
+        
     # is called when a key gets released in the mode inputField (twice for some reason)
     @pyqtSlot(str)
     def modeApply(self, text) -> None:
@@ -500,9 +507,11 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     def setProfile(self) -> None:
         self.writeToLog("With Profile Mode : " + self._mode)
         self.writeToLog("With Extruder Mode : " + self._extruder)
+        self.writeToLog("With Material : " + self._material)
         # Settyings from the interface
         currMode = self._mode
         currExtruder = self._extruder
+        currMaterial = self._material
         
         machine_manager = CuraApplication.getInstance().getMachineManager()        
         stack = CuraApplication.getInstance().getGlobalContainerStack()
@@ -519,16 +528,35 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         # Get machine_nozzle_size
         machine_nozzle_size=stack.getProperty("machine_nozzle_size", "value")
         self.writeToLog("With machine_nozzle_size : " + str(machine_nozzle_size))
-        
+ 
+        #------------------
+        # Extruder
+        #------------------
+        extruders = list(global_stack.extruders.values())             
+        for Extrud in extruders:
+            # Material
+            M_Name = Extrud.material.getMetaData().get("material", "")
+            
         modified_count=0
         
         #------------------
         # Global stack
         #------------------
         # General settings
+        modified_count += self._setValue("acceleration_enabled",True)
+        modified_count += self._setValue("adaptive_layer_height_threshold",250)
+        modified_count += self._setValue("adaptive_layer_height_variation",0.03)
+        modified_count += self._setValue("adhesion_type",'skirt')
+        modified_count += self._setValue("jerk_enabled",True)
         modified_count += self._setValue("layer_height",0.2)
         modified_count += self._setValue("layer_height_0",0.2)
-        modified_count += self._setValue("adhesion_type",'skirt')
+        modified_count += self._setValue("material_bed_temperature",55)
+        modified_count += self._setValue("retraction_combing",'infill')
+        modified_count += self._setValue("speed_slowdown_layers",1)
+        modified_count += self._setValue("support_enable",False)
+        modified_count += self._setValue("support_type",'buildplate')
+        modified_count += self._setValue("travel_retract_before_outer_wall",True)
+        modified_count += self._setValue("infill_pattern",'zigzag')
 
         # Profile Mode settings
         if currMode == "mechanical" :
@@ -539,21 +567,15 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             
         # Profile Extruder settings
         
-        #------------------
-        # Extruder
-        #------------------
-        extruders = list(global_stack.extruders.values())             
-        for Extrud in extruders:
-            # Material
-            M_Name = Extrud.material.getMetaData().get("material", "")
-            
-            # General settings
-            modified_count+=1
-            Extrud.setProperty("infill_pattern","value",'zigzag')
+        
 
-            # Profile Material settings
-            if M_Name == "PLA" :
-                Extrud.setProperty("material_bed_temperature","value",55)
+        # Profile Material settings
+        if currMaterial == "pla" :
+            modified_count += self._setValue("material_bed_temperature",55)
+            modified_count += self._setValue("material_bed_temperature_layer_0",55)
+        else:
+            modified_count += self._setValue("material_bed_temperature",60)
+            modified_count += self._setValue("material_bed_temperature_layer_0",60)           
         
         # Profile Mode settings
         if currMode == "mechanical" :
