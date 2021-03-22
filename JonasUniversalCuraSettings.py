@@ -488,10 +488,12 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     def setProfile(self) -> None:
         self.writeToLog("With Profile Mode : " + self._mode)
         self.writeToLog("With Extruder Mode : " + self._extruder)
+        # Settyings from the interface
         currMode = self._mode
         currExtruder = self._extruder
-        machine_manager = CuraApplication.getInstance().getMachineManager()        
         
+        machine_manager = CuraApplication.getInstance().getMachineManager()        
+        stack = CuraApplication.getInstance().getGlobalContainerStack()
 
         global_stack = machine_manager.activeMachine
 
