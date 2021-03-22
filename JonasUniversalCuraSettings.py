@@ -6,9 +6,15 @@
 # Version 0.0.1 : First prototype
 #
 #-------------------------------------------------------------------------------------------
-
-from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
+from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
+
+from UM.Extension import Extension
+from UM.PluginRegistry import PluginRegistry
+from UM.Application import Application
+from cura.CuraApplication import CuraApplication
+from cura.CuraVersion import CuraVersion  # type: ignore
 
 import os
 import platform
@@ -18,9 +24,6 @@ import re
 
 from datetime import datetime
 # from typing import cast, Dict, List, Optional, Tuple, Any, Set
-from cura.CuraApplication import CuraApplication
-from cura.CuraVersion import CuraVersion  # type: ignore
-
 
 # Code from Aldo Hoeben / fieldOfView for this tips
 try:
@@ -40,15 +43,39 @@ from UM.i18n import i18nCatalog
 catalog = i18nCatalog("cura")
 
 class JonasUniversalCuraSettings(Extension, QObject,):
+  
+    # The QT signal, which signals an update for user information text
+    userInfoTextChanged = pyqtSignal()
+    userModeChanged = pyqtSignal()
+    
+    
     def __init__(self, parent = None) -> None:
         QObject.__init__(self, parent)
         Extension.__init__(self)
         
         self._Section =""
 
+        #Inialize variables
+        self._continueDialog = None
+        self._mode = "mechanical"
+        self._extruder = "bowden"
+        
         self._application = Application.getInstance()
         self._preferences = self._application.getPreferences()
         self._preferences.addPreference("JonasUniversalCuraSettings/dialog_path", "")
+ 
+        # set the preferences to store the default value
+        self._preferences.addPreference("JonasUniversalCuraSettings/mode", "mechanical")
+ 
+        # set the preferences to store the default value
+        self._preferences.addPreference("JonasUniversalCuraSettings/extruder", "bowden")
+
+        
+        # Mode
+        self._mode = self._preferences.getValue("JonasUniversalCuraSettings/mode")
+
+        # extruder type
+        self._extruder= self._preferences.getValue("JonasUniversalCuraSettings/extruder")
         
         VersC=1.0
 
@@ -68,13 +95,79 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             self._dialog_options |= QFileDialog.DontUseNativeDialog
 
         self.setMenuName(catalog.i18nc("@item:inmenu", "Jonas Universal Settings"))
-        self.addMenuItem(catalog.i18nc("@item:inmenu", "Set Jonas Universal Settings"), self.setProfile)
+        # self.addMenuItem(catalog.i18nc("@item:inmenu", "Apply Settings"), self.setProfile)
+        self.addMenuItem(catalog.i18nc("@item:inmenu", "Set Jonas Universal Settings"), self.setDefProfile)
         self.addMenuItem("", lambda: None)
         self.addMenuItem(catalog.i18nc("@item:inmenu", "Export current profile"), self.exportData)
         self.addMenuItem(" ", lambda: None)
         self.addMenuItem(catalog.i18nc("@item:inmenu", "Merge a profile"), self.importData)
 
+        #Inzialize varables
+        self.userText = ""
+        self._continueDialog = None
+ 
+    #===== Text Output ===================================================================================================
+    #writes the message to the log, includes timestamp, length is fixed
+    def writeToLog(self, str):
+        Logger.log("d", "Jonas Cura Settings = %s", str)
+        
+    #====User Input=====================================================================================================
+    def setDefProfile(self) -> None:
+
+        if self._continueDialog is None:
+            self._continueDialog = self._createDialogue()
+        self._continueDialog.show()
+        
+    @pyqtProperty(str, notify= userModeChanged)
+    def modeInput(self):
+        return str(self._mode) 
+ 
+    @pyqtProperty(str, notify= userModeChanged)
+    def extruderInput(self):
+        return str(self._extruder) 
+ 
+ 
+    #This method builds the dialog from the qml file and registers this class
+    #as the manager variable
+    def _createDialogue(self):
+        qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "JonasCuraSettings.qml")
+        component_with_context = Application.getInstance().createQmlComponent(qml_file_path, {"manager": self})
+        return component_with_context
+
+    def getmode(self) -> float:
+    
+        return self._mode
+ 
+    def getextruder(self) -> float:
+    
+        return self._extruder
+        
+    # is called when a key gets released in the mode inputField (twice for some reason)
+    @pyqtSlot(str)
+    def modeEntered(self, text) -> None:
+        self._mode = text
+
+        self.writeToLog("Set JonasUniversalCuraSettings/Mode set to : " + text)
+        self._preferences.setValue("JonasUniversalCuraSettings/mode", self._mode)
+
+    # is called when a key gets released in the mode inputField (twice for some reason)
+    @pyqtSlot(str)
+    def modeApply(self, text) -> None:
+        self._mode = text
+        self.setProfile() 
+        self.writeToLog("Mode Apply to : " + text)
+ 
+    # is called when a key gets released in the mode inputField (twice for some reason)
+    @pyqtSlot(str)
+    def extruderEntered(self, text) -> None:
+        self._extruder = text
+
+        self.writeToLog("Set JonasUniversalCuraSettings/Extruder set to : " + text)
+        self._preferences.setValue("JonasUniversalCuraSettings/extruder", self._extruder) 
+        
     def setProfile(self) -> None:
+        self.writeToLog("Set Profile Mode : " + self._mode)
+        currMode = self._mode
         machine_manager = CuraApplication.getInstance().getMachineManager()        
         stack = CuraApplication.getInstance().getGlobalContainerStack()
 
@@ -106,7 +199,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             
             
         Message().hide()
-        Message("Set values for %d parameters" % modified_count , title = "Jonas Universal Cura Settings").show()
+        Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Jonas Universal Cura Settings").show()
         
         
     def exportData(self) -> None:
