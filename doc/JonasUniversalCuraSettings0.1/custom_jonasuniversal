@@ -1,0 +1,28 @@
+[general]
+version = 4
+name = JonasUniversalCuraSettings0.1
+definition = fdmprinter
+
+[metadata]
+quality_type = fast
+type = quality_changes
+setting_version = 18
+
+[values]
+acceleration_enabled = True
+adaptive_layer_height_threshold = 0.15
+adaptive_layer_height_variation = 0.03
+adaptive_layer_height_variation_step = 0.015
+adhesion_type = skirt
+jerk_enabled = True
+layer_height = 0.2
+layer_height_0 = 0.2
+material_bed_temperature = 50
+material_bed_temperature_layer_0 = 50
+retraction_combing = off
+speed_slowdown_layers = 1
+support_enable = False
+support_structure = normal
+support_type = buildplate
+travel_retract_before_outer_wall = True
+

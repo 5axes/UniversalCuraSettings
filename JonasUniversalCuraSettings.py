@@ -21,6 +21,7 @@ import platform
 import os.path
 import sys
 import re
+import math
 
 from datetime import datetime
 # from typing import cast, Dict, List, Optional, Tuple, Any, Set
@@ -503,8 +504,9 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     # "blackmagic"
     # "experimental"
     # "machine_settings"
-    
-    
+    #
+    # by extruder
+    #---------------
     # "resolution"
     # "shell"
     # New section Arachne and 4.9 ?
@@ -515,7 +517,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     # "speed"
     # "travel"
     # "cooling"
-    # "dual"
+    # "dual"support_top_distance
     # "meshfix"		    
     def setProfile(self) -> None:
         self.writeToLog("With Profile Mode : " + self._mode)
@@ -581,18 +583,25 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("acceleration_travel",1500)
         modified_count += self._setValue("acceleration_wall_0",500)
         modified_count += self._setValue("acceleration_wall_x",750)
+        
         modified_count += self._setValue("bottom_layers",6)
         modified_count += self._setValue("bottom_skin_preshrink",1.2)
         modified_count += self._setValue("brim_line_count",10)
+        
+        modified_count += self._setValue("conical_overhang_angle",70)
+        
         modified_count += self._setValue("coasting_enable",True)
         modified_count += self._setValue("coasting_speed",100)
         modified_count += self._setValue("coasting_volume",0.02)
+        modified_count += self._setValue("cool_fan_full_at_height",1)
         modified_count += self._setValue("cool_fan_full_layer",5)
         modified_count += self._setValue("cool_fan_speed",100)
         modified_count += self._setValue("cool_min_layer_time",5)
         modified_count += self._setValue("cool_min_speed",15)
+        
         modified_count += self._setValue("gradual_support_infill_step_height",1.5)
         modified_count += self._setValue("gradual_support_infill_steps",1)
+        
         modified_count += self._setValue("infill_before_walls",False)
         modified_count += self._setValue("infill_enable_travel_optimization",True)
         modified_count += self._setValue("infill_line_width",0.5)
@@ -601,28 +610,38 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("infill_wall_line_count",1)
         modified_count += self._setValue("infill_wipe_dist",0.2)
         modified_count += self._setValue("ironing_enabled",False)
-        modified_count += self._setValue("ironing_flow",8.1)
+        
+        modified_count += self._setValue("ironing_flow",8.0)
         modified_count += self._setValue("ironing_inset",0.15)
         modified_count += self._setValue("ironing_line_spacing",0.15)
+        
         modified_count += self._setValue("jerk_infill",15)
-        modified_count += self._setValue("jerk_ironing",15)
+        modified_count += self._setValue("jerk_ironing",17.5)
+        modified_count += self._setValue("jerk_layer_0",7.5)
         modified_count += self._setValue("jerk_print_layer_0",10)
+        modified_count += self._setValue("jerk_support",15)
         modified_count += self._setValue("jerk_roofing",15)
         modified_count += self._setValue("jerk_skirt_brim",10)
         modified_count += self._setValue("jerk_support_infill",15)
         modified_count += self._setValue("jerk_topbottom",15)
         modified_count += self._setValue("jerk_travel",20)
-        modified_count += self._setValue("jerk_wall_0",7)
-        modified_count += self._setValue("jerk_wall_x",10)
+        modified_count += self._setValue("jerk_wall_0",7.5)
+        modified_count += self._setValue("jerk_wall_x",15)
+        
         modified_count += self._setValue("limit_support_retractions",False)
-        modified_count += self._setValue("magic_fuzzy_skin_point_density",4)
-        modified_count += self._setValue("magic_fuzzy_skin_thickness",0.1)
+        modified_count += self._setValue("magic_fuzzy_skin_point_density",1.75)
+        modified_count += self._setValue("magic_fuzzy_skin_thickness",0.2)
         modified_count += self._setValue("material_flow",99)
         modified_count += self._setValue("material_print_temperature",210)
         modified_count += self._setValue("max_skin_angle_for_expansion",64)
         modified_count += self._setValue("meshfix_maximum_deviation",0.04)
         modified_count += self._setValue("meshfix_maximum_resolution",0.4)
+        
+        modified_count += self._setValue("min_infill_area",10)
+        modified_count += self._setValue("min_skin_width_for_expansion",0.1)
+
         modified_count += self._setValue("optimize_wall_printing_order",True)
+        modified_count += self._setValue("retraction_combing",'off')
         modified_count += self._setValue("retraction_combing_max_distance",33)
         modified_count += self._setValue("retraction_hop",0.16)
         modified_count += self._setValue("retraction_hop_enabled",True)
@@ -635,7 +654,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("small_feature_max_length",5)
         modified_count += self._setValue("small_feature_speed_factor",100)
         modified_count += self._setValue("small_feature_speed_factor_0",50)
-        modified_count += self._setValue("small_hole_max_size",5)
+        modified_count += self._setValue("small_hole_max_size",3.25)
         modified_count += self._setValue("speed_infill",60)
         modified_count += self._setValue("speed_ironing",55)
         modified_count += self._setValue("speed_layer_0",20)
@@ -644,16 +663,27 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("speed_travel",150)
         modified_count += self._setValue("speed_wall_0",25)
         modified_count += self._setValue("speed_wall_x",40)
+        
+        modified_count += self._setValue("support_enable",False)
+        modified_count += self._setValue("support_structure",'normal')
+        modified_count += self._setValue("support_type",'buildplate')
         modified_count += self._setValue("support_angle",67)
         modified_count += self._setValue("support_bottom_density",97)
         modified_count += self._setValue("support_bottom_distance",0.2)
         modified_count += self._setValue("support_bottom_enable",True)
         modified_count += self._setValue("support_bottom_height",0.8)
         modified_count += self._setValue("support_brim_enable",True)
-        modified_count += self._setValue("support_brim_line_count",6)
-        modified_count += self._setValue("support_infill_rate",20)
+        modified_count += self._setValue("support_brim_width",3)       
+        modified_count += self._setValue("support_infill_rate",7)
         modified_count += self._setValue("support_join_distance",3)
         modified_count += self._setValue("support_offset",0.6)
+        modified_count += self._setValue("support_interface_enable",True)
+        modified_count += self._setValue("support_interface_line_width",0.55)
+
+        modified_count += self._setValue("support_interface_offset",0.6)
+        modified_count += self._setValue("support_interface_pattern",'zigzag')
+        modified_count += self._setValue("support_interface_skip_height",0.2)
+
         modified_count += self._setValue("support_roof_density",97)
         modified_count += self._setValue("support_roof_enable",True)
         modified_count += self._setValue("support_roof_height",1.2)
@@ -663,41 +693,84 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_tower_roof_angle",60)
         modified_count += self._setValue("support_use_towers",False)
         modified_count += self._setValue("support_wall_count",1)
-        modified_count += self._setValue("support_xy_distance",0.6)
+        modified_count += self._setValue("support_xy_distance",0.4)
+        modified_count += self._setValue("support_z_distance",0.2)
         modified_count += self._setValue("support_xy_overrides_z",'xy_overrides_z')
-        modified_count += self._setValue("top_layers",7)
+        
+        modified_count += self._setValue("support_tree_angle",45)
+        modified_count += self._setValue("support_tree_branch_diameter_angle",2.5)
+        modified_count += self._setValue("support_tree_branch_distance",0.5)
+        modified_count += self._setValue("support_tree_collision_resolution",0.15)
+        
+        # modified_count += self._setValue("top_layers",7)
+        modified_count += self._setValue("top_thickness",1)
+        
+        modified_count += self._setValue("travel_avoid_distance",1)
         modified_count += self._setValue("travel_avoid_other_parts",False)
         modified_count += self._setValue("travel_avoid_supports",True)
         modified_count += self._setValue("travel_compensate_overlapping_walls_0_enabled",False)
+        modified_count += self._setValue("travel_retract_before_outer_wall",True)
         modified_count += self._setValue("wall_0_inset",0.02)
-        modified_count += self._setValue("wall_line_count",2)
+        modified_count += self._setValue("wall_line_count",3)
         modified_count += self._setValue("wall_min_flow",15)
+        # modified_count += self._setValue("wall_transition_angle",25)
         modified_count += self._setValue("wall_min_flow_retract",True)
-        modified_count += self._setValue("xy_offset_layer_0",-0.1)
+        modified_count += self._setValue("xy_offset_layer_0",-0.025)
         modified_count += self._setValue("z_seam_relative",True)
         modified_count += self._setValue("z_seam_type",'back')
 
-        
+        # Settings according to value settings
         top_bottom_pattern = self._getValue("top_bottom_pattern")
         if top_bottom_pattern != 'concentric':
             modified_count += self._setValue("skin_overlap",5)           
         else:
             modified_count += self._setValue("skin_overlap",5)
 
-        line_width = self._getValue("line_width")
+        line_width = float(self._getValue("line_width"))
         modified_count += self._setValue("skin_line_width",line_width)
 
+        material_flow = float(self._getValue("material_flow"))
+        modified_count += self._setValue("infill_material_flow",material_flow)
+        
+        meshfix_maximum_resolution = float(self._getValue("meshfix_maximum_resolution"))
+        speed_travel = float(self._getValue("speed_travel"))
+        speed_print = float(self._getValue("speed_print"))
+        meshfix_maximum_travel_resolution = min(meshfix_maximum_resolution * speed_travel / speed_print, 2 * line_width)
+        modified_count += self._setValue("meshfix_maximum_travel_resolution",meshfix_maximum_travel_resolution)
+        
+        support_brim_width = float(self._getValue("support_brim_width"))
+        skirt_brim_line_width = float(self._getValue("skirt_brim_line_width"))
+        initial_layer_line_width_factor = float(self._getValue("initial_layer_line_width_factor"))
+        
+        support_brim_line_count = math.ceil(support_brim_width / (skirt_brim_line_width * initial_layer_line_width_factor / 100.0))
+        modified_count += self._setValue("support_brim_line_count",support_brim_line_count)
+
+        support_interface_pattern=self._getValue("support_interface_pattern")
+        modified_count += self._setValue("support_roof_pattern",support_interface_pattern)
+
+        modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
+        
+        
         # Profile Mode settings
         if currMode == "mechanical" :
             modified_count += self._setValue("layer_height",0.2)
             modified_count += self._setValue("brim_line_count",10)
-        
+            
+        # dimensionally accurate, stiff and durable
         elif currMode == "figurine" :
             modified_count += self._setValue("layer_height",0.1)
             modified_count += self._setValue("brim_line_count",2)
-            
-        # Profile Extruder settings
         
+        # Fast and rought
+        elif currMode == "prototype" :
+            modified_count += self._setValue("layer_height",0.25)
+            modified_count += self._setValue("wall_line_count",2)
+
+        # Spiralize outer contour
+        elif currMode == "vases" :
+            modified_count += self._setValue("magic_spiralize",True)            
+        
+        # Profile Extruder settings   
 
         # Profile Material settings
         if currMaterial == "pla" :
@@ -705,17 +778,44 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("material_bed_temperature_layer_0",55)
             modified_count += self._setValue("material_print_temperature",210)
         else:
+            modified_count += self._setValue("material_print_temperature",230)
             modified_count += self._setValue("material_bed_temperature",60)
             modified_count += self._setValue("material_bed_temperature_layer_0",60)           
                        
         # Profile Extruder settings
         if currExtruder == "bowden" :
+            modified_count += self._setValue("retraction_amount",5)
             modified_count += self._setValue("retraction_hop",0.16)
             modified_count += self._setValue("retraction_hop_enabled",True)
             modified_count += self._setValue("retraction_retract_speed",50)
         else:
+            modified_count += self._setValue("retraction_amount",0.8)
+            modified_count += self._setValue("retraction_hop",0.16)
             modified_count += self._setValue("retraction_hop_enabled",True)
-            
+            modified_count += self._setValue("retraction_retract_speed",50)
+ 
+        layer_height = float(self._getValue("layer_height"))
+        infill_sparse_density = float(self._getValue("infill_sparse_density"))
+        top_thickness = float(self._getValue("top_thickness"))
+        if infill_sparse_density == 100 :
+            top_layers = 0 
+        else:
+            top_layers = math.ceil(round((top_thickness / layer_height), 4))
+        modified_count += self._setValue("top_layers",top_layers)
+
+        
+        # Set name to quality change if modification
+        if modified_count > 0 :
+            profileName= currMode + " " 
+            profileName= profileName + currMaterial 
+            profileName= profileName + " "
+            profileName= profileName + str(machine_nozzle_size)
+            if P_Name != "empty" :
+                stack.qualityChanges.setName(profileName)
+                for Extrud in extruders:
+                    Extrud.qualityChanges.setName(profileName)
+            # machine_quality_changes = machine_manager.activeMachine.qualityChanges
+            # machine_quality_changes.setName(profileName)
             
         Message().hide()
         Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Jonas Universal Cura Settings").show()

@@ -147,6 +147,8 @@ UM.Dialog
 				   id: cbeItems
 				   ListElement { text: "mechanical"}
 				   ListElement { text: "figurine"}
+				   ListElement { text: "prototype "}
+				   ListElement { text: "vases"}
 				}
 				width: UM.Theme.getSize("setting_control").width
 				height: UM.Theme.getSize("setting_control").height
