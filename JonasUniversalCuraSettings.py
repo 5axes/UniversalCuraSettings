@@ -156,8 +156,8 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     def modeApply(self, text) -> None:
         self._mode = text
         self.setProfile() 
-        self.writeToLog("Mode Apply to : " + text)
- 
+        #self.writeToLog("Mode Apply to : " + text)
+
     # is called when a key gets released in the mode inputField (twice for some reason)
     @pyqtSlot(str)
     def extruderEntered(self, text) -> None:
@@ -458,6 +458,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         return GelValStr
         
     def _setValue(self,key,c_val) -> int:
+        self.writeToLog("setValue key : " + key)
         machine_manager = CuraApplication.getInstance().getMachineManager()  
         stack = CuraApplication.getInstance().getGlobalContainerStack()
         
@@ -466,18 +467,30 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         GetType=stack.getProperty(key,"type")
         GetVal=stack.getProperty(key,"value")
         GetExtruder=stack.getProperty(key,"settable_per_extruder")
-        
+
+                   
         if GetExtruder == True:
             global_stack = machine_manager.activeMachine
             extruders = list(global_stack.extruders.values())      
             for Extrud in extruders:
-                Extrud.setProperty(key,"value",c_val)
-                self.writeToLog("setValue Extruder: " + str(c_val))                
+                PosE = int(Extrud.getMetaDataEntry("position"))
+                PosE += 1
+                GetVal= Extrud.getProperty(key,"value")
+                if GetVal != c_val :
+                    Extrud.setProperty(key,"value",c_val)
+                    text_message = "setValue Extruder " + str(PosE)
+                    text_message = text_message + " : "
+                    self.writeToLog(text_message + str(c_val))
+                    modified_c = 1
+                else:
+                    modified_c = 0                
         else:
-            stack.setProperty(key,"value",c_val)
-            self.writeToLog("setValue Global : " + str(c_val))  
-        
-        modified_c = 1
+            if GetVal != c_val : 
+                stack.setProperty(key,"value",c_val)
+                self.writeToLog("setValue Global : " + str(c_val)) 
+                modified_c = 1            
+            else:
+                modified_c = 0
         
         return modified_c
     
@@ -529,16 +542,15 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         machine_nozzle_size=stack.getProperty("machine_nozzle_size", "value")
         self.writeToLog("With machine_nozzle_size : " + str(machine_nozzle_size))
  
-        #------------------
-        # Extruder
-        #------------------
+        #------------------------------------------------------
+        # Extruder get Meterial (Useless for the moment )
+        #------------------------------------------------------
         extruders = list(global_stack.extruders.values())             
         for Extrud in extruders:
             # Material
             M_Name = Extrud.material.getMetaData().get("material", "")
             
-        modified_count=0
-        
+        modified_count=0       
         #------------------
         # Global stack
         #------------------
@@ -558,15 +570,24 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("travel_retract_before_outer_wall",True)
         modified_count += self._setValue("infill_pattern",'zigzag')
 
+        modified_count += self._setValue("skin_no_small_gaps_heuristic",False)
+        top_bottom_pattern = self._getValue("top_bottom_pattern")
+        if top_bottom_pattern != 'concentric':
+            modified_count += self._setValue("skin_overlap",5)           
+        else:
+            modified_count += self._setValue("skin_overlap",5)
+
+
         # Profile Mode settings
         if currMode == "mechanical" :
             modified_count += self._setValue("layer_height",0.2)
+            modified_count += self._setValue("brim_line_count",10)
         
         elif currMode == "figurine" :
             modified_count += self._setValue("layer_height",0.1)
+            modified_count += self._setValue("brim_line_count",2)
             
         # Profile Extruder settings
-        
         
 
         # Profile Material settings
@@ -576,20 +597,15 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         else:
             modified_count += self._setValue("material_bed_temperature",60)
             modified_count += self._setValue("material_bed_temperature_layer_0",60)           
-        
-        # Profile Mode settings
-        if currMode == "mechanical" :
-            modified_count += self._setValue("brim_line_count",10)
-        
-        elif currMode == "figurine" :
-            modified_count += self._setValue("brim_line_count",2)
-               
+                       
         # Profile Extruder settings
         if currExtruder == "bowden" :
             modified_count += self._setValue("retraction_hop",0.16)
             modified_count += self._setValue("retraction_hop_enabled",True)
             modified_count += self._setValue("retraction_retract_speed",50)
- 
+        else:
+            modified_count += self._setValue("retraction_hop_enabled",True)
+            
             
         Message().hide()
         Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Jonas Universal Cura Settings").show()
