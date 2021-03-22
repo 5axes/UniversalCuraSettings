@@ -562,7 +562,6 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("jerk_enabled",True)
         modified_count += self._setValue("layer_height",0.2)
         modified_count += self._setValue("layer_height_0",0.2)
-        modified_count += self._setValue("material_bed_temperature",55)
         modified_count += self._setValue("retraction_combing",'infill')
         modified_count += self._setValue("speed_slowdown_layers",1)
         modified_count += self._setValue("support_enable",False)
