@@ -422,12 +422,15 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         Message().hide()
         Message("Imported profil %d changed keys from %s" % (imported_count, CPro) , title = "Import Export CSV Profiles Tools").show()
     
-    def _setValue(self,stack,key,c_val) -> int:
+    def _setValue(self,key,c_val) -> int:
+        
+        stack = CuraApplication.getInstance().getGlobalContainerStack()
         
         # settable_per_extruder
         # type 
         GetType=stack.getProperty(key,"type")
         GetVal=stack.getProperty(key,"value")
+        GetExtruder=stack.getProperty(key,"settable_per_extruder")
         
         if str(GetType)=='float':
             # GelValStr="{:.2f}".format(GetVal).replace(".00", "")  # Formatage
@@ -445,7 +448,6 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             else:
                 GelValStr=str(GetVal)
 
-        GetExtruder=stack.getProperty(key,"settable_per_extruder")
         if GetExtruder == True:
             global_stack = machine_manager.activeMachine
             extruders = list(global_stack.extruders.values())      
@@ -489,7 +491,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         currMode = self._mode
         currExtruder = self._extruder
         machine_manager = CuraApplication.getInstance().getMachineManager()        
-        stack = CuraApplication.getInstance().getGlobalContainerStack()
+        
 
         global_stack = machine_manager.activeMachine
 
@@ -509,7 +511,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         # Extruder
         #------------------
         extruders = list(global_stack.extruders.values())      
-        modified_count += self._setValue(stack,"layer_height",0.2)
+        modified_count += self._setValue("layer_height",0.2)
         
         for Extrud in extruders:
             PosE = int(Extrud.getMetaDataEntry("position"))
@@ -541,18 +543,17 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         #------------------
         # Global stack
         #------------------
-
         # General settings
-        modified_count += self._setValue(stack,"layer_height",0.2)
-        modified_count += self._setValue(stack,"layer_height_0",0.2)
-        modified_count += self._setValue(stack,"adhesion_type",'skirt')
+        modified_count += self._setValue("layer_height",0.2)
+        modified_count += self._setValue("layer_height_0",0.2)
+        modified_count += self._setValue("adhesion_type",'skirt')
 
         # Profile Mode settings
         if currMode == "mechanical" :
-            modified_count += self._setValue(stack,"layer_height",0.2)
+            modified_count += self._setValue("layer_height",0.2)
         
         elif currMode == "figurine" :
-            modified_count += self._setValue(stack,"layer_height",0.1)
+            modified_count += self._setValue("layer_height",0.1)
             
         # Profile Extruder settings
             
