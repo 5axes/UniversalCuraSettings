@@ -150,14 +150,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self._material = text
 
         self.writeToLog("Set JonasUniversalCuraSettings/Material set to : " + text)
-        self._preferences.setValue("JonasUniversalCuraSettings/mode", self._material)
-        
-    # is called when a key gets released in the mode inputField (twice for some reason)
-    @pyqtSlot(str)
-    def modeApply(self, text) -> None:
-        self._mode = text
-        self.setProfile() 
-        #self.writeToLog("Mode Apply to : " + text)
+        self._preferences.setValue("JonasUniversalCuraSettings/material", self._material)
 
     # is called when a key gets released in the mode inputField (twice for some reason)
     @pyqtSlot(str)
@@ -167,6 +160,13 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self.writeToLog("Set JonasUniversalCuraSettings/Extruder set to : " + text)
         self._preferences.setValue("JonasUniversalCuraSettings/extruder", self._extruder) 
 
+    # is called when a key gets released in the mode inputField (twice for some reason)
+    @pyqtSlot(str)
+    def modeApply(self, text) -> None:
+        self._mode = text
+        self.setProfile() 
+        #self.writeToLog("Mode Apply to : " + text)
+        
     #==== Previous code for Export/Import CSV =====================================================================================================    
     def exportData(self) -> None:
         # thanks to Aldo Hoeben / fieldOfView for this part of the code
@@ -556,6 +556,9 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         #------------------
         # Global stack
         #------------------
+        # Reinit
+        modified_count += self._setValue("magic_spiralize",False)
+        
         # General settings
         
         modified_count += self._setValue("adaptive_layer_height_threshold",250)
@@ -756,20 +759,23 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("layer_height",0.2)
             modified_count += self._setValue("brim_line_count",10)
             
-        # dimensionally accurate, stiff and durable
         elif currMode == "figurine" :
+            # dimensionally accurate, stiff and durable
             modified_count += self._setValue("layer_height",0.1)
             modified_count += self._setValue("brim_line_count",2)
-        
-        # Fast and rought
+            
         elif currMode == "prototype" :
+            # Fast and rought
             modified_count += self._setValue("layer_height",0.25)
             modified_count += self._setValue("wall_line_count",2)
-
-        # Spiralize outer contour
+            
         elif currMode == "vases" :
-            modified_count += self._setValue("magic_spiralize",True)            
-        
+            # Spiralize outer contour
+            modified_count += self._setValue("magic_spiralize",True)
+            
+        else:
+            modified_count += self._setValue("wall_line_count",3)
+            
         # Profile Extruder settings   
 
         # Profile Material settings
