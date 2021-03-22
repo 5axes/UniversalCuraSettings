@@ -55,31 +55,26 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         
         self._Section =""
 
-        #Inialize variables
+        #Initialize variables
         self._continueDialog = None
         self._mode = "mechanical"
         self._extruder = "bowden"
         
+        # set the preferences to store the default value
         self._application = Application.getInstance()
         self._preferences = self._application.getPreferences()
         self._preferences.addPreference("JonasUniversalCuraSettings/dialog_path", "")
- 
-        # set the preferences to store the default value
         self._preferences.addPreference("JonasUniversalCuraSettings/mode", "mechanical")
- 
-        # set the preferences to store the default value
         self._preferences.addPreference("JonasUniversalCuraSettings/extruder", "bowden")
 
         
         # Mode
         self._mode = self._preferences.getValue("JonasUniversalCuraSettings/mode")
-
-        # extruder type
+        # Extruder type
         self._extruder= self._preferences.getValue("JonasUniversalCuraSettings/extruder")
         
+        # Test version for futur release 4.9 or Arachne
         VersC=1.0
-
-        # Test version for futur release 4.9
         if "master" in CuraVersion or "beta" in CuraVersion or "BETA" in CuraVersion:
             #Logger.log('d', "Info CuraVersion --> " + str(CuraVersion))
             VersC=4.9  # Master is always a developement version.
@@ -95,7 +90,6 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             self._dialog_options |= QFileDialog.DontUseNativeDialog
 
         self.setMenuName(catalog.i18nc("@item:inmenu", "Jonas Universal Settings"))
-        # self.addMenuItem(catalog.i18nc("@item:inmenu", "Apply Settings"), self.setProfile)
         self.addMenuItem(catalog.i18nc("@item:inmenu", "Set Jonas Universal Settings"), self.setDefProfile)
         self.addMenuItem("", lambda: None)
         self.addMenuItem(catalog.i18nc("@item:inmenu", "Export current profile"), self.exportData)
@@ -111,7 +105,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     def writeToLog(self, str):
         Logger.log("d", "Jonas Cura Settings = %s", str)
         
-    #====User Input=====================================================================================================
+    #==== User Input =====================================================================================================
     def setDefProfile(self) -> None:
 
         if self._continueDialog is None:
@@ -164,44 +158,8 @@ class JonasUniversalCuraSettings(Extension, QObject,):
 
         self.writeToLog("Set JonasUniversalCuraSettings/Extruder set to : " + text)
         self._preferences.setValue("JonasUniversalCuraSettings/extruder", self._extruder) 
-        
-    def setProfile(self) -> None:
-        self.writeToLog("Set Profile Mode : " + self._mode)
-        currMode = self._mode
-        machine_manager = CuraApplication.getInstance().getMachineManager()        
-        stack = CuraApplication.getInstance().getGlobalContainerStack()
 
-        global_stack = machine_manager.activeMachine
-
-        # Get extruder count
-        extruder_count=stack.getProperty("machine_extruder_count", "value")
-        
-        # Profile
-        P_Name = global_stack.qualityChanges.getMetaData().get("name", "")
-        # Quality
-        Q_Name = global_stack.quality.getMetaData().get("name", "")
-
-        modified_count=0
-        # Extruder
-        extruders = list(global_stack.extruders.values())      
-        for Extrud in extruders:
-            PosE = int(Extrud.getMetaDataEntry("position"))
-            PosE += 1
-            # Material
-            M_Name = Extrud.material.getMetaData().get("material", "")
-            
-            modified_count+=1
-            Extrud.setProperty("infill_pattern","value",'zigzag')
-  
-        # Global stack
-        modified_count+=1
-        stack.setProperty("layer_height","value",0.2)
-            
-            
-        Message().hide()
-        Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Jonas Universal Cura Settings").show()
-        
-        
+    #==== Previous code for Export/Import CSV =====================================================================================================    
     def exportData(self) -> None:
         # thanks to Aldo Hoeben / fieldOfView for this part of the code
         file_name = QFileDialog.getSaveFileName(
@@ -463,5 +421,142 @@ class JonasUniversalCuraSettings(Extension, QObject,):
 
         Message().hide()
         Message("Imported profil %d changed keys from %s" % (imported_count, CPro) , title = "Import Export CSV Profiles Tools").show()
+    
+    def _setValue(self,stack,key,c_val) -> int:
+        
+        # settable_per_extruder
+        # type 
+        GetType=stack.getProperty(key,"type")
+        GetVal=stack.getProperty(key,"value")
+        
+        if str(GetType)=='float':
+            # GelValStr="{:.2f}".format(GetVal).replace(".00", "")  # Formatage
+            GelValStr="{:.4f}".format(GetVal).rstrip("0").rstrip(".") # Formatage thanks to r_moeller
+        else:
+            # enum = Option list
+            if str(GetType)=='enum':
+                definition_option=key + " option " + str(GetVal)
+                get_option=str(GetVal)
+                GetOption=stack.getProperty(key,"options")
+                GetOptionDetail=GetOption[get_option]
+                # GelValStr=i18n_catalog.i18nc(definition_option, GetOptionDetail)
+                GelValStr=GetOptionDetail
+                # Logger.log("d", "GetType_doTree = %s ; %s ; %s ; %s",definition_option, GelValStr, GetOption, GetOptionDetail)
+            else:
+                GelValStr=str(GetVal)
+
+        GetExtruder=stack.getProperty(key,"settable_per_extruder")
+        if GetExtruder == True:
+            global_stack = machine_manager.activeMachine
+            extruders = list(global_stack.extruders.values())      
+            for Extrud in extruders:
+                Extrud.setProperty(key,"value",c_val)
+                self.writeToLog("setValue Extruder: " + GelValStr)                
+        else:
+            stack.setProperty(key,"value",c_val)
+            self.writeToLog("setValue Global : " + GelValStr)  
+        
+        modified_c = 1
+        
+        return modified_c
+    
+    #==== Define the Profile =====================================================================================================   
+    # 
+    # Global
+    #---------------
+    # "support"
+    # "platform_adhesion"
+    # "blackmagic"
+    # "experimental"
+    # "machine_settings"
+    
+    
+    # "resolution"
+    # "shell"
+    # New section Arachne and 4.9 ?
+    # if VersC > 4.8:
+    # 	"top_bottom"
+    # "infill"
+    # "material"
+    # "speed"
+    # "travel"
+    # "cooling"
+    # "dual"
+    # "meshfix"		    
+    def setProfile(self) -> None:
+        self.writeToLog("With Profile Mode : " + self._mode)
+        self.writeToLog("With Extruder Mode : " + self._extruder)
+        currMode = self._mode
+        currExtruder = self._extruder
+        machine_manager = CuraApplication.getInstance().getMachineManager()        
+        stack = CuraApplication.getInstance().getGlobalContainerStack()
+
+        global_stack = machine_manager.activeMachine
+
+        # Get extruder count
+        extruder_count=stack.getProperty("machine_extruder_count", "value")
+        # Profile
+        P_Name = global_stack.qualityChanges.getMetaData().get("name", "")
+        # Quality
+        Q_Name = global_stack.quality.getMetaData().get("name", "")
+
+        # Get machine_nozzle_size
+        machine_nozzle_size=stack.getProperty("machine_nozzle_size", "value")
+        self.writeToLog("With machine_nozzle_size : " + str(machine_nozzle_size))
+        
+        modified_count=0
+        #------------------
+        # Extruder
+        #------------------
+        extruders = list(global_stack.extruders.values())      
+        modified_count += self._setValue(stack,"layer_height",0.2)
+        
+        for Extrud in extruders:
+            PosE = int(Extrud.getMetaDataEntry("position"))
+            PosE += 1
+            # Material
+            M_Name = Extrud.material.getMetaData().get("material", "")
+            
+            # General settings
+            modified_count+=1
+            Extrud.setProperty("infill_pattern","value",'zigzag')
+
+            # Profile Material settings
+            if M_Name == "PLA" :
+                Extrud.setProperty("material_bed_temperature","value",55)
+        
+            # Profile Mode settings
+            if currMode == "mechanical" :
+                Extrud.setProperty("brim_line_count","value",10)
+            
+            elif currMode == "figurine" :
+                Extrud.setProperty("brim_line_count","value",2)
+                   
+            # Profile Extruder settings
+            if currExtruder == "bowden" :
+                Extrud.setProperty("retraction_hop","value",0.16)
+                Extrud.setProperty("retraction_hop_enabled","value",True)
+                Extrud.setProperty("retraction_retract_speed","value",50)
+ 
+        #------------------
+        # Global stack
+        #------------------
+
+        # General settings
+        modified_count += self._setValue(stack,"layer_height",0.2)
+        modified_count += self._setValue(stack,"layer_height_0",0.2)
+        modified_count += self._setValue(stack,"adhesion_type",'skirt')
+
+        # Profile Mode settings
+        if currMode == "mechanical" :
+            modified_count += self._setValue(stack,"layer_height",0.2)
+        
+        elif currMode == "figurine" :
+            modified_count += self._setValue(stack,"layer_height",0.1)
+            
+        # Profile Extruder settings
+            
+        Message().hide()
+        Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Jonas Universal Cura Settings").show()
 
 
