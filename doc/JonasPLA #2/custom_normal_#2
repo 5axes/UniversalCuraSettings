@@ -1,0 +1,25 @@
+[general]
+version = 4
+name = Jonas PLA #2
+definition = fdmprinter
+
+[metadata]
+quality_type = fast
+type = quality_changes
+setting_version = 9
+
+[values]
+acceleration_enabled = True
+adaptive_layer_height_threshold = 250
+adaptive_layer_height_variation = 0.03
+adhesion_type = skirt
+jerk_enabled = True
+layer_height = 0.2
+layer_height_0 = 0.2
+material_bed_temperature = 55
+retraction_combing = infill
+speed_slowdown_layers = 1
+support_enable = False
+support_type = buildplate
+travel_retract_before_outer_wall = True
+

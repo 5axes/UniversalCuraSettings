@@ -1,0 +1,161 @@
+[general]
+version = 4
+name = JonasMinis
+definition = fdmprinter
+
+[metadata]
+quality_type = normal
+setting_version = 9
+type = quality_changes
+position = 0
+
+[values]
+acceleration_infill = 1000
+acceleration_print = 500
+acceleration_roofing = 750
+acceleration_topbottom = 1000
+acceleration_travel = 1500
+acceleration_wall_0 = 500
+acceleration_wall_x = 750
+alternate_extra_perimeter = False
+bottom_layers = =999999 if infill_sparse_density == 100 else math.ceil(round(bottom_thickness / resolveOrValue('layer_height'), 4))
+bottom_skin_preshrink = 1.4
+bottom_thickness = 1.2
+bridge_fan_speed = 75
+bridge_fan_speed_2 = 25
+bridge_fan_speed_3 = 33
+brim_line_count = 2
+brim_outside_only = False
+coasting_enable = False
+coasting_speed = 100
+coasting_volume = 0.06
+cool_fan_full_layer = 7
+cool_fan_speed = 100
+cool_fan_speed_0 = 0
+cool_fan_speed_max = =cool_fan_speed
+cool_min_layer_time = 3
+cool_min_layer_time_fan_speed_max = 20
+cool_min_speed = 15
+default_material_print_temperature = 230
+fill_outline_gaps = False
+gradual_infill_step_height = 2
+gradual_infill_steps = 1
+gradual_support_infill_step_height = 3
+gradual_support_infill_steps = 0
+infill_before_walls = False
+infill_enable_travel_optimization = True
+infill_line_distance = =0 if infill_sparse_density == 0 else (infill_line_width * 100) / infill_sparse_density * (2 if infill_pattern == 'grid' else (3 if infill_pattern == 'triangles' or infill_pattern == 'trihexagon' or infill_pattern == 'cubic' or infill_pattern == 'cubicsubdiv' else (2 if infill_pattern == 'tetrahedral' or infill_pattern == 'quarter_cubic' else (1 if infill_pattern == 'cross' or infill_pattern == 'cross_3d' else 1))))
+infill_line_width = 0.5
+infill_overlap = 5
+infill_pattern = zigzag
+infill_sparse_density = 0
+infill_support_angle = 75
+infill_support_enabled = True
+ironing_flow = 8
+ironing_inset = 0.25
+ironing_line_spacing = 0.2
+jerk_infill = 20
+jerk_layer_0 = 7
+jerk_print = 7
+jerk_roofing = 10
+jerk_support_infill = 20
+jerk_support_interface = 20
+jerk_topbottom = 15
+jerk_travel = 15
+jerk_travel_layer_0 = 7
+jerk_wall_0 = 10
+jerk_wall_x = 15
+limit_support_retractions = False
+line_width = =machine_nozzle_size
+material_diameter = 1.75
+material_final_print_temperature = =max(-273.15, material_print_temperature - 15)
+material_flow = 99
+material_initial_print_temperature = =max(-273.15, material_print_temperature - 10)
+material_print_temperature = 210
+material_print_temperature_layer_0 = 210
+meshfix_maximum_deviation = 0.04
+meshfix_maximum_resolution = 0.3
+min_infill_area = 10
+optimize_wall_printing_order = False
+retract_at_layer_change = False
+retraction_amount = 0.8
+retraction_count_max = 100
+retraction_extra_prime_amount = 0
+retraction_extrusion_window = =retraction_amount
+retraction_hop = 0.16
+retraction_hop_enabled = True
+retraction_hop_only_when_collides = True
+retraction_min_travel = 1
+retraction_prime_speed = 25
+retraction_retract_speed = 50
+retraction_speed = 70
+roofing_layer_count = 1
+roofing_pattern = concentric
+skin_no_small_gaps_heuristic = False
+skin_overlap = =5 if top_bottom_pattern != 'concentric' else 0
+skirt_brim_line_width = =line_width
+skirt_brim_minimal_length = 175
+skirt_brim_speed = 20
+skirt_gap = 4
+skirt_line_count = 2
+speed_equalize_flow_enabled = False
+speed_equalize_flow_max = 60
+speed_infill = 35
+speed_ironing = 60
+speed_layer_0 = 20
+speed_print = 50
+speed_roofing = 35
+speed_support = 50
+speed_support_infill = 60
+speed_support_interface = 50
+speed_topbottom = 35
+speed_travel = 175
+speed_wall = =speed_print / 2
+speed_wall_0 = 25
+speed_wall_x = 35
+support_angle = 80
+support_infill_rate = 10
+support_infill_sparse_thickness = 0.2
+support_interface_density = 50
+support_interface_enable = True
+support_interface_pattern = lines
+support_interface_skip_height = 0.02
+support_join_distance = 0.5
+support_line_width = 0.5
+support_offset = 0.6
+support_pattern = zigzag
+support_roof_height = 1.2
+support_roof_line_width = 0.33
+support_top_distance = =extruderValue(support_roof_extruder_nr if support_roof_enable else support_infill_extruder_nr, 'support_z_distance')
+support_tower_diameter = 3
+support_tower_maximum_supported_diameter = 2
+support_tower_roof_angle = 70
+support_use_towers = True
+support_wall_count = 0
+support_xy_distance = 0.4
+support_xy_distance_overhang = 0.5
+support_xy_overrides_z = xy_overrides_z
+support_z_distance = 0.2
+top_bottom_pattern = lines
+top_bottom_pattern_0 = concentric
+top_bottom_thickness = 1.6
+top_layers = =0 if infill_sparse_density == 100 else math.ceil(round(top_thickness / resolveOrValue('layer_height'), 4))
+top_skin_preshrink = 1.2
+top_thickness = 1.6
+travel_avoid_other_parts = False
+travel_avoid_supports = True
+travel_compensate_overlapping_walls_0_enabled = =travel_compensate_overlapping_walls_enabled
+travel_compensate_overlapping_walls_enabled = False
+travel_compensate_overlapping_walls_x_enabled = True
+wall_0_wipe_dist = =machine_nozzle_size / 2
+wall_line_count = 3
+wall_line_width_0 = 0.375
+wall_line_width_x = 0.375
+wall_thickness = 2
+xy_offset_layer_0 = -0.05
+z_seam_corner = z_seam_corner_inner
+z_seam_relative = True
+z_seam_type = sharpest_corner
+z_seam_x = -200
+z_seam_y = -200
+
