@@ -4,7 +4,7 @@
 # JonasUniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 #
 # Version 0.0.1 : First prototype
-# Version 0.0.2 : Add the choice in the Nozzle Size
+# Version 0.0.2 : Add the choice of the Nozzle Size
 #
 #-------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
@@ -837,13 +837,13 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             profileName= profileName + currMaterial 
             profileName= profileName + " "
             profileName= profileName + str(machine_nozzle_size)
-            if P_Name != "empty" :
-                stack.qualityChanges.setName(profileName)
-                for Extrud in extruders:
-                    Extrud.qualityChanges.setName(profileName)
-            # machine_quality_changes = machine_manager.activeMachine.qualityChanges
-            # machine_quality_changes.setName(profileName)
-            
+            # Need to create a new Profile and not just change the name but not so easy ...
+            #
+            #if P_Name != "empty" :
+            #    stack.qualityChanges.setName(profileName)
+            #    for Extrud in extruders:
+            #        Extrud.qualityChanges.setName(profileName)
+
         Message().hide()
         Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Jonas Universal Cura Settings").show()
 
