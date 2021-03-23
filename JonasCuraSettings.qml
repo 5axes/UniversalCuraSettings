@@ -28,9 +28,9 @@ UM.Dialog
 
     // Setting the dimensions of the dialog window
     width: 325
-    height: 125
+    height: 175
     minimumWidth: 325
-    minimumHeight: 125
+    minimumHeight: 175
 
     // Position of the window
     x: Screen.width*0.5 - width - 100
@@ -43,9 +43,11 @@ UM.Dialog
 	property string modeInput: manager.modeInput
 	property string extruderInput: manager.extruderInput
 	property string materialInput: manager.materialInput
+	property string nozzleInput: manager.nozzleInput
 	property string modeCurrent: manager.modeInput
 	property string extruderCurrent: manager.extruderInput
 	property string matrialCurrent: manager.materialInput
+	property string nozzleCurrent: manager.nozzleInput
 
     Column
     {
@@ -66,7 +68,7 @@ UM.Dialog
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Extruder type:");
 				font: UM.Theme.getFont("default");
-				color: UM.Theme.getColor("text");
+				color: UM.Theme.getColor("setting_control_text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
@@ -96,9 +98,43 @@ UM.Dialog
 			Label
 			{
 				height: UM.Theme.getSize("setting_control").height;
+				text: catalog.i18nc("@label","Nozzle Size:");
+				font: UM.Theme.getFont("default");
+				color: UM.Theme.getColor("setting_control_text");
+				verticalAlignment: Text.AlignVCenter;
+				renderType: Text.NativeRendering
+				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
+			}
+
+			//User input of nozzle size
+			ComboBox {
+				id: nozzle_input
+				objectName: "Combo_Nozzle"
+				model: ListModel {
+				   id: cbnItems
+				   ListElement { text: "0.2"}
+				   ListElement { text: "0.4"}
+				   ListElement { text: "0.6"}
+				   ListElement { text: "0.8"}
+				}
+				width: UM.Theme.getSize("setting_control").width
+				height: UM.Theme.getSize("setting_control").height
+
+				Component.onCompleted: currentIndex = find(nozzleInput)
+				
+				onCurrentIndexChanged: 
+				{ 
+				    nozzleCurrent = cbnItems.get(currentIndex).text;
+					manager.nozzleEntered(cbnItems.get(currentIndex).text)
+				}
+			}	
+			
+			Label
+			{
+				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Material:");
 				font: UM.Theme.getFont("default");
-				color: UM.Theme.getColor("text");
+				color: UM.Theme.getColor("setting_control_text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
@@ -132,7 +168,7 @@ UM.Dialog
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Settings Mode:");
 				font: UM.Theme.getFont("default");
-				color: UM.Theme.getColor("text");
+				color: UM.Theme.getColor("setting_control_text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.

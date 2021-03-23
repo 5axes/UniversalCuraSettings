@@ -61,6 +61,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self._mode = "mechanical"
         self._extruder = "bowden"
         self._material = "pla"
+        self._nozzle = "0.4"
         
         # set the preferences to store the default value
         self._application = Application.getInstance()
@@ -69,6 +70,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self._preferences.addPreference("JonasUniversalCuraSettings/mode", "mechanical")
         self._preferences.addPreference("JonasUniversalCuraSettings/extruder", "bowden")
         self._preferences.addPreference("JonasUniversalCuraSettings/material", "pla")
+        self._preferences.addPreference("JonasUniversalCuraSettings/nozzle", "0.4")
 
         
         # Mode
@@ -77,6 +79,8 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self._extruder= self._preferences.getValue("JonasUniversalCuraSettings/extruder") 
         # Material type
         self._material= self._preferences.getValue("JonasUniversalCuraSettings/material")
+        # Nozzle size
+        self._nozzle= self._preferences.getValue("JonasUniversalCuraSettings/nozzle")
         
         # Test version for futur release 4.9 or Arachne
         VersC=1.0
@@ -128,13 +132,25 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     @pyqtProperty(str, notify= userModeChanged)
     def materialInput(self):
         return str(self._material)  
- 
+
+    @pyqtProperty(str, notify= userModeChanged)
+    def nozzleInput(self):
+        return str(self._nozzle)
+        
     #This method builds the dialog from the qml file and registers this class
     #as the manager variable
     def _createDialogue(self):
         qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "JonasCuraSettings.qml")
         component_with_context = Application.getInstance().createQmlComponent(qml_file_path, {"manager": self})
         return component_with_context
+ 
+    # is called when a key gets released in the mode inputField (twice for some reason)
+    @pyqtSlot(str)
+    def nozzleEntered(self, text) -> None:
+        self._nozzle = text
+
+        self.writeToLog("Set JonasUniversalCuraSettings/Nozzle set to : " + text)
+        self._preferences.setValue("JonasUniversalCuraSettings/nozzle", self._nozzle)
         
     # is called when a key gets released in the mode inputField (twice for some reason)
     @pyqtSlot(str)
@@ -523,10 +539,13 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self.writeToLog("With Profile Mode : " + self._mode)
         self.writeToLog("With Extruder Mode : " + self._extruder)
         self.writeToLog("With Material : " + self._material)
+        self.writeToLog("With Nozzle Size : " + self._nozzle)
         # Settyings from the interface
         currMode = self._mode
         currExtruder = self._extruder
         currMaterial = self._material
+        currNozzle = self._nozzle
+        modified_count = 0 
         
         machine_manager = CuraApplication.getInstance().getMachineManager()        
         stack = CuraApplication.getInstance().getGlobalContainerStack()
@@ -540,10 +559,13 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         # Quality
         Q_Name = global_stack.quality.getMetaData().get("name", "")
 
-        # Get machine_nozzle_size
+        # Get machine_nozzle_size and modify according to the 
         machine_nozzle_size=stack.getProperty("machine_nozzle_size", "value")
-        self.writeToLog("With machine_nozzle_size : " + str(machine_nozzle_size))
- 
+        self.writeToLog("Actual machine_nozzle_size : " + str(machine_nozzle_size))
+        if float(currNozzle) != machine_nozzle_size:
+            machine_nozzle_size=float(currNozzle)
+            modified_count += self._setValue("machine_nozzle_size",machine_nozzle_size)
+            
         #------------------------------------------------------
         # Extruder get Meterial (Useless for the moment )
         #------------------------------------------------------
@@ -552,7 +574,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             # Material
             M_Name = Extrud.material.getMetaData().get("material", "")
             
-        modified_count=0       
+              
         #------------------
         # Global stack
         #------------------
@@ -560,11 +582,10 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("magic_spiralize",False)
         
         # General settings
-        
         modified_count += self._setValue("adaptive_layer_height_threshold",250)
         modified_count += self._setValue("adaptive_layer_height_variation",0.03)
         modified_count += self._setValue("adhesion_type",'skirt')
-        modified_count += self._setValue("jerk_enabled",True)
+        
         modified_count += self._setValue("layer_height",0.2)
         modified_count += self._setValue("layer_height_0",0.2)
         modified_count += self._setValue("retraction_combing",'infill')
@@ -618,6 +639,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("ironing_inset",0.15)
         modified_count += self._setValue("ironing_line_spacing",0.15)
         
+        modified_count += self._setValue("jerk_enabled",True)
         modified_count += self._setValue("jerk_infill",15)
         modified_count += self._setValue("jerk_ironing",17.5)
         modified_count += self._setValue("jerk_layer_0",7.5)
@@ -722,7 +744,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("z_seam_relative",True)
         modified_count += self._setValue("z_seam_type",'back')
 
-        # Settings according to value settings
+        # Settings according to value calculation
         top_bottom_pattern = self._getValue("top_bottom_pattern")
         if top_bottom_pattern != 'concentric':
             modified_count += self._setValue("skin_overlap",5)           
