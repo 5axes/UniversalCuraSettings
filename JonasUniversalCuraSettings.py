@@ -552,7 +552,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         
         return line_width
 
-    # Line_Width according to machine_nozzle_size & self._material
+    # Material_Print_Temperature according to machine_nozzle_size & self._material
     def _defineMaterial_Print_Temperature(self,c_val) -> float:
         material_print_temperature = 200
          # Profile Mode settings
@@ -632,7 +632,6 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         for Extrud in extruders:
             # Material
             M_Name = Extrud.material.getMetaData().get("material", "")
-            
               
         #------------------
         # Global stack

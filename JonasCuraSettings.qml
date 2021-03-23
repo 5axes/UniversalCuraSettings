@@ -62,11 +62,10 @@ UM.Dialog
             rowSpacing: UM.Theme.getSize("default_lining").height
             verticalItemAlignment: Grid.AlignVCenter
 
-
 			Label
 			{
 				height: UM.Theme.getSize("setting_control").height;
-				text: catalog.i18nc("@label","Extruder type:");
+				text: catalog.i18nc("@label","Extruder Type:");
 				font: UM.Theme.getFont("default");
 				color: UM.Theme.getColor("setting_control_text");
 				verticalAlignment: Text.AlignVCenter;
