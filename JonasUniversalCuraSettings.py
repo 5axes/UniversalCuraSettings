@@ -510,6 +510,66 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         
         return modified_c
     
+    # Layer_Height according to machine_nozzle_size & self._mode
+    def _defineLayer_Height(self,c_val) -> float:
+        layer_height = 0.5 * c_val
+         # Profile Mode settings
+        if self._mode == "mechanical" :
+            layer_height = 0.5 * c_val
+            
+        elif self._mode == "figurine" :
+            layer_height = 0.25 * c_val
+            
+        elif self._mode == "prototype" :
+            layer_height = 0.6 * c_val
+            
+        elif self._mode == "vases" :
+            layer_height = 0.5 * c_val
+            
+        else:
+            layer_height = 0.5 * c_val   
+        
+        return layer_height
+
+    # Line_Width according to machine_nozzle_size & self._mode
+    def _defineLine_Width(self,c_val) -> float:
+        line_width = c_val
+         # Profile Mode settings
+        if self._mode == "mechanical" :
+            layer_height = c_val
+            
+        elif self._mode == "figurine" :
+            layer_height = c_val
+            
+        elif self._mode == "prototype" :
+            line_width = 1.075 * c_val
+            
+        elif self._mode == "vases" :
+            line_width = 1.075 * c_val
+            
+        else:
+            line_width = c_val   
+        
+        return line_width
+
+    # Line_Width according to machine_nozzle_size & self._material
+    def _defineMaterial_Print_Temperature(self,c_val) -> float:
+        material_print_temperature = 200
+         # Profile Mode settings
+        if self._material == "pla" :
+            material_print_temperature = 205 + round(c_val*12.5,0)
+            
+        elif self._mode == "abs" :
+            material_print_temperature = 225 + round(c_val*12.5,0)
+            
+        elif self._mode == "petg" :
+            material_print_temperature = 220 + round(c_val*12.5,0)
+                        
+        else:
+            material_print_temperature = c_val   
+        
+        return material_print_temperature
+        
     #==== Define the Profile =====================================================================================================   
     # 
     # Global
@@ -585,8 +645,6 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("adaptive_layer_height_variation",0.03)
         modified_count += self._setValue("adhesion_type",'skirt')
         
-        modified_count += self._setValue("layer_height",0.2)
-        modified_count += self._setValue("layer_height_0",0.2)
         modified_count += self._setValue("retraction_combing",'infill')
         modified_count += self._setValue("speed_slowdown_layers",1)
         modified_count += self._setValue("support_enable",False)
@@ -743,6 +801,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("z_seam_relative",True)
         modified_count += self._setValue("z_seam_type",'back')
 
+        
         # Settings according to value calculation
         top_bottom_pattern = self._getValue("top_bottom_pattern")
         if top_bottom_pattern != 'concentric':
@@ -775,19 +834,20 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
         
         
+        # layer_height 
+        modified_count += self._setValue("layer_height",self._defineLayer_Height(machine_nozzle_size))
+        modified_count += self._setValue("layer_height_0",0.2)
+        
         # Profile Mode settings
-        if currMode == "mechanical" :
-            modified_count += self._setValue("layer_height",0.2)
+        if currMode == "mechanical" :         
             modified_count += self._setValue("brim_line_count",10)
             
         elif currMode == "figurine" :
             # dimensionally accurate, stiff and durable
-            modified_count += self._setValue("layer_height",0.1)
             modified_count += self._setValue("brim_line_count",2)
             
         elif currMode == "prototype" :
             # Fast and rought
-            modified_count += self._setValue("layer_height",0.25)
             modified_count += self._setValue("wall_line_count",2)
             
         elif currMode == "vases" :
