@@ -4,6 +4,7 @@
 # JonasUniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 #
 # Version 0.0.1 : First prototype
+# Version 0.0.2 : Add the choice in the Nozzle Size
 #
 #-------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
@@ -93,7 +94,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             except:
                 pass
                 
-        # thanks to Aldo Hoeben / fieldOfView for this code
+        # Thanks to Aldo Hoeben / fieldOfView for this code
         self._dialog_options = QFileDialog.Options()
         if sys.platform == "linux" and "KDE_FULL_SESSION" in os.environ:
             self._dialog_options |= QFileDialog.DontUseNativeDialog
@@ -105,18 +106,16 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         self.addMenuItem(" ", lambda: None)
         self.addMenuItem(catalog.i18nc("@item:inmenu", "Merge a profile"), self.importData)
 
-        #Inzialize varables
-        self.userText = ""
+        #Initialize variables
         self._continueDialog = None
  
     #===== Text Output ===================================================================================================
-    #writes the message to the log, includes timestamp, length is fixed
+    # Writes the message to the log, includes timestamp, length is fixed
     def writeToLog(self, str):
         Logger.log("d", "Jonas Cura Settings = %s", str)
         
     #==== User Input =====================================================================================================
     def setDefProfile(self) -> None:
-
         if self._continueDialog is None:
             self._continueDialog = self._createDialogue()
         self._continueDialog.show()
