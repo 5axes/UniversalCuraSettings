@@ -11,9 +11,13 @@
 - vases
 
 Mechanical (dimensionally accurate, stiff and durable)
+
 Figurine (fine details and good cooling)
+
 Bed adhesion (first layer settings for a better bed adhesion)
+
 Prototype (fast and rought result)
+
 Vases (spiralize outer contour)
 
 
