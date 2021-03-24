@@ -515,8 +515,8 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         layer_height = 0.5 * c_val
          # Profile Mode settings
         if self._mode == "mechanical" :
-            layer_height = 0.5 * c_val
-            
+            layer_height = 0.5 * c_val    
+        
         elif self._mode == "figurine" :
             layer_height = 0.25 * c_val
             
@@ -839,6 +839,10 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         
         # Profile Mode settings
         if currMode == "mechanical" :         
+            modified_count += self._setValue("brim_line_count",10)
+ 
+        elif currMode == "bed adhesion" :
+            # Profile Mode settings
             modified_count += self._setValue("brim_line_count",10)
             
         elif currMode == "figurine" :

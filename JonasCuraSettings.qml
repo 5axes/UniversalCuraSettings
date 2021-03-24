@@ -181,6 +181,7 @@ UM.Dialog
 				model: ListModel {
 				   id: cbeItems
 				   ListElement { text: "mechanical"}
+				   ListElement { text: "bed adhesion"}
 				   ListElement { text: "figurine"}
 				   ListElement { text: "prototype"}
 				   ListElement { text: "vases"}
