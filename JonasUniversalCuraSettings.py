@@ -713,7 +713,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("magic_fuzzy_skin_point_density",1.75)
         modified_count += self._setValue("magic_fuzzy_skin_thickness",0.2)
         modified_count += self._setValue("material_flow",99)
-        modified_count += self._setValue("material_print_temperature",210)
+
         modified_count += self._setValue("max_skin_angle_for_expansion",64)
         modified_count += self._setValue("meshfix_maximum_deviation",0.04)
         modified_count += self._setValue("meshfix_maximum_resolution",0.4)
@@ -806,7 +806,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         if top_bottom_pattern != 'concentric':
             modified_count += self._setValue("skin_overlap",5)           
         else:
-            modified_count += self._setValue("skin_overlap",5)
+            modified_count += self._setValue("skin_overlap",10)
 
         line_width = float(self._getValue("line_width"))
         modified_count += self._setValue("skin_line_width",line_width)
@@ -843,8 +843,14 @@ class JonasUniversalCuraSettings(Extension, QObject,):
  
         elif currMode == "bed adhesion" :
             # Profile Mode settings
-            modified_count += self._setValue("brim_line_count",10)
-            
+            modified_count += self._setValue("brim_line_count",15)
+            modified_count += self._setValue("speed_layer_0",18)
+            modified_count += self._setValue("adhesion_type",'brim')
+            modified_count += self._setValue("small_feature_speed_factor_0",30)
+            modified_count += self._setValue("initial_layer_line_width_factor",105)
+            modified_count += self._setValue("jerk_layer_0",5)
+            modified_count += self._setValue("jerk_print_layer_0",5)            
+             
         elif currMode == "figurine" :
             # dimensionally accurate, stiff and durable
             modified_count += self._setValue("brim_line_count",2)
@@ -863,12 +869,19 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         # Profile Extruder settings   
 
         # Profile Material settings
+        modified_count += self._setValue("material_print_temperature",self._defineMaterial_Print_Temperature(machine_nozzle_size))
+        
         if currMaterial == "pla" :
             modified_count += self._setValue("material_bed_temperature",55)
             modified_count += self._setValue("material_bed_temperature_layer_0",55)
-            modified_count += self._setValue("material_print_temperature",210)
+            
+        elif currMaterial == "abs" :
+            modified_count += self._setValue("cool_fan_speed",0)
+            
+        elif currMaterial == "petg" :
+            modified_count += self._setValue("cool_fan_speed",30)
+        
         else:
-            modified_count += self._setValue("material_print_temperature",230)
             modified_count += self._setValue("material_bed_temperature",60)
             modified_count += self._setValue("material_bed_temperature_layer_0",60)           
                        
