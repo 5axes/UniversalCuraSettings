@@ -798,7 +798,9 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("wall_min_flow_retract",True)
         modified_count += self._setValue("xy_offset_layer_0",-0.025)
         modified_count += self._setValue("z_seam_relative",True)
-        modified_count += self._setValue("z_seam_type",'back')
+        modified_count += self._setValue("z_seam_type",'sharpest_corner')
+        modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
+        
 
         
         # Settings according to value calculation
@@ -860,6 +862,8 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         elif currMode == "prototype" :
             # Fast and rought
             modified_count += self._setValue("wall_line_count",2)
+            modified_count += self._setValue("fill_perimeter_gaps",False)
+            
             
         elif currMode == "vases" :
             # Spiralize outer contour
