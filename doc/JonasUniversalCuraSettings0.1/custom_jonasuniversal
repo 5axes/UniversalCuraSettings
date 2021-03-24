@@ -10,22 +10,6 @@ setting_version = 18
 
 [values]
 acceleration_enabled = True
-adaptive_layer_height_threshold = 0.15
-adaptive_layer_height_variation = 0.03
-adaptive_layer_height_variation_step = 0.015
-adhesion_type = skirt
-jerk_enabled = True
-layer_height = 0.2
-layer_height_0 = 0.2
-material_bed_temperature = 50
-material_bed_temperature_layer_0 = 50
-retraction_combing = off
-speed_slowdown_layers = 1
-support_enable = False
-support_structure = normal
-support_type = buildplate
-travel_retract_before_outer_wall = True
-
 acceleration_infill = 1000
 acceleration_ironing = 1000
 acceleration_print = 1000
@@ -39,21 +23,31 @@ acceleration_travel_layer_0 = 1000
 acceleration_wall_0 = 500
 acceleration_wall_x = 750
 
+adaptive_layer_height_threshold = 0.15
+adaptive_layer_height_variation = 0.03
+adaptive_layer_height_variation_step = 0.015
+
+adhesion_type = skirt
 brim_line_count = 10
+
 coasting_enable = True
 coasting_volume = 0.02
 conical_overhang_angle = 70
 cool_fan_full_at_height = 1
 cool_min_speed = 15
+
 infill_before_walls = False
 infill_line_width = 0.5
 infill_material_flow = =material_flow
 infill_pattern = lines
 infill_sparse_density = 5
 infill_support_angle = 90
+
 ironing_flow = 8
 ironing_inset = 0.15
 ironing_line_spacing = 0.15
+
+jerk_enabled = True
 jerk_infill = 15
 jerk_ironing = 17.5
 jerk_layer_0 = 7.5
@@ -64,37 +58,51 @@ jerk_travel = 20
 jerk_travel_layer_0 = 10
 jerk_wall_0 = 7.5
 jerk_wall_x = 15
+
+layer_height = 0.2
+layer_height_0 = 0.2
+
 limit_support_retractions = False
 magic_fuzzy_skin_point_density = 1.75
 magic_fuzzy_skin_thickness = 0.2
+material_bed_temperature = 50
+material_bed_temperature_layer_0 = 50
 material_flow = 99
 material_print_temperature = 230
 meshfix_maximum_travel_resolution = =min(meshfix_maximum_resolution * speed_travel / speed_print, 2 * line_width)
 min_infill_area = 10
 min_skin_width_for_expansion = 0.1
 optimize_wall_printing_order = True
+
 retraction_amount = 0.8
+retraction_combing = off
 retraction_combing_max_distance = 30
 retraction_hop = 0.16
 retraction_hop_enabled = True
 retraction_retract_speed = 50
+
 roofing_layer_count = 1
 roofing_line_width = 0.33
+
 skin_edge_support_layers = 1
 skin_line_width = 0.5
 skirt_brim_line_width = 0.5
 skirt_brim_material_flow = =material_flow
 skirt_line_count = 2
+
 small_hole_max_size = 3.25
+
 speed_infill = 60
 speed_ironing = 55
 speed_layer_0 = 20
 speed_roofing = 35
+speed_slowdown_layers = 1
 speed_support_interface = 50
 speed_topbottom = 50
 speed_travel = 150
 speed_wall_0 = 25
 speed_wall_x = 35
+
 support_angle = 67
 support_bottom_density = 97
 support_bottom_distance = 0.4
@@ -104,6 +112,7 @@ support_bottom_stair_step_height = 0
 support_brim_enable = True
 support_brim_line_count = =math.ceil(support_brim_width / (skirt_brim_line_width * initial_layer_line_width_factor / 100.0))
 support_brim_width = 3
+support_enable = False
 support_infill_rate = 7
 support_interface_enable = True
 support_interface_line_width = 0.55
@@ -116,26 +125,37 @@ support_offset = 0.6
 support_roof_density = 97
 support_roof_height = 1.2
 support_roof_pattern = =extruderValue(support_roof_extruder_nr, 'support_interface_pattern')
+support_structure = normal
 support_top_distance = 0.2
 support_tree_angle = 45
 support_tree_branch_diameter_angle = 2.5
 support_tree_branch_distance = 0.5
 support_tree_collision_resolution = 0.15
+support_type = buildplate
 support_use_towers = False
 support_xy_distance = 0.4
 support_xy_distance_overhang = =machine_nozzle_size / 2
 support_z_distance = 0.2
+
 top_layers = =0 if infill_sparse_density == 100 else math.ceil(round(top_thickness / resolveOrValue('layer_height'), 4))
 top_thickness = 1
+
 travel_avoid_distance = 1
 travel_avoid_other_parts = False
+travel_retract_before_outer_wall = True
+
 wall_0_inset = 0.02
 wall_line_count = 3
 wall_min_flow_retract = True
 wall_transition_angle = 25
+
 xy_offset_layer_0 = -0.025
+
 z_seam_relative = True
 z_seam_type = back
 z_seam_x = -33
 z_seam_y = 30
+
+
+
 
