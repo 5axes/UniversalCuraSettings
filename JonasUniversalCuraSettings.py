@@ -796,12 +796,15 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("wall_min_flow",15)
         # modified_count += self._setValue("wall_transition_angle",25)
         modified_count += self._setValue("wall_min_flow_retract",True)
-        modified_count += self._setValue("xy_offset_layer_0",-0.025)
+        
         modified_count += self._setValue("z_seam_relative",True)
         modified_count += self._setValue("z_seam_type",'sharpest_corner')
         modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
         
+        modified_count += self._setValue("bridge_settings_enabled",True)
+        
 
+        modified_count += self._setValue("xy_offset_layer_0",-0.0625*machine_nozzle_size)
         
         # Settings according to value calculation
         top_bottom_pattern = self._getValue("top_bottom_pattern")
@@ -858,6 +861,9 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         elif currMode == "figurine" :
             # dimensionally accurate, stiff and durable
             modified_count += self._setValue("brim_line_count",2)
+            modified_count += self._setValue("wall_line_count",3)
+            modified_count += self._setValue("support_tree_enable",True)
+            
             
         elif currMode == "prototype" :
             # Fast and rought
