@@ -845,6 +845,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         # Profile Mode settings
         if currMode == "mechanical" :         
             modified_count += self._setValue("brim_line_count",10)
+            modified_count += self._setValue("fill_outline_gaps",True)
  
         elif currMode == "bed adhesion" :
             # Profile Mode settings
@@ -863,6 +864,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("brim_line_count",2)
             modified_count += self._setValue("wall_line_count",3)
             modified_count += self._setValue("support_tree_enable",True)
+            modified_count += self._setValue("fill_outline_gaps",True)
             
             
         elif currMode == "prototype" :
