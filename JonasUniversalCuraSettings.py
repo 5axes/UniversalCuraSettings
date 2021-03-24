@@ -5,6 +5,7 @@
 #
 # Version 0.0.1 : First prototype
 # Version 0.0.2 : Add the choice of the Nozzle Size
+# Version 0.0.3 : New options in the diffrent Intent
 #
 #-------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
@@ -685,8 +686,10 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("infill_before_walls",False)
         modified_count += self._setValue("infill_enable_travel_optimization",True)
         modified_count += self._setValue("infill_line_width",0.5)
+        
         modified_count += self._setValue("infill_pattern",'zigzag')
         modified_count += self._setValue("infill_sparse_density",8)
+        
         modified_count += self._setValue("infill_wall_line_count",1)
         modified_count += self._setValue("infill_wipe_dist",0.2)
         modified_count += self._setValue("ironing_enabled",False)
