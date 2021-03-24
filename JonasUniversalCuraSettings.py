@@ -850,7 +850,9 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("initial_layer_line_width_factor",105)
             modified_count += self._setValue("jerk_layer_0",5)
             modified_count += self._setValue("jerk_print_layer_0",5)            
-             
+            modified_count += self._setValue("acceleration_print_layer_0",300)
+            modified_count += self._setValue("acceleration_wall_0",300)
+            
         elif currMode == "figurine" :
             # dimensionally accurate, stiff and durable
             modified_count += self._setValue("brim_line_count",2)
@@ -904,6 +906,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             top_layers = 0 
         else:
             top_layers = math.ceil(round((top_thickness / layer_height), 4))
+            
         modified_count += self._setValue("top_layers",top_layers)
 
         
