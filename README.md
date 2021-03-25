@@ -22,3 +22,11 @@ Vases (spiralize outer contour)
 
 
 ![menuSettings](./doc/settings.jpg)
+
+How to use It
+
+Select the type of settings you want to apply to your current Cura configuration
+
+- Extruder type : Bowden or direct drive
+- The Nozzle Size : 0.2 0.4 0.6 0.8
+- The type of Intent  
