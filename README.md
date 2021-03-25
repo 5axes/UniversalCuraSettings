@@ -1,7 +1,7 @@
 # JonasUniversalCuraSettings
+ 
  Jonas Universal Cura Settings
- 
- 
+  
  5 Profiles to define recommended settings
  
 - mechanical
@@ -23,7 +23,7 @@ Vases (spiralize outer contour)
 
 ![menuSettings](./doc/settings.jpg)
 
-How to use It
+## How to use It
 
 Select the type of settings you want to apply to your current Cura configuration
 
@@ -36,3 +36,9 @@ Select the type of settings you want to apply to your current Cura configuration
         - figurine
         - prototype
         - vases
+
+## Why is it call Jonas Universal Cura Settings
+
+Initial settings comes from some profiles released by **Jonas Idebrant** aka [printingotb](https://github.com/printingotb) on the Cura Facebook group. The main idea was to publish an Universal Cura Settings profile based on his own printing experience.  
+
+![menuSettings](./doc/settings.jpg)
