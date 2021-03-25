@@ -1,8 +1,6 @@
 # JonasUniversalCuraSettings
  
- Jonas Universal Cura Settings
-  
- 5 Profiles to define recommended settings
+ Jonas Universal Cura Settings. 5 Profiles to define recommended settings on your current Cura configuration.
  
 - mechanical
 - bed adhesion
@@ -36,6 +34,9 @@ Select the type of settings you want to apply to your current Cura configuration
         - figurine
         - prototype
         - vases
+
+Press the Button **APPLY** to modify your current configuration according to your choice. A message wil be display at the end of the modification with the number of modified parameters.
+
 
 ## Why is it call Jonas Universal Cura Settings
 
