@@ -29,4 +29,10 @@ Select the type of settings you want to apply to your current Cura configuration
 
 - Extruder type : Bowden or direct drive
 - The Nozzle Size : 0.2 0.4 0.6 0.8
-- The type of Intent  
+- The Material :  PLA, ABS PETG
+- The type of Intent  :
+        - mechanical
+        - bed adhesion
+        - figurine
+        - prototype
+        - vases
