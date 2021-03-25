@@ -39,6 +39,9 @@ Select the type of settings you want to apply to your current Cura configuration
 
 ## Why is it call Jonas Universal Cura Settings
 
-Initial settings comes from some profiles released by **Jonas Idebrant** aka [printingotb](https://github.com/printingotb) on the Cura Facebook group. The main idea was to publish an Universal Cura Settings profile based on his own printing experience.  
+Initial settings comes from some profiles released by **Jonas Idebrant** aka [printingotb](https://github.com/printingotb) on the Cura Facebook group. The main idea was to publish an Universal Cura Settings profile based on his own printing experience. I had for a long time the idea to create a plugin which was able to set some standard parameters instead of always use some profile. when we merge the two ideas you got this JonasUniversalCuraSettings plugin. 
 
-![menuSettings](./doc/settings.jpg)
+![printingotb](./doc/32172100.png)
+
+
+Note : It's still a "Concept" use it carrefuly.
