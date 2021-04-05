@@ -660,12 +660,26 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("acceleration_roofing",500)
         modified_count += self._setValue("acceleration_skirt_brim",500)
         modified_count += self._setValue("acceleration_support_infill",1000)
-        modified_count += self._setValue("acceleration_topbottom",1000)
-        modified_count += self._setValue("acceleration_travel",1500)
+        modified_count += self._setValue("acceleration_topbottom",500)
+        modified_count += self._setValue("acceleration_travel",1000)
         modified_count += self._setValue("acceleration_wall_0",500)
-        modified_count += self._setValue("acceleration_wall_x",750)
+        modified_count += self._setValue("acceleration_wall_x",800)
+
+        modified_count += self._setValue("jerk_enabled",True)
+        modified_count += self._setValue("jerk_infill",15)
+        modified_count += self._setValue("jerk_ironing",17)
+        modified_count += self._setValue("jerk_layer_0",8)
+        modified_count += self._setValue("jerk_print_layer_0",8)
+        modified_count += self._setValue("jerk_support",15)
+        modified_count += self._setValue("jerk_roofing",8)
+        modified_count += self._setValue("jerk_skirt_brim",8)
+        modified_count += self._setValue("jerk_support_infill",15)
+        modified_count += self._setValue("jerk_topbottom",8)
+        modified_count += self._setValue("jerk_travel",20)
+        modified_count += self._setValue("jerk_wall_0",8)
+        modified_count += self._setValue("jerk_wall_x",10)
         
-        modified_count += self._setValue("bottom_layers",6)
+        modified_count += self._setValue("bottom_layers",5)
         modified_count += self._setValue("bottom_skin_preshrink",1.2)
         modified_count += self._setValue("brim_line_count",10)
         
@@ -698,26 +712,12 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("ironing_inset",0.15)
         modified_count += self._setValue("ironing_line_spacing",0.15)
         
-        modified_count += self._setValue("jerk_enabled",True)
-        modified_count += self._setValue("jerk_infill",15)
-        modified_count += self._setValue("jerk_ironing",17.5)
-        modified_count += self._setValue("jerk_layer_0",7.5)
-        modified_count += self._setValue("jerk_print_layer_0",10)
-        modified_count += self._setValue("jerk_support",15)
-        modified_count += self._setValue("jerk_roofing",15)
-        modified_count += self._setValue("jerk_skirt_brim",10)
-        modified_count += self._setValue("jerk_support_infill",15)
-        modified_count += self._setValue("jerk_topbottom",15)
-        modified_count += self._setValue("jerk_travel",20)
-        modified_count += self._setValue("jerk_wall_0",7.5)
-        modified_count += self._setValue("jerk_wall_x",15)
-        
         modified_count += self._setValue("limit_support_retractions",False)
         modified_count += self._setValue("magic_fuzzy_skin_point_density",1.75)
         modified_count += self._setValue("magic_fuzzy_skin_thickness",0.2)
         modified_count += self._setValue("material_flow",99)
 
-        modified_count += self._setValue("max_skin_angle_for_expansion",64)
+        modified_count += self._setValue("max_skin_angle_for_expansion",90)
         modified_count += self._setValue("meshfix_maximum_deviation",0.04)
         modified_count += self._setValue("meshfix_maximum_resolution",0.4)
         
@@ -840,6 +840,11 @@ class JonasUniversalCuraSettings(Extension, QObject,):
 
         modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
         
+        wall_line_width_0 = float(self._getValue("wall_line_width_0"))
+        wall_line_width_x = float(self._getValue("wall_line_width_x"))
+        wall_line_count = int(self._getValue("wall_line_count"))
+        # skin_preshrink= wall_line_width_0 + ((wall_line_count - 1) * wall_line_width_x)
+        skin_preshrink= wall_line_width_0 + (wall_line_count * wall_line_width_x)
         
         # layer_height 
         modified_count += self._setValue("layer_height",self._defineLayer_Height(machine_nozzle_size))
@@ -849,6 +854,8 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         if currMode == "mechanical" :         
             modified_count += self._setValue("brim_line_count",10)
             modified_count += self._setValue("fill_outline_gaps",True)
+            
+            
  
         elif currMode == "bed adhesion" :
             # Profile Mode settings
@@ -874,7 +881,37 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             # Fast and rought
             modified_count += self._setValue("wall_line_count",2)
             modified_count += self._setValue("fill_perimeter_gaps",False)
+            modified_count += self._setValue("max_skin_angle_for_expansion",64)
             
+            # modified_count += self._setValue("expand_skins_expand_distance",2)
+            modified_count += self._setValue("skin_preshrink",skin_preshrink)
+                        
+
+            modified_count += self._setValue("acceleration_enabled",True)
+            modified_count += self._setValue("acceleration_infill",1000)
+            modified_count += self._setValue("acceleration_ironing",1000)
+            modified_count += self._setValue("acceleration_print_layer_0",500)
+            modified_count += self._setValue("acceleration_roofing",500)
+            modified_count += self._setValue("acceleration_skirt_brim",500)
+            modified_count += self._setValue("acceleration_support_infill",1000)
+            modified_count += self._setValue("acceleration_topbottom",1000)
+            modified_count += self._setValue("acceleration_travel",1500)
+            modified_count += self._setValue("acceleration_wall_0",500)
+            modified_count += self._setValue("acceleration_wall_x",750)
+        
+            modified_count += self._setValue("jerk_enabled",True)
+            modified_count += self._setValue("jerk_infill",15)
+            modified_count += self._setValue("jerk_ironing",17.5)
+            modified_count += self._setValue("jerk_layer_0",7.5)
+            modified_count += self._setValue("jerk_print_layer_0",10)
+            modified_count += self._setValue("jerk_support",15)
+            modified_count += self._setValue("jerk_roofing",15)
+            modified_count += self._setValue("jerk_skirt_brim",10)
+            modified_count += self._setValue("jerk_support_infill",15)
+            modified_count += self._setValue("jerk_topbottom",15)
+            modified_count += self._setValue("jerk_travel",20)
+            modified_count += self._setValue("jerk_wall_0",7.5)
+            modified_count += self._setValue("jerk_wall_x",15)            
             
         elif currMode == "vases" :
             # Spiralize outer contour
@@ -890,7 +927,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         
         if currMaterial == "pla" :
             modified_count += self._setValue("material_bed_temperature",55)
-            modified_count += self._setValue("material_bed_temperature_layer_0",55)
+            modified_count += self._setValue("material_bed_temperature_layer_0",60)
             
         elif currMaterial == "abs" :
             modified_count += self._setValue("cool_fan_speed",0)
