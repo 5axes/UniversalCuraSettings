@@ -935,8 +935,8 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("jerk_wall_0",7.5)
             modified_count += self._setValue("jerk_wall_x",15)            
  
-            modified_count += self._setValue("meshfix_maximum_deviation",0.04)
-            modified_count += self._setValue("meshfix_maximum_resolution",0.4)
+            # modified_count += self._setValue("meshfix_maximum_deviation",0.04)
+            # modified_count += self._setValue("meshfix_maximum_resolution",0.4)
         
         elif currMode == "vases" :
             # Spiralize outer contour
