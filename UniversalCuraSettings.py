@@ -152,7 +152,7 @@ class UniversalCuraSettings(Extension, QObject,):
     #This method builds the dialog from the qml file and registers this class
     #as the manager variable
     def _createDialogue(self):
-        qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "JonasCuraSettings.qml")
+        qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "UniversalCuraSettings.qml")
         component_with_context = Application.getInstance().createQmlComponent(qml_file_path, {"manager": self})
         return component_with_context
  
@@ -998,6 +998,6 @@ class UniversalCuraSettings(Extension, QObject,):
             #        Extrud.qualityChanges.setName(profileName)
 
         Message().hide()
-        Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Jonas Universal Cura Settings").show()
+        Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Universal Cura Settings").show()
 
 
