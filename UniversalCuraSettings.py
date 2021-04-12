@@ -740,8 +740,10 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("material_flow",99)
 
         modified_count += self._setValue("max_skin_angle_for_expansion",90)
-        modified_count += self._setValue("meshfix_maximum_deviation",0.04)
-        modified_count += self._setValue("meshfix_maximum_resolution",0.4)
+        
+ 
+        modified_count += self._setValue("meshfix_maximum_deviation",0.02)
+        modified_count += self._setValue("meshfix_maximum_resolution",0.2)
         
         modified_count += self._setValue("min_infill_area",10)
         modified_count += self._setValue("min_skin_width_for_expansion",0.1)
@@ -848,7 +850,7 @@ class UniversalCuraSettings(Extension, QObject,):
         speed_travel = float(self._getValue("speed_travel"))
         speed_print = float(self._getValue("speed_print"))
         meshfix_maximum_travel_resolution = min(meshfix_maximum_resolution * speed_travel / speed_print, 2 * line_width)
-        modified_count += self._setValue("meshfix_maximum_travel_resolution",meshfix_maximum_travel_resolution)
+        # modified_count += self._setValue("meshfix_maximum_travel_resolution",meshfix_maximum_travel_resolution)
         
         support_brim_width = float(self._getValue("support_brim_width"))
         skirt_brim_line_width = float(self._getValue("skirt_brim_line_width"))
@@ -877,8 +879,6 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("brim_line_count",10)
             modified_count += self._setValue("fill_outline_gaps",True)
             
-            
- 
         elif currMode == "bed adhesion" :
             # Profile Mode settings
             modified_count += self._setValue("brim_line_count",15)
@@ -934,7 +934,10 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("jerk_travel",20)
             modified_count += self._setValue("jerk_wall_0",7.5)
             modified_count += self._setValue("jerk_wall_x",15)            
-            
+ 
+            modified_count += self._setValue("meshfix_maximum_deviation",0.04)
+            modified_count += self._setValue("meshfix_maximum_resolution",0.4)
+        
         elif currMode == "vases" :
             # Spiralize outer contour
             modified_count += self._setValue("magic_spiralize",True)
