@@ -1,11 +1,12 @@
 #-------------------------------------------------------------------------------------------
 # Copyright (c) 2020-2021 5@xes
 # 
-# JonasUniversalCuraSettings is released under the terms of the AGPLv3 or higher.
+# UniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 #
 # Version 0.0.1 : First prototype
 # Version 0.0.2 : Add the choice of the Nozzle Size
-# Version 0.0.3 : New options in the diffrent Intent
+# Version 0.0.3 : New options in the different Intent
+# Version 0.0.5 : Chnage the name back to Universal Cura Settings
 #
 #-------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
@@ -17,6 +18,7 @@ from UM.PluginRegistry import PluginRegistry
 from UM.Application import Application
 from cura.CuraApplication import CuraApplication
 from cura.CuraVersion import CuraVersion  # type: ignore
+from UM.Version import Version
 
 import os
 import platform
@@ -45,7 +47,7 @@ from UM.Message import Message
 from UM.i18n import i18nCatalog
 catalog = i18nCatalog("cura")
 
-class JonasUniversalCuraSettings(Extension, QObject,):
+class UniversalCuraSettings(Extension, QObject,):
   
     # The QT signal, which signals an update for user information text
     userInfoTextChanged = pyqtSignal()
@@ -68,30 +70,40 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         # set the preferences to store the default value
         self._application = Application.getInstance()
         self._preferences = self._application.getPreferences()
-        self._preferences.addPreference("JonasUniversalCuraSettings/dialog_path", "")
-        self._preferences.addPreference("JonasUniversalCuraSettings/mode", "mechanical")
-        self._preferences.addPreference("JonasUniversalCuraSettings/extruder", "bowden")
-        self._preferences.addPreference("JonasUniversalCuraSettings/material", "pla")
-        self._preferences.addPreference("JonasUniversalCuraSettings/nozzle", "0.4")
+        self._preferences.addPreference("UniversalCuraSettings/dialog_path", "")
+        self._preferences.addPreference("UniversalCuraSettings/mode", "mechanical")
+        self._preferences.addPreference("UniversalCuraSettings/extruder", "bowden")
+        self._preferences.addPreference("UniversalCuraSettings/material", "pla")
+        self._preferences.addPreference("UniversalCuraSettings/nozzle", "0.4")
 
         
         # Mode
-        self._mode = self._preferences.getValue("JonasUniversalCuraSettings/mode")
+        self._mode = self._preferences.getValue("UniversalCuraSettings/mode")
         # Extruder type
-        self._extruder= self._preferences.getValue("JonasUniversalCuraSettings/extruder") 
+        self._extruder= self._preferences.getValue("UniversalCuraSettings/extruder") 
         # Material type
-        self._material= self._preferences.getValue("JonasUniversalCuraSettings/material")
+        self._material= self._preferences.getValue("UniversalCuraSettings/material")
         # Nozzle size
-        self._nozzle= self._preferences.getValue("JonasUniversalCuraSettings/nozzle")
+        self._nozzle= self._preferences.getValue("UniversalCuraSettings/nozzle")
         
         # Test version for futur release 4.9 or Arachne
-        VersC=1.0
+        self.Major=1
+        self.Minor=0
+
+        # Test version for futur release 4.9
+        # Logger.log('d', "Info Version CuraVersion --> " + str(Version(CuraVersion)))
+        Logger.log('d', "Info CuraVersion --> " + str(CuraVersion))        
+        
         if "master" in CuraVersion or "beta" in CuraVersion or "BETA" in CuraVersion:
-            #Logger.log('d', "Info CuraVersion --> " + str(CuraVersion))
-            VersC=4.9  # Master is always a developement version.
+            # Master is always a developement version.
+            self.Major=4
+            self.Minor=9
+            
         else:
             try:
-                VersC = int(CuraVersion.split(".")[0])+int(CuraVersion.split(".")[1])/10
+                self.Major = int(CuraVersion.split(".")[0])
+                self.Minor = int(CuraVersion.split(".")[1])
+
             except:
                 pass
                 
@@ -100,8 +112,8 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         if sys.platform == "linux" and "KDE_FULL_SESSION" in os.environ:
             self._dialog_options |= QFileDialog.DontUseNativeDialog
 
-        self.setMenuName(catalog.i18nc("@item:inmenu", "Jonas Universal Settings"))
-        self.addMenuItem(catalog.i18nc("@item:inmenu", "Set Jonas Universal Settings"), self.setDefProfile)
+        self.setMenuName(catalog.i18nc("@item:inmenu", "Universal Settings"))
+        self.addMenuItem(catalog.i18nc("@item:inmenu", "Set Universal Settings"), self.setDefProfile)
         self.addMenuItem("", lambda: None)
         self.addMenuItem(catalog.i18nc("@item:inmenu", "Export current profile"), self.exportData)
         self.addMenuItem(" ", lambda: None)
@@ -113,7 +125,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     #===== Text Output ===================================================================================================
     # Writes the message to the log, includes timestamp, length is fixed
     def writeToLog(self, str):
-        Logger.log("d", "Jonas Cura Settings = %s", str)
+        Logger.log("d", "Universal Cura Settings = %s", str)
         
     #==== User Input =====================================================================================================
     def setDefProfile(self) -> None:
@@ -149,32 +161,32 @@ class JonasUniversalCuraSettings(Extension, QObject,):
     def nozzleEntered(self, text) -> None:
         self._nozzle = text
 
-        self.writeToLog("Set JonasUniversalCuraSettings/Nozzle set to : " + text)
-        self._preferences.setValue("JonasUniversalCuraSettings/nozzle", self._nozzle)
+        self.writeToLog("Set UniversalCuraSettings/Nozzle set to : " + text)
+        self._preferences.setValue("UniversalCuraSettings/nozzle", self._nozzle)
         
     # is called when a key gets released in the mode inputField (twice for some reason)
     @pyqtSlot(str)
     def modeEntered(self, text) -> None:
         self._mode = text
 
-        self.writeToLog("Set JonasUniversalCuraSettings/Mode set to : " + text)
-        self._preferences.setValue("JonasUniversalCuraSettings/mode", self._mode)
+        self.writeToLog("Set UniversalCuraSettings/Mode set to : " + text)
+        self._preferences.setValue("UniversalCuraSettings/mode", self._mode)
 
     # is called when a key gets released in the mode inputField (twice for some reason)
     @pyqtSlot(str)
     def materialEntered(self, text) -> None:
         self._material = text
 
-        self.writeToLog("Set JonasUniversalCuraSettings/Material set to : " + text)
-        self._preferences.setValue("JonasUniversalCuraSettings/material", self._material)
+        self.writeToLog("Set UniversalCuraSettings/Material set to : " + text)
+        self._preferences.setValue("UniversalCuraSettings/material", self._material)
 
     # is called when a key gets released in the mode inputField (twice for some reason)
     @pyqtSlot(str)
     def extruderEntered(self, text) -> None:
         self._extruder = text
 
-        self.writeToLog("Set JonasUniversalCuraSettings/Extruder set to : " + text)
-        self._preferences.setValue("JonasUniversalCuraSettings/extruder", self._extruder) 
+        self.writeToLog("Set UniversalCuraSettings/Extruder set to : " + text)
+        self._preferences.setValue("UniversalCuraSettings/extruder", self._extruder) 
 
     # is called when a key gets released in the mode inputField (twice for some reason)
     @pyqtSlot(str)
@@ -189,7 +201,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         file_name = QFileDialog.getSaveFileName(
             parent = None,
             caption = catalog.i18nc("@title:window", "Save as"),
-            directory = self._preferences.getValue("JonasUniversalCuraSettings/dialog_path"),
+            directory = self._preferences.getValue("UniversalCuraSettings/dialog_path"),
             filter = "CSV files (*.csv)",
             options = self._dialog_options
         )[0]
@@ -198,7 +210,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
             Logger.log("d", "No file to export selected")
             return
 
-        self._preferences.setValue("JonasUniversalCuraSettings/dialog_path", os.path.dirname(file_name))
+        self._preferences.setValue("UniversalCuraSettings/dialog_path", os.path.dirname(file_name))
         # -----
         
         machine_manager = CuraApplication.getInstance().getMachineManager()        
@@ -212,7 +224,11 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         exported_count = 0
         try:
             with open(file_name, 'w', newline='') as csv_file:
+                # csv.QUOTE_MINIMAL  or csv.QUOTE_NONNUMERIC ?
                 csv_writer = csv.writer(csv_file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                # E_dialect = csv.get_dialect("excel")
+                # csv_writer = csv.writer(csv_file, dialect=E_dialect)
+                
                 csv_writer.writerow([
                     "Section",
                     "Extruder",
@@ -247,7 +263,7 @@ class JonasUniversalCuraSettings(Extension, QObject,):
                     self._doTree(Extrud,"resolution",csv_writer,0,i)
                     self._doTree(Extrud,"shell",csv_writer,0,i)
                     # New section Arachne and 4.9 ?
-                    if VersC > 4.8:
+                    if self.Major >= 4 and self.Minor >= 9 :
                         self._doTree(Extrud,"top_bottom",csv_writer,0,i)
                     self._doTree(Extrud,"infill",csv_writer,0,i)
                     self._doTree(Extrud,"material",csv_writer,0,i)
@@ -348,7 +364,13 @@ class JonasUniversalCuraSettings(Extension, QObject,):
         CPro = ""
         try:
             with open(file_name, 'r', newline='') as csv_file:
-                csv_reader = csv.reader(csv_file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                C_dialect = csv.Sniffer().sniff(csv_file.read(1024))
+                # Reset to begining file position
+                csv_file.seek(0, 0)
+                Logger.log("d", "Csv Import %s : Delimiter = %s Quotechar = %s", file_name, C_dialect.delimiter, C_dialect.quotechar)
+                # csv.QUOTE_MINIMAL  or csv.QUOTE_NONNUMERIC ?
+                # csv_reader = csv.reader(csv_file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                csv_reader = csv.reader(csv_file, dialect=C_dialect)
                 line_number = -1
                 for row in csv_reader:
                     line_number += 1

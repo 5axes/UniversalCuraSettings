@@ -15,7 +15,7 @@ UM.Dialog
 {
     id: base
 
-    title: "Jonas Cura Settings"
+    title: "Universal Cura Settings"
 
     color: "#fafafa" //Background color of cura: #fafafa
 
