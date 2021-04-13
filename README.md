@@ -36,19 +36,19 @@ Select the type of settings you want to apply to your current Cura configuration
 - The Material :  PLA, ABS PETG
 - The type of Intent  :
 
-- [standard](https://github.com/5axes/UniversalCuraSettings/discussions/12)
+  - [standard](https://github.com/5axes/UniversalCuraSettings/discussions/12)
        
-- [bed adhesion](https://github.com/5axes/UniversalCuraSettings/discussions/9) 
+  - [bed adhesion](https://github.com/5axes/UniversalCuraSettings/discussions/9) 
         
-- [warping](https://github.com/5axes/UniversalCuraSettings/discussions/13)
+  - [warping](https://github.com/5axes/UniversalCuraSettings/discussions/13)
         
-- [mechanical](https://github.com/5axes/UniversalCuraSettings/discussions/8)
+  - [mechanical](https://github.com/5axes/UniversalCuraSettings/discussions/8)
         
-- [figurine](https://github.com/5axes/UniversalCuraSettings/discussions/14)
+  - [figurine](https://github.com/5axes/UniversalCuraSettings/discussions/14)
         
-- [prototype](https://github.com/5axes/UniversalCuraSettings/discussions/10)
+  - [prototype](https://github.com/5axes/UniversalCuraSettings/discussions/10)
         
-- [vases](https://github.com/5axes/UniversalCuraSettings/discussions/15)
+  - [vases](https://github.com/5axes/UniversalCuraSettings/discussions/15)
         
 
 Press the Button **APPLY** to modify your current configuration according to your choice. A message wil be display at the end of the modification with the number of modified parameters.
