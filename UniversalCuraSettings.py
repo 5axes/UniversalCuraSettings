@@ -6,7 +6,7 @@
 # Version 0.0.1 : First prototype
 # Version 0.0.2 : Add the choice of the Nozzle Size
 # Version 0.0.3 : New options in the different Intent
-# Version 0.0.5 : Chnage the name back to Universal Cura Settings
+# Version 0.0.5 : Change the name back to Universal Cura Settings
 #
 #-------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
@@ -263,7 +263,7 @@ class UniversalCuraSettings(Extension, QObject,):
                     self._doTree(Extrud,"resolution",csv_writer,0,i)
                     self._doTree(Extrud,"shell",csv_writer,0,i)
                     # New section Arachne and 4.9 ?
-                    if self.Major >= 4 and self.Minor >= 9 :
+                    if self.Major > 4 or ( self.Major == 4 and self.Minor >= 9 ) :
                         self._doTree(Extrud,"top_bottom",csv_writer,0,i)
                     self._doTree(Extrud,"infill",csv_writer,0,i)
                     self._doTree(Extrud,"material",csv_writer,0,i)
