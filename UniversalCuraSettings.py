@@ -537,7 +537,10 @@ class UniversalCuraSettings(Extension, QObject,):
     def _defineLayer_Height(self,c_val) -> float:
         layer_height = 0.5 * c_val
          # Profile Mode settings
-        if self._mode == "mechanical" :
+        if self._mode == "standard" :
+            layer_height = 0.5 * c_val
+            
+        elif self._mode == "mechanical" :
             layer_height = 0.5 * c_val    
         
         elif self._mode == "figurine" :
@@ -558,7 +561,7 @@ class UniversalCuraSettings(Extension, QObject,):
     def _defineLine_Width(self,c_val) -> float:
         line_width = c_val
          # Profile Mode settings
-        if self._mode == "mechanical" :
+        if self._mode == "standard" :
             layer_height = c_val
             
         elif self._mode == "figurine" :
@@ -664,7 +667,7 @@ class UniversalCuraSettings(Extension, QObject,):
 
         # layer_height 
         modified_count += self._setValue("layer_height",self._defineLayer_Height(machine_nozzle_size))
-        modified_count += self._setValue("layer_height_0",0.2)
+        modified_count += self._setValue("layer_height_0",self._defineLayer_Height(machine_nozzle_size))
         
         # General settings
         modified_count += self._setValue("adaptive_layer_height_threshold",250)
@@ -732,16 +735,11 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("infill_sparse_density",8)
         
         modified_count += self._setValue("infill_wall_line_count",1)
-        modified_count += self._setValue("infill_wipe_dist",0.2)
+
+        
         modified_count += self._setValue("ironing_enabled",False)
-        
-        modified_count += self._setValue("ironing_flow",8.0)
-        modified_count += self._setValue("ironing_inset",0.15)
-        modified_count += self._setValue("ironing_line_spacing",0.15)
-        
         modified_count += self._setValue("limit_support_retractions",False)
-        modified_count += self._setValue("magic_fuzzy_skin_point_density",1.75)
-        modified_count += self._setValue("magic_fuzzy_skin_thickness",0.2)
+
         modified_count += self._setValue("material_flow",99)
 
         modified_count += self._setValue("max_skin_angle_for_expansion",90)
@@ -758,6 +756,8 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("small_hole_max_size",3.25)
         modified_count += self._setValue("small_feature_max_length",5)
         
+        
+        modified_count += self._setValue("speed_print",40)
         modified_count += self._setValue("speed_infill",60)
         modified_count += self._setValue("speed_ironing",55)
         modified_count += self._setValue("speed_layer_0",20)
@@ -772,39 +772,16 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_type",'buildplate')
         modified_count += self._setValue("support_angle",67)
         modified_count += self._setValue("support_bottom_density",97)
-        modified_count += self._setValue("support_bottom_distance",0.2)
-        modified_count += self._setValue("support_bottom_enable",True)
-        modified_count += self._setValue("support_bottom_height",0.8)
-        modified_count += self._setValue("support_brim_enable",True)
-        modified_count += self._setValue("support_brim_width",3)       
-        modified_count += self._setValue("support_infill_rate",7)
-        modified_count += self._setValue("support_join_distance",3)
-        modified_count += self._setValue("support_offset",0.6)
-        
-        modified_count += self._setValue("support_interface_enable",True)
-        modified_count += self._setValue("support_interface_line_width",0.55)
-        modified_count += self._setValue("support_interface_offset",0.6)
-        modified_count += self._setValue("support_interface_pattern",'zigzag')
-        modified_count += self._setValue("support_interface_skip_height",0.2)
+
 
         
         modified_count += self._setValue("support_roof_enable",True)
-        modified_count += self._setValue("support_roof_density",97)
-        modified_count += self._setValue("support_roof_height",1.2)
-        modified_count += self._setValue("support_roof_offset",0.6)
-        modified_count += self._setValue("support_top_distance",0.2)
-
-        modified_count += self._setValue("support_wall_count",1)
-        modified_count += self._setValue("support_xy_distance",0.4)
-        modified_count += self._setValue("support_z_distance",0.2)
         modified_count += self._setValue("support_xy_overrides_z",'xy_overrides_z')
         
         
         # modified_count += self._setValue("top_layers",7)
-        modified_count += self._setValue("top_thickness",1)
-        
         modified_count += self._setValue("travel_avoid_distance",1)
-        modified_count += self._setValue("travel_avoid_other_parts",False)
+        modified_count += self._setValue("travel_avoid_other_parts",True)
         modified_count += self._setValue("travel_avoid_supports",True)
         modified_count += self._setValue("travel_compensate_overlapping_walls_0_enabled",False)
         modified_count += self._setValue("travel_retract_before_outer_wall",True)
@@ -823,33 +800,31 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("xy_offset_layer_0",-0.0625*machine_nozzle_size)
         
         # Settings according to value calculation
-        top_bottom_pattern = self._getValue("top_bottom_pattern")
-        if top_bottom_pattern != 'concentric':
+        _top_bottom_pattern = self._getValue("top_bottom_pattern")
+        if _top_bottom_pattern != 'concentric':
             modified_count += self._setValue("skin_overlap",5)           
         else:
             modified_count += self._setValue("skin_overlap",10)
 
-        line_width = float(self._getValue("line_width"))
-        modified_count += self._setValue("skin_line_width",line_width)
+        _line_width = float(self._getValue("line_width"))
+        modified_count += self._setValue("skin_line_width",_line_width)
 
-        material_flow = float(self._getValue("material_flow"))
-        modified_count += self._setValue("infill_material_flow",material_flow)
+        _material_flow = float(self._getValue("material_flow"))
+        modified_count += self._setValue("infill_material_flow",_material_flow)
         
-        meshfix_maximum_resolution = float(self._getValue("meshfix_maximum_resolution"))
-        speed_travel = float(self._getValue("speed_travel"))
-        speed_print = float(self._getValue("speed_print"))
-        meshfix_maximum_travel_resolution = min(meshfix_maximum_resolution * speed_travel / speed_print, 2 * line_width)
-        # modified_count += self._setValue("meshfix_maximum_travel_resolution",meshfix_maximum_travel_resolution)
         
-        support_brim_width = float(self._getValue("support_brim_width"))
-        skirt_brim_line_width = float(self._getValue("skirt_brim_line_width"))
-        initial_layer_line_width_factor = float(self._getValue("initial_layer_line_width_factor"))
+        _speed_travel = float(self._getValue("speed_travel"))
+        _speed_print = float(self._getValue("speed_print"))
         
-        support_brim_line_count = math.ceil(support_brim_width / (skirt_brim_line_width * initial_layer_line_width_factor / 100.0))
-        modified_count += self._setValue("support_brim_line_count",support_brim_line_count)
+        _support_brim_width = float(self._getValue("support_brim_width"))
+        _skirt_brim_line_width = float(self._getValue("skirt_brim_line_width"))
+        _initial_layer_line_width_factor = float(self._getValue("initial_layer_line_width_factor"))
+        
+        _support_brim_line_count = math.ceil(_support_brim_width / (_skirt_brim_line_width * _initial_layer_line_width_factor / 100.0))
+        modified_count += self._setValue("support_brim_line_count",_support_brim_line_count)
 
-        support_interface_pattern=self._getValue("support_interface_pattern")
-        modified_count += self._setValue("support_roof_pattern",support_interface_pattern)
+        _support_interface_pattern=self._getValue("support_interface_pattern")
+        modified_count += self._setValue("support_roof_pattern",_support_interface_pattern)
 
         modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
         
@@ -861,10 +836,41 @@ class UniversalCuraSettings(Extension, QObject,):
         # skin_preshrink = wall_line_width_0 + ((wall_line_count - 1) * wall_line_width_x)
         _skin_preshrink = _wall_line_width_0 + (_wall_line_count * _wall_line_width_x)
         
+        _layer_height= float(self._getValue("line_width"))
 
+ 
+        modified_count += self._setValue("infill_wipe_dist",round((_line_width*0.5),1))
+        modified_count += self._setValue("ironing_flow",8.0)
+        modified_count += self._setValue("ironing_inset",round((machine_nozzle_size *0.375),2))
+        modified_count += self._setValue("ironing_line_spacing",round((machine_nozzle_size *0.375),2))
+        
+        modified_count += self._setValue("support_roof_height",round((_layer_height*6),1))
+        modified_count += self._setValue("support_roof_offset",round((_layer_height*3),1))
+        modified_count += self._setValue("support_top_distance",_layer_height)
+
+        modified_count += self._setValue("support_wall_count",1)
+        modified_count += self._setValue("support_xy_distance",_line_width)
+        modified_count += self._setValue("support_z_distance",_layer_height)
+ 
+        modified_count += self._setValue("support_bottom_distance",_layer_height)
+        modified_count += self._setValue("support_bottom_enable",True)
+        modified_count += self._setValue("support_bottom_height",round((_layer_height*4),1))
+        modified_count += self._setValue("support_brim_enable",True)
+        modified_count += self._setValue("support_brim_width",3)       
+        modified_count += self._setValue("support_infill_rate",7)
+        modified_count += self._setValue("support_join_distance",3)
+        modified_count += self._setValue("support_offset",round((_layer_height*3),1))
+        
+        modified_count += self._setValue("support_interface_enable",True)
+        modified_count += self._setValue("support_interface_line_width",round((_line_width*1.3),1))
+        modified_count += self._setValue("support_interface_offset",round((_line_width*1.5),1))
+        modified_count += self._setValue("support_interface_pattern",'zigzag')
+        modified_count += self._setValue("support_interface_skip_height",_layer_height)
+        
         
         # Profile Mode settings
         if currMode == "standard" : 
+            modified_count += self._setValue("support_roof_density",97)
             modified_count += self._setValue("optimize_wall_printing_order",True)
             modified_count += self._setValue("retraction_hop_enabled",False)
             
@@ -880,6 +886,9 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_tree_branch_distance",0.5)
             modified_count += self._setValue("support_tree_collision_resolution",0.15)
  
+ 
+            # modified_count += self._setValue("top_thickness",1)
+            
             modified_count += self._setValue("roofing_layer_count",1)
             
             # must be set in relation with the line width
@@ -916,8 +925,10 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("retraction_combing",'off')
             modified_count += self._setValue("retraction_combing_max_distance",33)
             modified_count += self._setValue("retraction_hop_enabled",True)
-            modified_count += self._setValue("retraction_hop",0.16)
+            modified_count += self._setValue("retraction_hop",_layer_height)
             modified_count += self._setValue("retraction_retract_speed",50)
+            
+            modified_count += self._setValue("speed_travel",100)
         
         elif currMode == "figurine" :
             # dimensionally accurate, stiff and durable
@@ -929,6 +940,8 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("wall_line_count",3)
             modified_count += self._setValue("support_tree_enable",True)
             modified_count += self._setValue("fill_outline_gaps",True)
+            
+            modified_count += self._setValue("speed_travel",100)
             
             
         elif currMode == "prototype" :
@@ -978,7 +991,11 @@ class UniversalCuraSettings(Extension, QObject,):
             
         else:
             modified_count += self._setValue("wall_line_count",3)
-            
+
+        _meshfix_maximum_resolution = float(self._getValue("meshfix_maximum_resolution"))
+        _meshfix_maximum_travel_resolution = min(_meshfix_maximum_resolution * _speed_travel / _speed_print, 2 * _line_width)
+        # modified_count += self._setValue("meshfix_maximum_travel_resolution",meshfix_maximum_travel_resolution)
+        
         # Profile Extruder settings   
 
         # Profile Material settings
@@ -1001,24 +1018,22 @@ class UniversalCuraSettings(Extension, QObject,):
         # Profile Extruder settings
         if currExtruder == "bowden" :
             modified_count += self._setValue("retraction_amount",5)
-            modified_count += self._setValue("retraction_hop",0.16)
             modified_count += self._setValue("retraction_hop_enabled",True)
             modified_count += self._setValue("retraction_retract_speed",50)
         else:
             modified_count += self._setValue("retraction_amount",0.8)
-            modified_count += self._setValue("retraction_hop",0.16)
             modified_count += self._setValue("retraction_hop_enabled",True)
             modified_count += self._setValue("retraction_retract_speed",50)
  
-        layer_height = float(self._getValue("layer_height"))
-        infill_sparse_density = float(self._getValue("infill_sparse_density"))
-        top_thickness = float(self._getValue("top_thickness"))
-        if infill_sparse_density == 100 :
-            top_layers = 0 
+        _layer_height = float(self._getValue("layer_height"))
+        _infill_sparse_density = float(self._getValue("infill_sparse_density"))
+        _top_thickness = float(self._getValue("top_thickness"))
+        if _infill_sparse_density == 100 :
+            _top_layers = 0 
         else:
-            top_layers = math.ceil(round((top_thickness / layer_height), 4))
+            _top_layers = math.ceil(round((_top_thickness / _layer_height), 4))
             
-        modified_count += self._setValue("top_layers",top_layers)
+        modified_count += self._setValue("top_layers",_top_layers)
 
         
         # Set name to quality change if modification
