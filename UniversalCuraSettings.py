@@ -749,15 +749,15 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("min_infill_area",10)
         modified_count += self._setValue("min_skin_width_for_expansion",0.1)
 
-        modified_count += self._setValue("roofing_layer_count",1)
-        modified_count += self._setValue("roofing_line_width",0.35)
         
         modified_count += self._setValue("skirt_gap",8)
         modified_count += self._setValue("skirt_line_count",2)
-        modified_count += self._setValue("small_feature_max_length",5)
+        
         modified_count += self._setValue("small_feature_speed_factor",100)
         modified_count += self._setValue("small_feature_speed_factor_0",50)
         modified_count += self._setValue("small_hole_max_size",3.25)
+        modified_count += self._setValue("small_feature_max_length",5)
+        
         modified_count += self._setValue("speed_infill",60)
         modified_count += self._setValue("speed_ironing",55)
         modified_count += self._setValue("speed_layer_0",20)
@@ -780,15 +780,16 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_infill_rate",7)
         modified_count += self._setValue("support_join_distance",3)
         modified_count += self._setValue("support_offset",0.6)
+        
         modified_count += self._setValue("support_interface_enable",True)
         modified_count += self._setValue("support_interface_line_width",0.55)
-
         modified_count += self._setValue("support_interface_offset",0.6)
         modified_count += self._setValue("support_interface_pattern",'zigzag')
         modified_count += self._setValue("support_interface_skip_height",0.2)
 
-        modified_count += self._setValue("support_roof_density",97)
+        
         modified_count += self._setValue("support_roof_enable",True)
+        modified_count += self._setValue("support_roof_density",97)
         modified_count += self._setValue("support_roof_height",1.2)
         modified_count += self._setValue("support_roof_offset",0.6)
         modified_count += self._setValue("support_top_distance",0.2)
@@ -798,10 +799,6 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_z_distance",0.2)
         modified_count += self._setValue("support_xy_overrides_z",'xy_overrides_z')
         
-        modified_count += self._setValue("support_tree_angle",45)
-        modified_count += self._setValue("support_tree_branch_diameter_angle",2.5)
-        modified_count += self._setValue("support_tree_branch_distance",0.5)
-        modified_count += self._setValue("support_tree_collision_resolution",0.15)
         
         # modified_count += self._setValue("top_layers",7)
         modified_count += self._setValue("top_thickness",1)
@@ -811,7 +808,7 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("travel_avoid_supports",True)
         modified_count += self._setValue("travel_compensate_overlapping_walls_0_enabled",False)
         modified_count += self._setValue("travel_retract_before_outer_wall",True)
-        modified_count += self._setValue("wall_0_inset",0.02)
+        
         modified_count += self._setValue("wall_line_count",3)
         modified_count += self._setValue("wall_min_flow",15)
         # modified_count += self._setValue("wall_transition_angle",25)
@@ -856,11 +853,13 @@ class UniversalCuraSettings(Extension, QObject,):
 
         modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
         
-        wall_line_width_0 = float(self._getValue("wall_line_width_0"))
-        wall_line_width_x = float(self._getValue("wall_line_width_x"))
-        wall_line_count = int(self._getValue("wall_line_count"))
-        # skin_preshrink= wall_line_width_0 + ((wall_line_count - 1) * wall_line_width_x)
-        skin_preshrink= wall_line_width_0 + (wall_line_count * wall_line_width_x)
+        _line_width = float(self._getValue("line_width"))
+        _wall_line_width = float(self._getValue("wall_line_width"))
+        _wall_line_width_0 = float(self._getValue("wall_line_width_0"))
+        _wall_line_width_x = float(self._getValue("wall_line_width_x"))
+        _wall_line_count = int(self._getValue("wall_line_count"))
+        # skin_preshrink = wall_line_width_0 + ((wall_line_count - 1) * wall_line_width_x)
+        _skin_preshrink = _wall_line_width_0 + (_wall_line_count * _wall_line_width_x)
         
 
         
@@ -875,10 +874,24 @@ class UniversalCuraSettings(Extension, QObject,):
 
             modified_count += self._setValue("meshfix_maximum_deviation",0.02)
             modified_count += self._setValue("meshfix_maximum_resolution",0.2)            
+
+            modified_count += self._setValue("support_tree_angle",45)
+            modified_count += self._setValue("support_tree_branch_diameter_angle",2.5)
+            modified_count += self._setValue("support_tree_branch_distance",0.5)
+            modified_count += self._setValue("support_tree_collision_resolution",0.15)
+ 
+            modified_count += self._setValue("roofing_layer_count",1)
+            
+            # must be set in relation with the line width
+            _roofing_line_width = round((0.9 * _line_width),1)
+            modified_count += self._setValue("roofing_line_width",_roofing_line_width)
+
         
         elif currMode == "mechanical" :            
             modified_count += self._setValue("brim_line_count",10)
             modified_count += self._setValue("fill_outline_gaps",True)
+            
+            modified_count += self._setValue("wall_0_inset",0.02)
             
         elif currMode == "bed adhesion" :
             # Profile Mode settings
@@ -924,8 +937,11 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("fill_perimeter_gaps",False)
             modified_count += self._setValue("max_skin_angle_for_expansion",64)
             
+            # "Top Surface Skin Layers"
+            modified_count += self._setValue("roofing_layer_count",0)
+            
             # modified_count += self._setValue("expand_skins_expand_distance",2)
-            modified_count += self._setValue("skin_preshrink",skin_preshrink)
+            modified_count += self._setValue("skin_preshrink",_skin_preshrink)
                         
             modified_count += self._setValue("acceleration_enabled",True)
             modified_count += self._setValue("acceleration_infill",1000)
