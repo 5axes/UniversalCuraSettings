@@ -180,8 +180,10 @@ UM.Dialog
 				objectName: "Combo_Mode"
 				model: ListModel {
 				   id: cbeItems
-				   ListElement { text: "mechanical"}
+				   ListElement { text: "standard"}
 				   ListElement { text: "bed adhesion"}
+				   ListElement { text: "warping"}
+				   ListElement { text: "mechanical"}
 				   ListElement { text: "figurine"}
 				   ListElement { text: "prototype"}
 				   ListElement { text: "vases"}

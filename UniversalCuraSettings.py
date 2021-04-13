@@ -71,7 +71,7 @@ class UniversalCuraSettings(Extension, QObject,):
         self._application = Application.getInstance()
         self._preferences = self._application.getPreferences()
         self._preferences.addPreference("UniversalCuraSettings/dialog_path", "")
-        self._preferences.addPreference("UniversalCuraSettings/mode", "mechanical")
+        self._preferences.addPreference("UniversalCuraSettings/mode", "standard")
         self._preferences.addPreference("UniversalCuraSettings/extruder", "bowden")
         self._preferences.addPreference("UniversalCuraSettings/material", "pla")
         self._preferences.addPreference("UniversalCuraSettings/nozzle", "0.4")
@@ -661,6 +661,10 @@ class UniversalCuraSettings(Extension, QObject,):
         #------------------
         # Reinit
         modified_count += self._setValue("magic_spiralize",False)
+
+        # layer_height 
+        modified_count += self._setValue("layer_height",self._defineLayer_Height(machine_nozzle_size))
+        modified_count += self._setValue("layer_height_0",0.2)
         
         # General settings
         modified_count += self._setValue("adaptive_layer_height_threshold",250)
@@ -702,6 +706,7 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("jerk_wall_x",10)
         
         modified_count += self._setValue("bottom_layers",5)
+        # "Skin Removal Width"
         modified_count += self._setValue("bottom_skin_preshrink",1.2)
         modified_count += self._setValue("brim_line_count",10)
         
@@ -741,19 +746,9 @@ class UniversalCuraSettings(Extension, QObject,):
 
         modified_count += self._setValue("max_skin_angle_for_expansion",90)
         
- 
-        modified_count += self._setValue("meshfix_maximum_deviation",0.02)
-        modified_count += self._setValue("meshfix_maximum_resolution",0.2)
-        
         modified_count += self._setValue("min_infill_area",10)
         modified_count += self._setValue("min_skin_width_for_expansion",0.1)
 
-        modified_count += self._setValue("optimize_wall_printing_order",True)
-        modified_count += self._setValue("retraction_combing",'off')
-        modified_count += self._setValue("retraction_combing_max_distance",33)
-        modified_count += self._setValue("retraction_hop",0.16)
-        modified_count += self._setValue("retraction_hop_enabled",True)
-        modified_count += self._setValue("retraction_retract_speed",50)
         modified_count += self._setValue("roofing_layer_count",1)
         modified_count += self._setValue("roofing_line_width",0.35)
         
@@ -797,9 +792,7 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_roof_height",1.2)
         modified_count += self._setValue("support_roof_offset",0.6)
         modified_count += self._setValue("support_top_distance",0.2)
-        modified_count += self._setValue("support_tower_diameter",6)
-        modified_count += self._setValue("support_tower_roof_angle",60)
-        modified_count += self._setValue("support_use_towers",False)
+
         modified_count += self._setValue("support_wall_count",1)
         modified_count += self._setValue("support_xy_distance",0.4)
         modified_count += self._setValue("support_z_distance",0.2)
@@ -830,7 +823,6 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("bridge_settings_enabled",True)
         
-
         modified_count += self._setValue("xy_offset_layer_0",-0.0625*machine_nozzle_size)
         
         # Settings according to value calculation
@@ -870,29 +862,56 @@ class UniversalCuraSettings(Extension, QObject,):
         # skin_preshrink= wall_line_width_0 + ((wall_line_count - 1) * wall_line_width_x)
         skin_preshrink= wall_line_width_0 + (wall_line_count * wall_line_width_x)
         
-        # layer_height 
-        modified_count += self._setValue("layer_height",self._defineLayer_Height(machine_nozzle_size))
-        modified_count += self._setValue("layer_height_0",0.2)
+
         
         # Profile Mode settings
-        if currMode == "mechanical" :         
+        if currMode == "standard" : 
+            modified_count += self._setValue("optimize_wall_printing_order",True)
+            modified_count += self._setValue("retraction_hop_enabled",False)
+            
+            modified_count += self._setValue("support_use_towers",False)
+            modified_count += self._setValue("support_tower_diameter",6)
+            modified_count += self._setValue("support_tower_roof_angle",60)
+
+            modified_count += self._setValue("meshfix_maximum_deviation",0.02)
+            modified_count += self._setValue("meshfix_maximum_resolution",0.2)            
+        
+        elif currMode == "mechanical" :            
             modified_count += self._setValue("brim_line_count",10)
             modified_count += self._setValue("fill_outline_gaps",True)
             
         elif currMode == "bed adhesion" :
             # Profile Mode settings
+            modified_count += self._setValue("adhesion_type",'brim')
+            
             modified_count += self._setValue("brim_line_count",15)
             modified_count += self._setValue("speed_layer_0",18)
             modified_count += self._setValue("adhesion_type",'brim')
             modified_count += self._setValue("small_feature_speed_factor_0",30)
+            modified_count += self._setValue("small_hole_max_size",6.0)
+            
             modified_count += self._setValue("initial_layer_line_width_factor",105)
             modified_count += self._setValue("jerk_layer_0",5)
             modified_count += self._setValue("jerk_print_layer_0",5)            
             modified_count += self._setValue("acceleration_print_layer_0",300)
             modified_count += self._setValue("acceleration_wall_0",300)
+        
+        elif currMode == "warping" :  
             
+            modified_count += self._setValue("adhesion_type",'brim')
+            modified_count += self._setValue("optimize_wall_printing_order",True)
+            modified_count += self._setValue("retraction_combing",'off')
+            modified_count += self._setValue("retraction_combing_max_distance",33)
+            modified_count += self._setValue("retraction_hop_enabled",True)
+            modified_count += self._setValue("retraction_hop",0.16)
+            modified_count += self._setValue("retraction_retract_speed",50)
+        
         elif currMode == "figurine" :
             # dimensionally accurate, stiff and durable
+            
+            modified_count += self._setValue("support_enable",True)
+            modified_count += self._setValue("support_structure",'tree')
+        
             modified_count += self._setValue("brim_line_count",2)
             modified_count += self._setValue("wall_line_count",3)
             modified_count += self._setValue("support_tree_enable",True)
@@ -908,7 +927,6 @@ class UniversalCuraSettings(Extension, QObject,):
             # modified_count += self._setValue("expand_skins_expand_distance",2)
             modified_count += self._setValue("skin_preshrink",skin_preshrink)
                         
-
             modified_count += self._setValue("acceleration_enabled",True)
             modified_count += self._setValue("acceleration_infill",1000)
             modified_count += self._setValue("acceleration_ironing",1000)
@@ -935,8 +953,8 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("jerk_wall_0",7.5)
             modified_count += self._setValue("jerk_wall_x",15)            
  
-            # modified_count += self._setValue("meshfix_maximum_deviation",0.04)
-            # modified_count += self._setValue("meshfix_maximum_resolution",0.4)
+            modified_count += self._setValue("meshfix_maximum_deviation",0.04)
+            modified_count += self._setValue("meshfix_maximum_resolution",0.4)
         
         elif currMode == "vases" :
             # Spiralize outer contour
