@@ -25,7 +25,7 @@ Prototype (fast and rought result)
 Vases (spiralize outer contour)
 
 
-![menuSettings](./doc/settings.jpg)
+![menuSettings](./images/settings.jpg)
 
 ## How to use It
 
