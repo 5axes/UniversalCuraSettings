@@ -732,7 +732,7 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("infill_line_width",0.5)
         
         modified_count += self._setValue("infill_pattern",'zigzag')
-        modified_count += self._setValue("infill_sparse_density",8)
+        
         
         modified_count += self._setValue("infill_wall_line_count",1)
 
@@ -894,13 +894,16 @@ class UniversalCuraSettings(Extension, QObject,):
             # must be set in relation with the line width
             _roofing_line_width = round((0.9 * _line_width),1)
             modified_count += self._setValue("roofing_line_width",_roofing_line_width)
+            
+            modified_count += self._setValue("infill_sparse_density",8)
 
         
         elif currMode == "mechanical" :            
             modified_count += self._setValue("brim_line_count",10)
             modified_count += self._setValue("fill_outline_gaps",True)
-            
             modified_count += self._setValue("wall_0_inset",0.02)
+            
+            modified_count += self._setValue("infill_sparse_density",12)
             
         elif currMode == "bed adhesion" :
             # Profile Mode settings
@@ -908,7 +911,7 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("brim_line_count",15)
             modified_count += self._setValue("speed_layer_0",18)
-            modified_count += self._setValue("adhesion_type",'brim')
+
             modified_count += self._setValue("small_feature_speed_factor_0",30)
             modified_count += self._setValue("small_hole_max_size",6.0)
             
@@ -945,6 +948,9 @@ class UniversalCuraSettings(Extension, QObject,):
             
             
         elif currMode == "prototype" :
+        
+            modified_count += self._setValue("infill_sparse_density",8)
+            
             # Fast and rought
             modified_count += self._setValue("wall_line_count",2)
             modified_count += self._setValue("fill_perimeter_gaps",False)
