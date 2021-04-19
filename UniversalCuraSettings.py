@@ -733,21 +733,15 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("infill_pattern",'zigzag')
         
-        
         modified_count += self._setValue("infill_wall_line_count",1)
 
-        
         modified_count += self._setValue("ironing_enabled",False)
         modified_count += self._setValue("limit_support_retractions",False)
 
-        modified_count += self._setValue("material_flow",99)
+        modified_count += self._setValue("material_flow",100)
 
-        modified_count += self._setValue("max_skin_angle_for_expansion",90)
-        
-        modified_count += self._setValue("min_infill_area",10)
-        modified_count += self._setValue("min_skin_width_for_expansion",0.1)
 
-        
+
         modified_count += self._setValue("skirt_gap",8)
         modified_count += self._setValue("skirt_line_count",2)
         
@@ -755,7 +749,6 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("small_feature_speed_factor_0",50)
         modified_count += self._setValue("small_hole_max_size",3.25)
         modified_count += self._setValue("small_feature_max_length",5)
-        
         
         modified_count += self._setValue("speed_print",40)
         modified_count += self._setValue("speed_infill",60)
@@ -773,12 +766,9 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_angle",67)
         modified_count += self._setValue("support_bottom_density",97)
 
-
-        
         modified_count += self._setValue("support_roof_enable",True)
         modified_count += self._setValue("support_xy_overrides_z",'xy_overrides_z')
-        
-        
+              
         # modified_count += self._setValue("top_layers",7)
         modified_count += self._setValue("travel_avoid_distance",1)
         modified_count += self._setValue("travel_avoid_other_parts",True)
@@ -796,22 +786,21 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
         
         modified_count += self._setValue("bridge_settings_enabled",True)
-        
         modified_count += self._setValue("xy_offset_layer_0",-0.0625*machine_nozzle_size)
         
         # Settings according to value calculation
         _top_bottom_pattern = self._getValue("top_bottom_pattern")
+        
         if _top_bottom_pattern != 'concentric':
-            modified_count += self._setValue("skin_overlap",5)           
+            modified_count += self._setValue("skin_overlap",10)           
         else:
-            modified_count += self._setValue("skin_overlap",10)
+            modified_count += self._setValue("skin_overlap",15)
 
         _line_width = float(self._getValue("line_width"))
         modified_count += self._setValue("skin_line_width",_line_width)
 
         _material_flow = float(self._getValue("material_flow"))
         modified_count += self._setValue("infill_material_flow",_material_flow)
-        
         
         _speed_travel = float(self._getValue("speed_travel"))
         _speed_print = float(self._getValue("speed_print"))
@@ -824,10 +813,7 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_brim_line_count",_support_brim_line_count)
 
         _support_interface_pattern=self._getValue("support_interface_pattern")
-        modified_count += self._setValue("support_roof_pattern",_support_interface_pattern)
 
-        modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
-        
         _line_width = float(self._getValue("line_width"))
         _wall_line_width = float(self._getValue("wall_line_width"))
         _wall_line_width_0 = float(self._getValue("wall_line_width_0"))
@@ -835,10 +821,8 @@ class UniversalCuraSettings(Extension, QObject,):
         _wall_line_count = int(self._getValue("wall_line_count"))
         # skin_preshrink = wall_line_width_0 + ((wall_line_count - 1) * wall_line_width_x)
         _skin_preshrink = _wall_line_width_0 + (_wall_line_count * _wall_line_width_x)
-        
         _layer_height= float(self._getValue("line_width"))
 
- 
         modified_count += self._setValue("infill_wipe_dist",round((_line_width*0.5),1))
         modified_count += self._setValue("ironing_flow",8.0)
         modified_count += self._setValue("ironing_inset",round((machine_nozzle_size *0.375),2))
@@ -870,6 +854,10 @@ class UniversalCuraSettings(Extension, QObject,):
         
         # Profile Mode settings
         if currMode == "standard" : 
+        
+            modified_count += self._setValue("support_roof_pattern",_support_interface_pattern)
+            modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
+        
             modified_count += self._setValue("support_roof_density",97)
             modified_count += self._setValue("optimize_wall_printing_order",True)
             modified_count += self._setValue("retraction_hop_enabled",False)
@@ -897,6 +885,9 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("infill_sparse_density",8)
 
+            modified_count += self._setValue("max_skin_angle_for_expansion",90)
+            modified_count += self._setValue("min_infill_area",10)
+            modified_count += self._setValue("min_skin_width_for_expansion",0.1)
         
         elif currMode == "mechanical" :            
             modified_count += self._setValue("brim_line_count",10)
@@ -990,7 +981,10 @@ class UniversalCuraSettings(Extension, QObject,):
  
             modified_count += self._setValue("meshfix_maximum_deviation",0.04)
             modified_count += self._setValue("meshfix_maximum_resolution",0.4)
-        
+
+            modified_count += self._setValue("min_infill_area",0)
+            modified_count += self._setValue("min_skin_width_for_expansion",0)
+            
         elif currMode == "vases" :
             # Spiralize outer contour
             modified_count += self._setValue("magic_spiralize",True)
