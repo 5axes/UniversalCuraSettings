@@ -1024,12 +1024,10 @@ class UniversalCuraSettings(Extension, QObject,):
         # Profile Extruder settings
         if currExtruder == "bowden" :
             modified_count += self._setValue("retraction_amount",5)
-            modified_count += self._setValue("retraction_hop_enabled",True)
             modified_count += self._setValue("retraction_retract_speed",50)
         else:
             modified_count += self._setValue("retraction_amount",0.8)
-            modified_count += self._setValue("retraction_hop_enabled",True)
-            modified_count += self._setValue("retraction_retract_speed",50)
+            modified_count += self._setValue("retraction_retract_speed",30)
  
         _layer_height = float(self._getValue("layer_height"))
         _infill_sparse_density = float(self._getValue("infill_sparse_density"))
