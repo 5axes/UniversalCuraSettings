@@ -1,6 +1,6 @@
-# UniversalCuraSettings
+# Universal Cura Settings
  
- Jonas Universal Cura Settings. 7 types of adjustment to define recommended settings on your current Cura configuration.
+Universal Cura Settings. 7 types of adjustment to define recommended settings for your current Cura configuration.
  
 - standard
 - bed adhesion
