@@ -855,6 +855,8 @@ class UniversalCuraSettings(Extension, QObject,):
         # Profile Mode settings
         if currMode == "standard" : 
         
+        
+            modified_count += self._setValue("skin_outline_count",2)
             modified_count += self._setValue("support_roof_pattern",_support_interface_pattern)
             modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
         
