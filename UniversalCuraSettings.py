@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------------------
-# Copyright (c) 2020-2021 5@xes
+# Copyright (c) 2021 5@xes
 # 
 # UniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 #
@@ -8,6 +8,7 @@
 # Version 0.0.3 : New options in the different Intent
 # Version 0.0.5 : Change the name back to Universal Cura Settings
 # Version 0.0.6 : test 01-05-2021
+# Version 0.0.7 : Creation Top Surface settings
 #
 #-------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
