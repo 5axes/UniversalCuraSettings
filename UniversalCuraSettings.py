@@ -851,7 +851,7 @@ class UniversalCuraSettings(Extension, QObject,):
         if currMode == "standard" : 
         
             modified_count += self._setValue("roofing_layer_count",1)
-            modified_count += self._setValue("skin_outline_count",2)
+            modified_count += self._setValue("skin_outline_count",0)
             modified_count += self._setValue("support_roof_pattern",_support_interface_pattern)
             modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
         
@@ -940,6 +940,8 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_enable",True)
             modified_count += self._setValue("support_structure",'tree')
         
+            modified_count += self._setValue("skin_outline_count",2)
+            
             modified_count += self._setValue("brim_line_count",2)
             modified_count += self._setValue("wall_line_count",3)
             modified_count += self._setValue("support_tree_enable",True)
