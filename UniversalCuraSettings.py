@@ -7,6 +7,7 @@
 # Version 0.0.2 : Add the choice of the Nozzle Size
 # Version 0.0.3 : New options in the different Intent
 # Version 0.0.5 : Change the name back to Universal Cura Settings
+# Version 0.0.6 : test 01-05-2021
 #
 #-------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
@@ -684,7 +685,6 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("acceleration_enabled",True)
         modified_count += self._setValue("acceleration_infill",1000)
-        modified_count += self._setValue("acceleration_ironing",1000)
         modified_count += self._setValue("acceleration_print_layer_0",500)
         modified_count += self._setValue("acceleration_roofing",500)
         modified_count += self._setValue("acceleration_skirt_brim",500)
@@ -696,7 +696,6 @@ class UniversalCuraSettings(Extension, QObject,):
 
         modified_count += self._setValue("jerk_enabled",True)
         modified_count += self._setValue("jerk_infill",15)
-        modified_count += self._setValue("jerk_ironing",17)
         modified_count += self._setValue("jerk_layer_0",8)
         modified_count += self._setValue("jerk_print_layer_0",8)
         modified_count += self._setValue("jerk_support",15)
@@ -715,9 +714,7 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("conical_overhang_angle",70)
         
-        modified_count += self._setValue("coasting_enable",True)
-        modified_count += self._setValue("coasting_speed",100)
-        modified_count += self._setValue("coasting_volume",0.02)
+
         modified_count += self._setValue("cool_fan_full_at_height",1)
         modified_count += self._setValue("cool_fan_full_layer",5)
         modified_count += self._setValue("cool_fan_speed",100)
@@ -752,7 +749,6 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("speed_print",40)
         modified_count += self._setValue("speed_infill",60)
-        modified_count += self._setValue("speed_ironing",55)
         modified_count += self._setValue("speed_layer_0",20)
         modified_count += self._setValue("speed_roofing",40)
         modified_count += self._setValue("speed_topbottom",60)
@@ -824,9 +820,7 @@ class UniversalCuraSettings(Extension, QObject,):
         _layer_height= float(self._getValue("line_width"))
 
         modified_count += self._setValue("infill_wipe_dist",round((_line_width*0.5),1))
-        modified_count += self._setValue("ironing_flow",8.0)
-        modified_count += self._setValue("ironing_inset",round((machine_nozzle_size *0.375),2))
-        modified_count += self._setValue("ironing_line_spacing",round((machine_nozzle_size *0.375),2))
+
         
         modified_count += self._setValue("support_roof_height",round((_layer_height*6),1))
         modified_count += self._setValue("support_roof_offset",round((_layer_height*3),1))
@@ -877,9 +871,8 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_tree_collision_resolution",0.15)
  
  
-            # modified_count += self._setValue("top_thickness",1)
-            
-            modified_count += self._setValue("roofing_layer_count",1)
+            # modified_count += self._setValue("top_thickness",1) 
+            modified_count += self._setValue("roofing_layer_count",0)
             
             # must be set in relation with the line width
             _roofing_line_width = round((0.9 * _line_width),1)
@@ -890,6 +883,10 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("max_skin_angle_for_expansion",90)
             modified_count += self._setValue("min_infill_area",10)
             modified_count += self._setValue("min_skin_width_for_expansion",0.1)
+
+            modified_count += self._setValue("coasting_enable",False)
+            modified_count += self._setValue("coasting_speed",100)
+            modified_count += self._setValue("coasting_volume",0.02)
         
         elif currMode == "mechanical" :            
             modified_count += self._setValue("brim_line_count",10)
@@ -897,6 +894,17 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("wall_0_inset",0.02)
             
             modified_count += self._setValue("infill_sparse_density",12)
+ 
+        elif currMode == "top surface" :  
+            modified_count += self._setValue("ironing_enabled",False)
+            modified_count += self._setValue("ironing_only_highest_layer",True)
+            modified_count += self._setValue("roofing_layer_count",1)
+            modified_count += self._setValue("jerk_ironing",17) 
+            modified_count += self._setValue("ironing_flow",8.0)
+            modified_count += self._setValue("ironing_inset",round((machine_nozzle_size *0.375),2))
+            modified_count += self._setValue("ironing_line_spacing",round((machine_nozzle_size *0.375),2))
+            modified_count += self._setValue("acceleration_ironing",1000)            
+            modified_count += self._setValue("speed_ironing",55)
             
         elif currMode == "bed adhesion" :
             # Profile Mode settings

@@ -182,6 +182,7 @@ UM.Dialog
 				   id: cbeItems
 				   ListElement { text: "standard"}
 				   ListElement { text: "bed adhesion"}
+				   ListElement { text: "top surface"}
 				   ListElement { text: "warping"}
 				   ListElement { text: "mechanical"}
 				   ListElement { text: "figurine"}
