@@ -653,7 +653,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("machine_nozzle_size",machine_nozzle_size)
             
         #------------------------------------------------------
-        # Extruder get Meterial (Useless for the moment )
+        # Extruder get Material (Useless for the moment )
         #------------------------------------------------------
         extruders = list(global_stack.extruders.values())             
         for Extrud in extruders:
@@ -849,7 +849,7 @@ class UniversalCuraSettings(Extension, QObject,):
         # Profile Mode settings
         if currMode == "standard" : 
         
-        
+            modified_count += self._setValue("roofing_layer_count",1)
             modified_count += self._setValue("skin_outline_count",2)
             modified_count += self._setValue("support_roof_pattern",_support_interface_pattern)
             modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
@@ -872,7 +872,6 @@ class UniversalCuraSettings(Extension, QObject,):
  
  
             # modified_count += self._setValue("top_thickness",1) 
-            modified_count += self._setValue("roofing_layer_count",0)
             
             # must be set in relation with the line width
             _roofing_line_width = round((0.9 * _line_width),1)
@@ -898,7 +897,7 @@ class UniversalCuraSettings(Extension, QObject,):
         elif currMode == "top surface" :  
             modified_count += self._setValue("ironing_enabled",False)
             modified_count += self._setValue("ironing_only_highest_layer",True)
-            modified_count += self._setValue("roofing_layer_count",1)
+            
             modified_count += self._setValue("jerk_ironing",17) 
             modified_count += self._setValue("ironing_flow",8.0)
             modified_count += self._setValue("ironing_inset",round((machine_nozzle_size *0.375),2))
