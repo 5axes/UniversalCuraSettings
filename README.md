@@ -5,6 +5,7 @@ Universal Cura Settings. 7 types of adjustment to define recommended settings fo
 - standard
 - bed adhesion
 - warping
+- top surface
 - mechanical
 - figurine
 - prototype
@@ -15,6 +16,8 @@ Standard (general recommended settings)
 Bed adhesion (first layer settings for a better bed adhesion)
 
 Warping (increase the first layer adhesoin and avoid nozzle collision with Z hop settings )
+
+Top surface (increase the quality on top surface by using mainly Ironing options)
 
 Mechanical (dimensionally accurate, stiff and durable)
 
