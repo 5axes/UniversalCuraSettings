@@ -913,7 +913,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("raft_margin",2)
             modified_count += self._setValue("raft_surface_layers",1)
             # "default_value": 0.3 in fdmprinter.def.json ?
-            modified_count += self._setValue("raft_airgap",_layer_height*0.75)
+            modified_count += self._setValue("raft_airgap",_layer_height*1.5)
             
             
             modified_count += self._setValue("wall_line_count",4)
