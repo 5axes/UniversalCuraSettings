@@ -149,6 +149,7 @@ UM.Dialog
 				   ListElement { text: "pla"}
 				   ListElement { text: "abs"}
 				   ListElement { text: "petg"}
+				   ListElement { text: "tpu"}
 				}
 				width: UM.Theme.getSize("setting_control").width
 				height: UM.Theme.getSize("setting_control").height
@@ -187,7 +188,7 @@ UM.Dialog
 				   ListElement { text: "mechanical"}
 				   ListElement { text: "figurine"}
 				   ListElement { text: "prototype"}
-				   ListElement { text: "vases"}
+				   ListElement { text: "vase"}
 				}
 				width: UM.Theme.getSize("setting_control").width
 				height: UM.Theme.getSize("setting_control").height

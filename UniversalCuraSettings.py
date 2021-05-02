@@ -738,8 +738,6 @@ class UniversalCuraSettings(Extension, QObject,):
 
         modified_count += self._setValue("material_flow",100)
 
-
-
         modified_count += self._setValue("skirt_gap",8)
         modified_count += self._setValue("skirt_line_count",2)
         
@@ -850,6 +848,7 @@ class UniversalCuraSettings(Extension, QObject,):
         # Profile Mode settings
         if currMode == "standard" : 
         
+            modified_count += self._setValue("retraction_enable",True)
             modified_count += self._setValue("roofing_layer_count",1)
             modified_count += self._setValue("skin_outline_count",0)
             modified_count += self._setValue("support_roof_pattern",_support_interface_pattern)
@@ -1020,6 +1019,9 @@ class UniversalCuraSettings(Extension, QObject,):
             
         elif currMaterial == "abs" :
             modified_count += self._setValue("cool_fan_speed",0)
+ 
+        elif currMaterial == "tpu" :
+            modified_count += self._setValue("retraction_enable",False)
             
         elif currMaterial == "petg" :
             modified_count += self._setValue("cool_fan_speed",30)
