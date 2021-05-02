@@ -789,9 +789,9 @@ class UniversalCuraSettings(Extension, QObject,):
         _top_bottom_pattern = self._getValue("top_bottom_pattern")
         
         if _top_bottom_pattern != 'concentric':
-            modified_count += self._setValue("skin_overlap",10)           
+            modified_count += self._setValue("skin_overlap",12)           
         else:
-            modified_count += self._setValue("skin_overlap",15)
+            modified_count += self._setValue("skin_overlap",16)
 
         _line_width = float(self._getValue("line_width"))
         modified_count += self._setValue("skin_line_width",_line_width)
@@ -896,15 +896,16 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("infill_sparse_density",12)
  
         elif currMode == "top surface" :  
-            modified_count += self._setValue("ironing_enabled",False)
+            modified_count += self._setValue("ironing_enabled",True)
             modified_count += self._setValue("ironing_only_highest_layer",True)
             
             modified_count += self._setValue("jerk_ironing",17) 
             modified_count += self._setValue("ironing_flow",8.0)
             modified_count += self._setValue("ironing_inset",round((machine_nozzle_size *0.375),2))
             modified_count += self._setValue("ironing_line_spacing",round((machine_nozzle_size *0.375),2))
-            modified_count += self._setValue("acceleration_ironing",1000)            
-            modified_count += self._setValue("speed_ironing",55)
+            modified_count += self._setValue("acceleration_ironing",1000)     
+            # 30% Speed_print
+            modified_count += self._setValue("speed_ironing",(_speed_print*1.3))
             
         elif currMode == "bed adhesion" :
             # Profile Mode settings
