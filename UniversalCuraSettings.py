@@ -537,6 +537,7 @@ class UniversalCuraSettings(Extension, QObject,):
         return modified_c
     
     # Layer_Height according to machine_nozzle_size & self._mode
+    # if not defined = 0 then the value will be not set by the plugin
     def _defineLayer_Height(self,c_val) -> float:
         layer_height = 0.5 * c_val
          # Profile Mode settings
@@ -548,15 +549,15 @@ class UniversalCuraSettings(Extension, QObject,):
         
         elif self._mode == "figurine" :
             layer_height = 0.25 * c_val
+
+        elif self._mode == "small part" :
+            layer_height = 0.4 * c_val
             
         elif self._mode == "prototype" :
             layer_height = 0.6 * c_val
             
-        elif self._mode == "vases" :
-            layer_height = 0.5 * c_val
-            
         else:
-            layer_height = 0.5 * c_val   
+            layer_height = 0  
         
         return layer_height
 
@@ -669,8 +670,10 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("magic_spiralize",False)
 
         # layer_height 
-        modified_count += self._setValue("layer_height",self._defineLayer_Height(machine_nozzle_size))
-        modified_count += self._setValue("layer_height_0",self._defineLayer_Height(machine_nozzle_size))
+        cval=self._defineLayer_Height(machine_nozzle_size)
+        if cval>0 :
+            modified_count += self._setValue("layer_height",cval)
+            modified_count += self._setValue("layer_height_0",cval)
         
         # General settings
         modified_count += self._setValue("adaptive_layer_height_threshold",250)
