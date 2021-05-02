@@ -1,6 +1,6 @@
 # Universal Cura Settings
  
-Universal Cura Settings. 7 types of adjustment to define recommended settings for your current Cura configuration.
+Universal Cura Settings. 8 types of adjustment to define recommended settings for your current Cura configuration.
  
 - standard
 - bed adhesion
@@ -9,7 +9,7 @@ Universal Cura Settings. 7 types of adjustment to define recommended settings fo
 - mechanical
 - figurine
 - prototype
-- vases
+- vase
 
 Standard (general recommended settings)
 
@@ -36,7 +36,7 @@ Select the type of settings you want to apply to your current Cura configuration
 
 - Extruder type : Bowden or direct drive
 - The Nozzle Size : 0.2 0.4 0.6 0.8
-- The Material :  PLA, ABS PETG
+- The Material :  PLA, ABS, PETG, TPU
 - The type of Intent  :
 
   - [standard](https://github.com/5axes/UniversalCuraSettings/discussions/12)
