@@ -10,6 +10,7 @@
 # Version 0.0.6 : test 01-05-2021
 # Version 0.0.7 : Creation Top Surface settings
 # Version 0.0.8 : Mechanical settings, test parts : Customizable nail clamp https://www.thingiverse.com/thing:4816588
+# Version 0.0.9 : Modification Standard
 #
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
@@ -712,6 +713,7 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("jerk_wall_0",8)
         modified_count += self._setValue("jerk_wall_x",10)
         
+        modified_count += self._setValue("top_layers",5)
         modified_count += self._setValue("bottom_layers",5)
         # "Skin Removal Width"
         modified_count += self._setValue("bottom_skin_preshrink",1.2)
@@ -782,7 +784,8 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("z_seam_relative",True)
         modified_count += self._setValue("z_seam_type",'sharpest_corner')
-        modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
+        # "Hide Seam"
+        modified_count += self._setValue("z_seam_corner",'z_seam_corner_inner')
         
         modified_count += self._setValue("bridge_settings_enabled",True)
         modified_count += self._setValue("xy_offset_layer_0",-0.0625*machine_nozzle_size)
@@ -855,6 +858,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("retraction_enable",True)
             modified_count += self._setValue("roofing_layer_count",1)
             modified_count += self._setValue("skin_outline_count",0)
+            
             modified_count += self._setValue("support_roof_pattern",_support_interface_pattern)
             modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
         
