@@ -589,6 +589,9 @@ class UniversalCuraSettings(Extension, QObject,):
          # Profile Mode settings
         if self._material == "pla" :
             material_print_temperature = 205 + round(c_val*12.5,0)
+
+        elif self._mode == "tpu" :
+            material_print_temperature = 205 + round(c_val*12.5,0)
             
         elif self._mode == "abs" :
             material_print_temperature = 225 + round(c_val*12.5,0)
@@ -721,7 +724,7 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("conical_overhang_angle",70)
         
-
+        modified_count += self._setValue("cool_fan_enabled",True)
         modified_count += self._setValue("cool_fan_full_at_height",1)
         modified_count += self._setValue("cool_fan_full_layer",5)
         modified_count += self._setValue("cool_fan_speed",100)
@@ -1049,6 +1052,8 @@ class UniversalCuraSettings(Extension, QObject,):
  
         elif currMaterial == "tpu" :
             modified_count += self._setValue("retraction_enable",False)
+            modified_count += self._setValue("cool_fan_enabled",False)
+            modified_count += self._setValue("skin_overlap",30)
             
         elif currMaterial == "petg" :
             modified_count += self._setValue("cool_fan_speed",30)
