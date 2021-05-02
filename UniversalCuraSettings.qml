@@ -186,6 +186,7 @@ UM.Dialog
 				   ListElement { text: "top surface"}
 				   ListElement { text: "warping"}
 				   ListElement { text: "mechanical"}
+				   ListElement { text: "small part"}
 				   ListElement { text: "figurine"}
 				   ListElement { text: "prototype"}
 				   ListElement { text: "vase"}

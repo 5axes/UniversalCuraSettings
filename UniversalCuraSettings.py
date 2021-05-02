@@ -906,6 +906,35 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("acceleration_ironing",1000)     
             # 30% Speed_print
             modified_count += self._setValue("speed_ironing",(_speed_print*1.3))
+
+        elif currMode == "small part" :
+            # Profile Mode settings
+            modified_count += self._setValue("wall_line_count",4)
+            modified_count += self._setValue("wall_line_count",4)
+            modified_count += self._setValue("infill_sparse_density",20)
+ 
+            modified_count += self._setValue("speed_print",(_speed_print*0.8))
+            modified_count += self._setValue("speed_infill",60)
+            modified_count += self._setValue("speed_roofing",(_speed_print*0.8))
+            modified_count += self._setValue("speed_topbottom",(_speed_print))
+            modified_count += self._setValue("speed_travel",100)
+            modified_count += self._setValue("speed_wall_0",20)
+            modified_count += self._setValue("speed_wall_x",30)
+        
+            modified_count += self._setValue("speed_layer_0",12)
+            
+            modified_count += self._setValue("retraction_hop_enabled",True)
+            # to limit the number of Skirt line count
+            modified_count += self._setValue("skirt_brim_minimal_length",80)
+            
+            modified_count += self._setValue("small_feature_speed_factor_0",20)
+            modified_count += self._setValue("small_hole_max_size",6.0)
+            
+            modified_count += self._setValue("initial_layer_line_width_factor",105)
+            modified_count += self._setValue("jerk_layer_0",4)
+            modified_count += self._setValue("jerk_print_layer_0",4)            
+            modified_count += self._setValue("acceleration_print_layer_0",100)
+            modified_count += self._setValue("acceleration_wall_0",100)
             
         elif currMode == "bed adhesion" :
             # Profile Mode settings
