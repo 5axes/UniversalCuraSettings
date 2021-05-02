@@ -1,12 +1,13 @@
 # Universal Cura Settings
  
-Universal Cura Settings. 8 types of adjustment to define recommended settings for your current Cura configuration.
+Universal Cura Settings. 9 types of adjustment to define recommended settings for your current Cura configuration.
  
 - standard
 - bed adhesion
 - warping
 - top surface
 - mechanical
+- small part
 - figurine
 - prototype
 - vase
@@ -44,9 +45,13 @@ Select the type of settings you want to apply to your current Cura configuration
   - [bed adhesion](https://github.com/5axes/UniversalCuraSettings/discussions/9) 
         
   - [warping](https://github.com/5axes/UniversalCuraSettings/discussions/13)
+
+  - [top surface](https://github.com/5axes/UniversalCuraSettings/discussions/17)
         
   - [mechanical](https://github.com/5axes/UniversalCuraSettings/discussions/8)
-        
+ 
+  - [small part](https://github.com/5axes/UniversalCuraSettings/discussions/18)
+  
   - [figurine](https://github.com/5axes/UniversalCuraSettings/discussions/14)
         
   - [prototype](https://github.com/5axes/UniversalCuraSettings/discussions/10)
