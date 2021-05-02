@@ -46,11 +46,11 @@ Select the type of settings you want to apply to your current Cura configuration
         
   - [warping](https://github.com/5axes/UniversalCuraSettings/discussions/13)
 
-  - [top surface](https://github.com/5axes/UniversalCuraSettings/discussions/13)
+  - [top surface](https://github.com/5axes/UniversalCuraSettings/discussions/17)
         
   - [mechanical](https://github.com/5axes/UniversalCuraSettings/discussions/8)
  
-  - [small part](https://github.com/5axes/UniversalCuraSettings/discussions/8)
+  - [small part](https://github.com/5axes/UniversalCuraSettings/discussions/18)
   
   - [figurine](https://github.com/5axes/UniversalCuraSettings/discussions/14)
         
