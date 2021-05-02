@@ -912,17 +912,17 @@ class UniversalCuraSettings(Extension, QObject,):
 
         elif currMode == "small part" :
             # Profile Mode settings
-            modified_count += self._setValue("adhesion_type",'raft')
-            modified_count += self._setValue("raft_margin",2)
-            modified_count += self._setValue("raft_surface_layers",1)
-            # "default_value": 0.3 in fdmprinter.def.json ?
-            modified_count += self._setValue("raft_airgap",_layer_height*1.5)
-            
-            
             modified_count += self._setValue("wall_line_count",4)
             # modified_count += self._setValue("outer_inset_first",True)
             modified_count += self._setValue("infill_sparse_density",20)
- 
+            
+            modified_count += self._setValue("adhesion_type",'raft')
+            modified_count += self._setValue("raft_margin",2)
+            modified_count += self._setValue("raft_surface_layers",2)
+            modified_count += self._setValue("raft_smoothing",4)
+            # "default_value": 0.3 in fdmprinter.def.json ?
+            modified_count += self._setValue("raft_airgap",_layer_height*1.5)
+            
             modified_count += self._setValue("speed_print",(_speed_print*0.8))
             modified_count += self._setValue("speed_infill",60)
             modified_count += self._setValue("speed_roofing",(_speed_print*0.8))
