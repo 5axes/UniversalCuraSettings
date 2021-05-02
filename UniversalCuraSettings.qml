@@ -17,8 +17,6 @@ UM.Dialog
 
     title: "Universal Cura Settings"
 
-    color: "#fafafa" //Background color of cura: #fafafa
-
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal
 
@@ -32,12 +30,15 @@ UM.Dialog
     minimumWidth: 325
     minimumHeight: 175
 
+    color: UM.Theme.getColor("main_background") //Background color of cura: "#fafafa"
+	
+	
     // Position of the window
     x: Screen.width*0.5 - width - 100
     y: Screen.height*0.5 
 
     property variant catalog: UM.I18nCatalog { name: "cura" }
-    property variant palette: SystemPalette {}
+    // property variant palette: SystemPalette {}
 	
     // Connecting our variable to the computed property of the manager
 	property string modeInput: manager.modeInput
@@ -54,7 +55,7 @@ UM.Dialog
         id: contents
         anchors.fill: parent
         spacing: UM.Theme.getSize("default_margin").height
-
+		
         Grid
         {
             columns: 2;
@@ -62,12 +63,13 @@ UM.Dialog
             rowSpacing: UM.Theme.getSize("default_lining").height
             verticalItemAlignment: Grid.AlignVCenter
 
+
 			Label
 			{
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Extruder Type:");
 				font: UM.Theme.getFont("default");
-				color: UM.Theme.getColor("setting_control_text");
+				color: "#000000" // UM.Theme.getColor("text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
@@ -99,7 +101,7 @@ UM.Dialog
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Nozzle Size:");
 				font: UM.Theme.getFont("default");
-				color: UM.Theme.getColor("setting_control_text");
+				color: "#000000" // UM.Theme.getColor("text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
@@ -133,7 +135,7 @@ UM.Dialog
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Material:");
 				font: UM.Theme.getFont("default");
-				color: UM.Theme.getColor("setting_control_text");
+				color: "#000000" // UM.Theme.getColor("text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
@@ -168,7 +170,7 @@ UM.Dialog
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Settings Mode:");
 				font: UM.Theme.getFont("default");
-				color: UM.Theme.getColor("setting_control_text");
+				color: "#000000" // UM.Theme.getColor("text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
