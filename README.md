@@ -20,6 +20,8 @@ Warping (increase the first layer adhesoin and avoid nozzle collision with Z hop
 
 Top surface (increase the quality on top surface by using mainly Ironing options)
 
+Small part (use of a raft adhesion solution to get a better bed adhesion)
+
 Mechanical (dimensionally accurate, stiff and durable)
 
 Figurine (fine details and good cooling)
