@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
 # Copyright (c) 2021 5@xes
 # 
 # UniversalCuraSettings is released under the terms of the AGPLv3 or higher.
@@ -9,8 +9,9 @@
 # Version 0.0.5 : Change the name back to Universal Cura Settings
 # Version 0.0.6 : test 01-05-2021
 # Version 0.0.7 : Creation Top Surface settings
+# Version 0.0.8 : Mechanical settings, test parts : Customizable nail clamp https://www.thingiverse.com/thing:4816588
 #
-#-------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
