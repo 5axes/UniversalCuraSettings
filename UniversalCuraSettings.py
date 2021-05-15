@@ -854,6 +854,7 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_interface_pattern",'zigzag')
         modified_count += self._setValue("support_interface_skip_height",_layer_height)
         
+        modified_count += self._setValue("optimize_wall_printing_order",True)
         
         # Profile Mode settings
         if currMode == "standard" : 
@@ -866,7 +867,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_xy_distance_overhang",(machine_nozzle_size / 2))
         
             modified_count += self._setValue("support_roof_density",97)
-            modified_count += self._setValue("optimize_wall_printing_order",True)
+            
             modified_count += self._setValue("retraction_hop_enabled",False)
             
             modified_count += self._setValue("support_use_towers",False)
@@ -955,7 +956,6 @@ class UniversalCuraSettings(Extension, QObject,):
         elif currMode == "warping" :  
             
             modified_count += self._setValue("adhesion_type",'brim')
-            modified_count += self._setValue("optimize_wall_printing_order",True)
             modified_count += self._setValue("retraction_combing",'off')
             modified_count += self._setValue("retraction_combing_max_distance",33)
             modified_count += self._setValue("retraction_hop_enabled",True)
