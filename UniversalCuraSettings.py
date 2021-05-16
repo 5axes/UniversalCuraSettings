@@ -850,7 +850,7 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("support_interface_enable",True)
         modified_count += self._setValue("support_interface_line_width",round((_line_width*1.3),1))
-        modified_count += self._setValue("support_interface_offset",round((_line_width*1.5),1))
+        
         modified_count += self._setValue("support_interface_pattern",'zigzag')
         modified_count += self._setValue("support_interface_skip_height",_layer_height)
         
@@ -979,6 +979,7 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("speed_travel",100)
             
+            modified_count += self._setValue("support_interface_offset",round((_line_width*0.5),1))
             
         elif currMode == "prototype" :
         
