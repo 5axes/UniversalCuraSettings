@@ -856,9 +856,11 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("optimize_wall_printing_order",True)
         
+        
         # Profile Mode settings
         if currMode == "standard" : 
-        
+            modified_count += self._setValue("meshfix_union_all_remove_holes",False)
+            
             modified_count += self._setValue("retraction_enable",True)
             modified_count += self._setValue("roofing_layer_count",1)
             modified_count += self._setValue("skin_outline_count",0)
