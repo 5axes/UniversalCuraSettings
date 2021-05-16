@@ -855,11 +855,12 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("support_interface_skip_height",_layer_height)
         
         modified_count += self._setValue("optimize_wall_printing_order",True)
-        
+        modified_count += self._setValue("adaptive_layer_height_enabled",False)
         
         # Profile Mode settings
         if currMode == "standard" : 
             modified_count += self._setValue("meshfix_union_all_remove_holes",False)
+            
             
             modified_count += self._setValue("retraction_enable",True)
             modified_count += self._setValue("roofing_layer_count",1)
@@ -907,6 +908,8 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("wall_0_inset",0.02)
             
             modified_count += self._setValue("infill_sparse_density",12)
+            
+            modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
  
         elif currMode == "top surface" :  
             modified_count += self._setValue("ironing_enabled",True)
