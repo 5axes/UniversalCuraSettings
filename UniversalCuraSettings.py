@@ -856,10 +856,12 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("optimize_wall_printing_order",True)
         modified_count += self._setValue("adaptive_layer_height_enabled",False)
+        modified_count += self._setValue("filter_out_tiny_gaps",True)
         
         # Profile Mode settings
         if currMode == "standard" : 
             modified_count += self._setValue("meshfix_union_all_remove_holes",False)
+            modified_count += self._setValue("fill_perimeter_gaps",False)
             
             
             modified_count += self._setValue("retraction_enable",True)
@@ -974,7 +976,7 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("support_enable",True)
             modified_count += self._setValue("support_structure",'tree')
-        
+            modified_count += self._setValue("fill_perimeter_gaps",False)
             modified_count += self._setValue("skin_outline_count",2)
             
             modified_count += self._setValue("brim_line_count",2)
