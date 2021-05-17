@@ -894,7 +894,7 @@ class UniversalCuraSettings(Extension, QObject,):
             _roofing_line_width = round((0.9 * _line_width),1)
             modified_count += self._setValue("roofing_line_width",_roofing_line_width)
             
-            modified_count += self._setValue("infill_sparse_density",8)
+            modified_count += self._setValue("infill_sparse_density",10)
 
             modified_count += self._setValue("max_skin_angle_for_expansion",90)
             modified_count += self._setValue("min_infill_area",10)
@@ -909,7 +909,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("fill_outline_gaps",True)
             modified_count += self._setValue("wall_0_inset",0.02)
             
-            modified_count += self._setValue("infill_sparse_density",12)
+            modified_count += self._setValue("infill_sparse_density",15)
             
             modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
  
@@ -973,6 +973,7 @@ class UniversalCuraSettings(Extension, QObject,):
         
         elif currMode == "figurine" :
             # dimensionally accurate, stiff and durable
+            modified_count += self._setValue("infill_sparse_density",8)
             
             modified_count += self._setValue("support_enable",True)
             modified_count += self._setValue("support_structure",'tree')
@@ -990,7 +991,7 @@ class UniversalCuraSettings(Extension, QObject,):
             
         elif currMode == "prototype" :
         
-            modified_count += self._setValue("infill_sparse_density",8)
+            modified_count += self._setValue("infill_sparse_density",10)
             
             # Fast and rought
             modified_count += self._setValue("wall_line_count",2)
