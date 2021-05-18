@@ -950,7 +950,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("adhesion_type",'brim')
             
             modified_count += self._setValue("brim_line_count",15)
-            modified_count += self._setValue("speed_layer_0",18)
+            modified_count += self._setValue("speed_layer_0",12)
 
             modified_count += self._setValue("small_feature_speed_factor_0",30)
             modified_count += self._setValue("small_hole_max_size",6.0)
