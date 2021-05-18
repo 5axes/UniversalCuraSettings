@@ -978,6 +978,15 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("support_enable",True)
             modified_count += self._setValue("support_structure",'tree')
+            
+            modified_count += self._setValue("support_tree_angle",45)
+            
+            
+            modified_count += self._setValue("support_tree_branch_diameter",(_line_width*8))
+            modified_count += self._setValue("support_tree_branch_diameter_angle",5)
+            modified_count += self._setValue("support_tree_branch_distance",0.5)
+            modified_count += self._setValue("support_tree_collision_resolution",0.15)            
+            
             modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
             modified_count += self._setValue("skin_outline_count",2)
             
@@ -992,7 +1001,9 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_interface_offset",round((_line_width*0.5),1))
             
             modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
-            
+ 
+            modified_count += self._setValue("retraction_hop_enabled",True)
+            modified_count += self._setValue("retraction_hop",_layer_height) 
             
         elif currMode == "prototype" :
         
