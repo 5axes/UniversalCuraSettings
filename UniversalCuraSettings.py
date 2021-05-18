@@ -550,7 +550,7 @@ class UniversalCuraSettings(Extension, QObject,):
             layer_height = 0.5 * c_val    
         
         elif self._mode == "figurine" :
-            layer_height = 0.25 * c_val
+            layer_height = 0.3 * c_val
 
         elif self._mode == "small part" :
             layer_height = 0.4 * c_val
@@ -678,7 +678,7 @@ class UniversalCuraSettings(Extension, QObject,):
         cval=self._defineLayer_Height(machine_nozzle_size)
         if cval>0 :
             modified_count += self._setValue("layer_height",cval)
-            modified_count += self._setValue("layer_height_0",cval)
+            modified_count += self._setValue("layer_height_0",round((cval+0.04),1))
         
         # General settings
         modified_count += self._setValue("adaptive_layer_height_threshold",250)
@@ -973,7 +973,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("speed_travel",100)
         
         elif currMode == "figurine" :
-            # dimensionally accurate, stiff and durable
+            # for fine details and good cooling ?
             modified_count += self._setValue("infill_sparse_density",8)
             
             modified_count += self._setValue("support_enable",True)
