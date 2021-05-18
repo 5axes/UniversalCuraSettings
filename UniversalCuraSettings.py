@@ -3,15 +3,16 @@
 # 
 # UniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 #
-# Version 0.0.1 : First prototype
-# Version 0.0.2 : Add the choice of the Nozzle Size
-# Version 0.0.3 : New options in the different Intent
-# Version 0.0.5 : Change the name back to Universal Cura Settings
-# Version 0.0.6 : test 01-05-2021
-# Version 0.0.7 : Creation Top Surface settings
-# Version 0.0.8 : Mechanical settings, test parts : Customizable nail clamp https://www.thingiverse.com/thing:4816588
-# Version 0.0.9 : Modification Standard
-#
+# Version 0.0.1  : First prototype
+# Version 0.0.2  : Add the choice of the Nozzle Size
+# Version 0.0.3  : New options in the different Intent
+# Version 0.0.5  : Change the name back to Universal Cura Settings
+# Version 0.0.6  : test 01-05-2021
+# Version 0.0.7  : Creation Top Surface settings
+# Version 0.0.8  : Mechanical settings, test parts : Customizable nail clamp https://www.thingiverse.com/thing:4816588
+# Version 0.0.9  : Modification Standard
+# Version 0.0.10 : Modification Figurine
+# Version 0.0.11 : Modification Figurine
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -861,7 +862,7 @@ class UniversalCuraSettings(Extension, QObject,):
         # Profile Mode settings
         if currMode == "standard" : 
             modified_count += self._setValue("meshfix_union_all_remove_holes",False)
-            modified_count += self._setValue("fill_perimeter_gaps",False)
+            modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
             
             
             modified_count += self._setValue("retraction_enable",True)
@@ -977,17 +978,21 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("support_enable",True)
             modified_count += self._setValue("support_structure",'tree')
-            modified_count += self._setValue("fill_perimeter_gaps",False)
+            modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
             modified_count += self._setValue("skin_outline_count",2)
             
             modified_count += self._setValue("brim_line_count",2)
             modified_count += self._setValue("wall_line_count",3)
             modified_count += self._setValue("support_tree_enable",True)
+            # Print Thin Walls
             modified_count += self._setValue("fill_outline_gaps",True)
             
             modified_count += self._setValue("speed_travel",100)
-            
+            modified_count += self._setValue("speed_layer_0",18)
             modified_count += self._setValue("support_interface_offset",round((_line_width*0.5),1))
+            
+            modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
+            
             
         elif currMode == "prototype" :
         
@@ -995,7 +1000,7 @@ class UniversalCuraSettings(Extension, QObject,):
             
             # Fast and rought
             modified_count += self._setValue("wall_line_count",2)
-            modified_count += self._setValue("fill_perimeter_gaps",False)
+            modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
             modified_count += self._setValue("max_skin_angle_for_expansion",64)
             
             # "Top Surface Skin Layers"
