@@ -13,6 +13,7 @@
 # Version 0.0.9  : Modification Standard
 # Version 0.0.10 : Modification Figurine
 # Version 0.0.11 : Modification Figurine
+# Version 0.0.12 : Add Support intent
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -860,13 +861,13 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("filter_out_tiny_gaps",True)
         
         modified_count += self._setValue("skin_monotonic",True)
+        modified_count += self._setValue("roofing_monotonic",True)
         
         
         # Profile Mode settings
         if currMode == "standard" : 
             modified_count += self._setValue("meshfix_union_all_remove_holes",False)
             modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
-            
             
             modified_count += self._setValue("retraction_enable",True)
             modified_count += self._setValue("roofing_layer_count",1)
@@ -1086,14 +1087,12 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_top_distance",_layer_height)
 
             modified_count += self._setValue("support_bottom_distance",_layer_height)
-            modified_count += self._setValue("support_bottom_enable",True)
             modified_count += self._setValue("support_bottom_height",round((_layer_height*4),1))
             modified_count += self._setValue("support_brim_enable",True)
             modified_count += self._setValue("support_brim_width",3)       
             modified_count += self._setValue("support_join_distance",3)
             modified_count += self._setValue("support_offset",round((_layer_height*3),1))
 
-            modified_count += self._setValue("support_interface_enable",True)
             modified_count += self._setValue("support_interface_line_width",round((_line_width*1.3),1))
 
             modified_count += self._setValue("support_interface_pattern",'zigzag')
