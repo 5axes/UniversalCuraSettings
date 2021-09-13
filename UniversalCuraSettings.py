@@ -930,6 +930,11 @@ class UniversalCuraSettings(Extension, QObject,):
             # 30% Speed_print
             modified_count += self._setValue("speed_ironing",(_speed_print*1.3))
 
+            modified_count += self._setValue("skin_monotonic",True)
+            modified_count += self._setValue("roofing_monotonic",True)
+            modified_count += self._setValue("ironing_monotonic",True)
+            
+        
         elif currMode == "small part" :
             # Profile Mode settings
             modified_count += self._setValue("wall_line_count",4)
