@@ -859,6 +859,9 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("adaptive_layer_height_enabled",False)
         modified_count += self._setValue("filter_out_tiny_gaps",True)
         
+        modified_count += self._setValue("skin_monotonic",True)
+        
+        
         # Profile Mode settings
         if currMode == "standard" : 
             modified_count += self._setValue("meshfix_union_all_remove_holes",False)
@@ -1053,8 +1056,49 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("min_skin_width_for_expansion",0)
  
         elif currMode == "support" :
-            # Spiralize outer contour
-            modified_count += self._setValue("magic_spiralize",True)
+            # Support
+            modified_count += self._setValue("support_enable",True)
+            modified_count += self._setValue("support_structure",'normal')
+            modified_count += self._setValue("support_infill_rate",7)
+            modified_count += self._setValue("support_material_flow",70)
+            
+            modified_count += self._setValue("minimum_support_area",8)
+            
+            modified_count += self._setValue("support_interface_enable",True)
+            modified_count += self._setValue("support_roof_enable",True)
+            modified_count += self._setValue("support_bottom_enable",False)
+            
+            modified_count += self._setValue("support_interface_density",30)
+            modified_count += self._setValue("support_roof_density",90)
+            modified_count += self._setValue("support_bottom_density",8)
+            
+            modified_count += self._setValue("support_wall_count",0)
+            modified_count += self._setValue("support_type",'buildplate')
+            modified_count += self._setValue("support_xy_overrides_z",'z_overrides_xy') # or xy_overrides_z
+            
+            modified_count += self._setValue("support_z_distance",round((_layer_height),1))
+            modified_count += self._setValue("support_xy_distance",round((_line_width*2),1))
+            
+            modified_count += self._setValue("support_pattern",'lines')  # or zigzag
+
+            modified_count += self._setValue("support_roof_height",round((_layer_height*6),1))
+            modified_count += self._setValue("support_roof_offset",round((_layer_height*3),1))
+            modified_count += self._setValue("support_top_distance",_layer_height)
+
+            modified_count += self._setValue("support_bottom_distance",_layer_height)
+            modified_count += self._setValue("support_bottom_enable",True)
+            modified_count += self._setValue("support_bottom_height",round((_layer_height*4),1))
+            modified_count += self._setValue("support_brim_enable",True)
+            modified_count += self._setValue("support_brim_width",3)       
+            modified_count += self._setValue("support_join_distance",3)
+            modified_count += self._setValue("support_offset",round((_layer_height*3),1))
+
+            modified_count += self._setValue("support_interface_enable",True)
+            modified_count += self._setValue("support_interface_line_width",round((_line_width*1.3),1))
+
+            modified_count += self._setValue("support_interface_pattern",'zigzag')
+            modified_count += self._setValue("support_interface_skip_height",_layer_height)
+        
             
         elif currMode == "vases" :
             # Spiralize outer contour
