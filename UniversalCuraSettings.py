@@ -1051,6 +1051,10 @@ class UniversalCuraSettings(Extension, QObject,):
 
             modified_count += self._setValue("min_infill_area",0)
             modified_count += self._setValue("min_skin_width_for_expansion",0)
+ 
+        elif currMode == "support" :
+            # Spiralize outer contour
+            modified_count += self._setValue("magic_spiralize",True)
             
         elif currMode == "vases" :
             # Spiralize outer contour

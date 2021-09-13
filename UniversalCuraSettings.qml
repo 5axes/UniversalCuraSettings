@@ -191,6 +191,7 @@ UM.Dialog
 				   ListElement { text: "small part"}
 				   ListElement { text: "figurine"}
 				   ListElement { text: "prototype"}
+				   ListElement { text: "support"}
 				   ListElement { text: "vase"}
 				}
 				width: UM.Theme.getSize("setting_control").width
