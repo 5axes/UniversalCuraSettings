@@ -1,9 +1,9 @@
 {
     "name": "Universal Cura Settings",
     "author": "5axes",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "description": "Update your profile with Universal Cura Settings",
     "api": 7,
-    "supported_sdk_versions": ["7.0.0", "7.1.0", "7.2.0", "7.3.0", "7.4.0", "7.5.0"],
+    "supported_sdk_versions": ["7.0.0", "7.1.0", "7.2.0", "7.3.0", "7.4.0", "7.5.0", "7.6.0"],
     "i18n-catalog": "cura"
 }
