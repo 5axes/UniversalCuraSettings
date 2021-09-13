@@ -10,6 +10,7 @@ Universal Cura Settings. 9 types of adjustment to define recommended settings fo
 - small part
 - figurine
 - prototype
+- support
 - vase
 
 Standard (general recommended settings)
@@ -27,6 +28,8 @@ Mechanical (dimensionally accurate, stiff and durable)
 Figurine (fine details and good cooling)
 
 Prototype (fast and rought result)
+
+Support (Easy support remove)
 
 Vases (spiralize outer contour)
 
@@ -57,6 +60,8 @@ Select the type of settings you want to apply to your current Cura configuration
   - [figurine](https://github.com/5axes/UniversalCuraSettings/discussions/14)
         
   - [prototype](https://github.com/5axes/UniversalCuraSettings/discussions/10)
+
+  - [support](https://github.com/5axes/UniversalCuraSettings/discussions/10)
         
   - [vases](https://github.com/5axes/UniversalCuraSettings/discussions/15)
         
