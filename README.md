@@ -61,7 +61,7 @@ Select the type of settings you want to apply to your current Cura configuration
         
   - [prototype](https://github.com/5axes/UniversalCuraSettings/discussions/10)
 
-  - [support](https://github.com/5axes/UniversalCuraSettings/discussions/10)
+  - [support](https://github.com/5axes/UniversalCuraSettings/discussions/22)
         
   - [vases](https://github.com/5axes/UniversalCuraSettings/discussions/15)
         
