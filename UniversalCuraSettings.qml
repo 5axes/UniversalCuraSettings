@@ -117,6 +117,7 @@ UM.Dialog
 				   ListElement { text: "0.4"}
 				   ListElement { text: "0.6"}
 				   ListElement { text: "0.8"}
+				   ListElement { text: "1.0"}
 				}
 				width: UM.Theme.getSize("setting_control").width
 				height: UM.Theme.getSize("setting_control").height
