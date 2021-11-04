@@ -63,7 +63,7 @@ Select the type of settings you want to apply to your current Cura configuration
 
   - [support](https://github.com/5axes/UniversalCuraSettings/discussions/22)
         
-  - [vases](https://github.com/5axes/UniversalCuraSettings/discussions/15)
+  - [vase](https://github.com/5axes/UniversalCuraSettings/discussions/15)
         
 
 Press the Button **APPLY** to modify your current configuration according to your choice. A message wil be display at the end of the modification with the number of modified parameters.
