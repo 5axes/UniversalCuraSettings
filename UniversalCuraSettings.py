@@ -104,13 +104,14 @@ class UniversalCuraSettings(Extension, QObject,):
         if "master" in CuraVersion or "beta" in CuraVersion or "BETA" in CuraVersion:
             # Master is always a developement version.
             self.Major=4
-            self.Minor=9
+            self.Minor=12
             
         else:
             try:
                 self.Major = int(CuraVersion.split(".")[0])
                 self.Minor = int(CuraVersion.split(".")[1])
-
+                # Logger.log('d', "Info Major --> " + str(self.Major)) 
+                # Logger.log('d', "Info Minor --> " + str(self.Minor)) 
             except:
                 pass
                 
@@ -687,7 +688,12 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("adaptive_layer_height_variation",0.03)
         modified_count += self._setValue("adhesion_type",'skirt')
         
-        modified_count += self._setValue("retraction_combing",'infill')
+        if self.Major > 4 or ( self.Major == 4 and self.Minor >= 12 ) :
+            modified_count += self._setValue("retraction_combing",'no_outer_surfaces')
+        else :
+            modified_count += self._setValue("retraction_combing",'infill')
+        
+        
         modified_count += self._setValue("speed_slowdown_layers",1)
         modified_count += self._setValue("support_enable",False)
         modified_count += self._setValue("support_type",'buildplate')
