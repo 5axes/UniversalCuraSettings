@@ -14,6 +14,7 @@
 # Version 0.0.10 : Modification Figurine
 # Version 0.0.11 : Modification Figurine
 # Version 0.0.12 : Add Support intent
+# Version 0.0.13 : vase
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -577,7 +578,7 @@ class UniversalCuraSettings(Extension, QObject,):
         elif self._mode == "prototype" :
             line_width = 1.075 * c_val
             
-        elif self._mode == "vases" :
+        elif self._mode == "vase" :
             line_width = 1.075 * c_val
             
         else:
@@ -1104,7 +1105,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_interface_skip_height",_layer_height)
         
             
-        elif currMode == "vases" :
+        elif currMode == "vase" :
             # Spiralize outer contour
             modified_count += self._setValue("magic_spiralize",True)
             
