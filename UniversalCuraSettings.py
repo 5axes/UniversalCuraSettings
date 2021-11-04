@@ -15,6 +15,7 @@
 # Version 0.0.11 : Modification Figurine
 # Version 0.0.12 : Add Support intent
 # Version 0.0.13 : vase
+# Version 0.0.14 : Update xy_offset_layer_0
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -800,7 +801,8 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("z_seam_corner",'z_seam_corner_inner')
         
         modified_count += self._setValue("bridge_settings_enabled",True)
-        modified_count += self._setValue("xy_offset_layer_0",-0.0625*machine_nozzle_size)
+        # modified_count += self._setValue("xy_offset_layer_0",-0.0625*machine_nozzle_size)
+        modified_count += self._setValue("xy_offset_layer_0",-0.125*machine_nozzle_size)
         
         # Settings according to value calculation
         _top_bottom_pattern = self._getValue("top_bottom_pattern")

@@ -15,7 +15,7 @@ UM.Dialog
 {
     id: base
 
-    title: "Universal Cura Settings V0.0.13"
+    title: "Universal Cura Settings V0.0.14"
 
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal
@@ -185,7 +185,6 @@ UM.Dialog
 				model: ListModel {
 				   id: cbeItems
 				   ListElement { text: "standard"}
-				   ListElement { text: "fast"}
 				   ListElement { text: "bed adhesion"}
 				   ListElement { text: "top surface"}
 				   ListElement { text: "warping"}

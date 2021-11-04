@@ -1,7 +1,7 @@
 {
     "name": "Universal Cura Settings",
     "author": "5axes",
-    "version": "0.0.12",
+    "version": "0.0.14",
     "description": "Update your profile with Universal Cura Settings",
     "api": 7,
     "supported_sdk_versions": ["7.6.0", "7.7.0", "7.8.0"],
