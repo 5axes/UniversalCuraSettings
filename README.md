@@ -13,25 +13,25 @@ Universal Cura Settings. 9 types of adjustment to define recommended settings fo
 - support
 - vase
 
-Standard (general recommended settings)
+Standard     (general recommended settings)
 
 Bed adhesion (first layer settings for a better bed adhesion)
 
-Warping (increase the first layer adhesoin and avoid nozzle collision with Z hop settings )
+Warping      (increase the first layer adhesoin and avoid nozzle collision with Z hop settings )
 
-Top surface (increase the quality on top surface by using mainly Ironing options)
+Top surface  (increase the quality on top surface by using mainly Ironing options)
 
-Small part (use of a raft adhesion solution to get a better bed adhesion)
+Small part   (use of a raft adhesion solution to get a better bed adhesion)
 
-Mechanical (dimensionally accurate, stiff and durable)
+Mechanical   (dimensionally accurate, stiff and durable)
 
-Figurine (fine details and good cooling)
+Figurine     (fine details and good cooling)
 
-Prototype (fast and rought result)
+Prototype    (fast and rought result)
 
-Support (Easy support remove)
+Support      (Easy support remove)
 
-Vases (spiralize outer contour)
+Vase         (spiralize outer contour)
 
 
 ![menuSettings](./images/settings.jpg)
