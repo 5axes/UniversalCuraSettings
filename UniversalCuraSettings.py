@@ -1165,13 +1165,13 @@ class UniversalCuraSettings(Extension, QObject,):
         if currExtruder == "unknow" :
             # no modification
             self.writeToLog("Extruder preset : unknow")
-            
-        elif currMaterial == "bowden" :
-            modified_count += self._setValue("retraction_amount",5)
-            modified_count += self._setValue("retraction_retract_speed",50)
-        else:
+        elif currExtruder == "direct" :
             modified_count += self._setValue("retraction_amount",0.8)
-            modified_count += self._setValue("retraction_retract_speed",30)
+            modified_count += self._setValue("retraction_speed",30)
+        else:
+            self.writeToLog("Extruder preset : " + currExtruder)
+            modified_count += self._setValue("retraction_amount",5)
+            modified_count += self._setValue("retraction_speed",50)
  
         _layer_height = float(self._getValue("layer_height"))
         _infill_sparse_density = float(self._getValue("infill_sparse_density"))
