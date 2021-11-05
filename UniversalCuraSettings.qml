@@ -114,7 +114,7 @@ UM.Dialog
 				objectName: "Combo_Nozzle"
 				model: ListModel {
 				   id: cbnItems
-				   ListElement { text: "Not specified"}
+				   ListElement { text: "not specified"}
 				   ListElement { text: "0.2"}
 				   ListElement { text: "0.4"}
 				   ListElement { text: "0.6"}

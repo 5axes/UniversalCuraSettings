@@ -665,7 +665,7 @@ class UniversalCuraSettings(Extension, QObject,):
         machine_nozzle_size=stack.getProperty("machine_nozzle_size", "value")
         self.writeToLog("Actual machine_nozzle_size : " + str(machine_nozzle_size))
         
-        if currNozzle != "Not specified" :
+        if currNozzle != "not specified" :
             if float(currNozzle) != machine_nozzle_size:
                 machine_nozzle_size=float(currNozzle)
                 modified_count += self._setValue("machine_nozzle_size",machine_nozzle_size)
