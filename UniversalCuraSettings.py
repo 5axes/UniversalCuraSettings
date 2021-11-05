@@ -3,20 +3,23 @@
 # 
 # UniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 #
-# Version 0.0.1  : First prototype
-# Version 0.0.2  : Add the choice of the Nozzle Size
-# Version 0.0.3  : New options in the different Intent
-# Version 0.0.5  : Change the name back to Universal Cura Settings
-# Version 0.0.6  : test 01-05-2021
-# Version 0.0.7  : Creation Top Surface settings
-# Version 0.0.8  : Mechanical settings, test parts : Customizable nail clamp https://www.thingiverse.com/thing:4816588
-# Version 0.0.9  : Modification Standard
-# Version 0.0.10 : Modification Figurine
-# Version 0.0.11 : Modification Figurine
-# Version 0.0.12 : Add Support intent
-# Version 0.0.13 : vase
-# Version 0.0.14 : Update xy_offset_layer_0
-# Version 0.0.15 : Update xy_offset_layer_0
+# Version 0.0.1  :  First prototype
+# Version 0.0.2  :  Add the choice of the Nozzle Size
+# Version 0.0.3  :  New options in the different Intent
+# Version 0.0.5  :  Change the name back to Universal Cura Settings
+# Version 0.0.6  :  test 01-05-2021
+# Version 0.0.7  :  Creation Top Surface settings
+# Version 0.0.8  :  Mechanical settings, test parts : Customizable nail clamp https://www.thingiverse.com/thing:4816588
+# Version 0.0.9  :  Modification Standard
+# Version 0.0.10 :  Modification Figurine
+# Version 0.0.11 :  Modification Figurine
+# Version 0.0.12 :  Add Support intent
+# Version 0.0.13 :  vase
+# Version 0.0.14 :  Update xy_offset_layer_0
+# Version 0.0.15 :  Extruder type : unknow -> no modification of the retract parameter
+#                   Nozzle Size : Not specified -> no modification of the nozzle diameter
+#                   Material : unknow -> no modification of the temperature parameter
+# Version 0.0.16 :  New test and parameters
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -677,6 +680,7 @@ class UniversalCuraSettings(Extension, QObject,):
         for Extrud in extruders:
             # Material
             M_Name = Extrud.material.getMetaData().get("material", "")
+            self.writeToLog("Current extruders material : " + M_Name)
               
         #------------------
         # Global stack
@@ -875,8 +879,8 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("adaptive_layer_height_enabled",False)
         modified_count += self._setValue("filter_out_tiny_gaps",True)
         
-        modified_count += self._setValue("skin_monotonic",True)
-        modified_count += self._setValue("roofing_monotonic",True)
+        # modified_count += self._setValue("skin_monotonic",True)
+        # modified_count += self._setValue("roofing_monotonic",True)
         
         
         # Profile Mode settings
@@ -1076,6 +1080,10 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("min_infill_area",0)
             modified_count += self._setValue("min_skin_width_for_expansion",0)
  
+            modified_count += self._setValue("skirt_gap",2)
+            modified_count += self._setValue("skirt_line_count",1)
+        
+        
         elif currMode == "support" :
             # Support
             modified_count += self._setValue("support_enable",True)
