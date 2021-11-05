@@ -15,7 +15,7 @@ UM.Dialog
 {
     id: base
 
-    title: "Universal Cura Settings V0.0.14"
+    title: "Universal Cura Settings V0.0.15"
 
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal
@@ -47,7 +47,7 @@ UM.Dialog
 	property string nozzleInput: manager.nozzleInput
 	property string modeCurrent: manager.modeInput
 	property string extruderCurrent: manager.extruderInput
-	property string matrialCurrent: manager.materialInput
+	property string materialCurrent: manager.materialInput
 	property string nozzleCurrent: manager.nozzleInput
 
     Column
@@ -81,6 +81,7 @@ UM.Dialog
 				objectName: "Combo_Extruder"
 				model: ListModel {
 				   id: cbItems
+				   ListElement { text: "unknow"}
 				   ListElement { text: "bowden"}
 				   ListElement { text: "direct"}
 				}
@@ -113,6 +114,7 @@ UM.Dialog
 				objectName: "Combo_Nozzle"
 				model: ListModel {
 				   id: cbnItems
+				   ListElement { text: "Not specified"}
 				   ListElement { text: "0.2"}
 				   ListElement { text: "0.4"}
 				   ListElement { text: "0.6"}
@@ -149,6 +151,7 @@ UM.Dialog
 				objectName: "Combo_Material"
 				model: ListModel {
 				   id: cbmItems
+				   ListElement { text: "unknow"}
 				   ListElement { text: "pla"}
 				   ListElement { text: "abs"}
 				   ListElement { text: "petg"}

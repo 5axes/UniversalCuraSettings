@@ -16,6 +16,7 @@
 # Version 0.0.12 : Add Support intent
 # Version 0.0.13 : vase
 # Version 0.0.14 : Update xy_offset_layer_0
+# Version 0.0.15 : Update xy_offset_layer_0
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -71,8 +72,8 @@ class UniversalCuraSettings(Extension, QObject,):
         #Initialize variables
         self._continueDialog = None
         self._mode = "mechanical"
-        self._extruder = "bowden"
-        self._material = "pla"
+        self._extruder = "unknow"
+        self._material = "unknow"
         self._nozzle = "0.4"
         
         # set the preferences to store the default value
@@ -80,8 +81,8 @@ class UniversalCuraSettings(Extension, QObject,):
         self._preferences = self._application.getPreferences()
         self._preferences.addPreference("UniversalCuraSettings/dialog_path", "")
         self._preferences.addPreference("UniversalCuraSettings/mode", "standard")
-        self._preferences.addPreference("UniversalCuraSettings/extruder", "bowden")
-        self._preferences.addPreference("UniversalCuraSettings/material", "pla")
+        self._preferences.addPreference("UniversalCuraSettings/extruder", "unknow")
+        self._preferences.addPreference("UniversalCuraSettings/material", "unknow")
         self._preferences.addPreference("UniversalCuraSettings/nozzle", "0.4")
 
         
@@ -590,22 +591,25 @@ class UniversalCuraSettings(Extension, QObject,):
 
     # Material_Print_Temperature according to machine_nozzle_size & self._material
     def _defineMaterial_Print_Temperature(self,c_val) -> float:
+        self.writeToLog("Material_print_temperature type : " + str(self._material))
         material_print_temperature = 200
          # Profile Mode settings
         if self._material == "pla" :
             material_print_temperature = 205 + round(c_val*12.5,0)
 
-        elif self._mode == "tpu" :
+        elif self._material == "tpu" :
             material_print_temperature = 205 + round(c_val*12.5,0)
             
-        elif self._mode == "abs" :
+        elif self._material == "abs" :
             material_print_temperature = 225 + round(c_val*12.5,0)
             
-        elif self._mode == "petg" :
+        elif self._material == "petg" :
             material_print_temperature = 220 + round(c_val*12.5,0)
                         
         else:
-            material_print_temperature = c_val   
+            material_print_temperature = self._getValue("material_print_temperature")  
+        
+        self.writeToLog("Material_print_temperature defined : " + str(material_print_temperature))
         
         return material_print_temperature
         
@@ -660,9 +664,11 @@ class UniversalCuraSettings(Extension, QObject,):
         # Get machine_nozzle_size and modify according to the 
         machine_nozzle_size=stack.getProperty("machine_nozzle_size", "value")
         self.writeToLog("Actual machine_nozzle_size : " + str(machine_nozzle_size))
-        if float(currNozzle) != machine_nozzle_size:
-            machine_nozzle_size=float(currNozzle)
-            modified_count += self._setValue("machine_nozzle_size",machine_nozzle_size)
+        
+        if currNozzle != "Not specified" :
+            if float(currNozzle) != machine_nozzle_size:
+                machine_nozzle_size=float(currNozzle)
+                modified_count += self._setValue("machine_nozzle_size",machine_nozzle_size)
             
         #------------------------------------------------------
         # Extruder get Material (Useless for the moment )
@@ -755,7 +761,6 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("ironing_enabled",False)
         modified_count += self._setValue("limit_support_retractions",False)
 
-        modified_count += self._setValue("material_flow",100)
 
         modified_count += self._setValue("skirt_gap",8)
         modified_count += self._setValue("skirt_line_count",2)
@@ -816,7 +821,8 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("skin_line_width",_line_width)
 
         _material_flow = float(self._getValue("material_flow"))
-        modified_count += self._setValue("infill_material_flow",_material_flow)
+        if self._material != "unknow" :
+            modified_count += self._setValue("infill_material_flow",_material_flow)
         
         _speed_travel = float(self._getValue("speed_travel"))
         _speed_print = float(self._getValue("speed_print"))
@@ -1129,7 +1135,14 @@ class UniversalCuraSettings(Extension, QObject,):
         # Profile Material settings
         modified_count += self._setValue("material_print_temperature",self._defineMaterial_Print_Temperature(machine_nozzle_size))
         
-        if currMaterial == "pla" :
+        if currMaterial != "unknow" :
+            modified_count += self._setValue("material_flow",100)
+        
+        if currMaterial == "unknow" :
+            # no modification
+            self.writeToLog("Material preset : unknow")
+            
+        elif currMaterial == "pla" :
             modified_count += self._setValue("material_bed_temperature",55)
             modified_count += self._setValue("material_bed_temperature_layer_0",60)
             
@@ -1149,7 +1162,11 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("material_bed_temperature_layer_0",60)           
                        
         # Profile Extruder settings
-        if currExtruder == "bowden" :
+        if currExtruder == "unknow" :
+            # no modification
+            self.writeToLog("Extruder preset : unknow")
+            
+        elif currMaterial == "bowden" :
             modified_count += self._setValue("retraction_amount",5)
             modified_count += self._setValue("retraction_retract_speed",50)
         else:
