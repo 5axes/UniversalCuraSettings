@@ -20,6 +20,7 @@
 #                   Nozzle Size : Not specified -> no modification of the nozzle diameter
 #                   Material : unknow -> no modification of the temperature parameter
 # Version 0.0.16 :  New test and parameters
+# Version 0.0.17 :  https://github.com/5axes/UniversalCuraSettings/issues/25
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
