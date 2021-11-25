@@ -34,8 +34,10 @@ UM.Dialog
 	
 	
     // Position of the window
-    x: Screen.width*0.5 - width - 100
-    y: Screen.height*0.5 
+	// Could be use to open the Dialog always at the center of the cura windows
+	// But if active then you cannot switch the Dialog to an other monitor (jellespijker) 
+    // x: Screen.width*0.5 - width - 100
+    // y: Screen.height*0.5 
 
     property variant catalog: UM.I18nCatalog { name: "cura" }
     // property variant palette: SystemPalette {}
