@@ -21,6 +21,7 @@
 #                   Material : unknow -> no modification of the temperature parameter
 # Version 0.0.16 :  New test and parameters
 # Version 0.0.17 :  https://github.com/5axes/UniversalCuraSettings/issues/25
+# Version 0.0.18 :  Change on Support creation https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -753,7 +754,8 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("cool_min_speed",15)
         
         modified_count += self._setValue("gradual_support_infill_step_height",1.5)
-        modified_count += self._setValue("gradual_support_infill_steps",1)
+        # https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
+        modified_count += self._setValue("gradual_support_infill_steps",0)
         
         modified_count += self._setValue("infill_before_walls",False)
         modified_count += self._setValue("infill_enable_travel_optimization",True)
