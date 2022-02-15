@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------------------------------------------------------
-# Copyright (c) 2021 5@xes
+# Copyright (c) 2021-2022 5@xes
 # 
 # UniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 #
@@ -22,6 +22,7 @@
 # Version 0.0.16 :  New test and parameters
 # Version 0.0.17 :  https://github.com/5axes/UniversalCuraSettings/issues/25
 # Version 0.0.18 :  Change on Support creation https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
+#                   New Save Material Intent
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -753,9 +754,9 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("cool_min_layer_time",5)
         modified_count += self._setValue("cool_min_speed",15)
         
-        modified_count += self._setValue("gradual_support_infill_step_height",1.5)
         # https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
         modified_count += self._setValue("gradual_support_infill_steps",0)
+        # modified_count += self._setValue("gradual_support_infill_step_height",1.5)
         
         modified_count += self._setValue("infill_before_walls",False)
         modified_count += self._setValue("infill_enable_travel_optimization",True)
@@ -955,7 +956,16 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("skin_monotonic",True)
             modified_count += self._setValue("roofing_monotonic",True)
             modified_count += self._setValue("ironing_monotonic",True)
-            
+        
+        elif currMode == "save material" :
+            modified_count += self._setValue("gradual_support_infill_steps",1)
+            modified_count += self._setValue("gradual_support_infill_step_height",1.5)
+            modified_count += self._setValue("top_layers",4)
+            modified_count += self._setValue("bottom_layers",4)
+            modified_count += self._setValue("wall_line_count",2)
+            modified_count += self._setValue("infill_material_flow",80)
+            modified_count += self._setValue("infill_wall_line_count",0)
+            modified_count += self._setValue("infill_sparse_density",5)
         
         elif currMode == "small part" :
             # Profile Mode settings
