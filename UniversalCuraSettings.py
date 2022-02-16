@@ -23,6 +23,7 @@
 # Version 0.0.17 :  https://github.com/5axes/UniversalCuraSettings/issues/25
 # Version 0.0.18 :  Change on Support creation https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
 #                   New Save Material Intent
+# Version 0.0.19:  Change on Save Material
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -966,6 +967,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("infill_material_flow",80)
             modified_count += self._setValue("infill_wall_line_count",0)
             modified_count += self._setValue("infill_sparse_density",5)
+            modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
         
         elif currMode == "small part" :
             # Profile Mode settings
