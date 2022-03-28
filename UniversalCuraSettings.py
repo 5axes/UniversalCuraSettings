@@ -785,7 +785,7 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("speed_roofing",40)
         modified_count += self._setValue("speed_topbottom",60)
         modified_count += self._setValue("speed_travel",150)
-        modified_count += self._setValue("speed_wall_0",25)
+        modified_count += self._setValue("speed_wall_0",30)
         modified_count += self._setValue("speed_wall_x",40)
         
         modified_count += self._setValue("support_enable",False)
@@ -958,6 +958,12 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("roofing_monotonic",True)
             modified_count += self._setValue("ironing_monotonic",True)
         
+        elif currMode == "extra quality" :  
+            modified_count += self._setValue("wall_line_count",3)
+            modified_count += self._setValue("speed_wall_0",25)
+            modified_count += self._setValue("acceleration_wall_0",300)
+            modified_count += self._setValue("jerk_wall_0",5)
+            
         elif currMode == "save material" :
             modified_count += self._setValue("gradual_support_infill_steps",1)
             modified_count += self._setValue("gradual_support_infill_step_height",1.5)

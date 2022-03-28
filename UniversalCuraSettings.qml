@@ -192,6 +192,7 @@ UM.Dialog
 				   ListElement { text: "standard"}
 				   ListElement { text: "bed adhesion"}
 				   ListElement { text: "top surface"}
+				   ListElement { text: "extra quality"}
 				   ListElement { text: "warping"}
 				   ListElement { text: "mechanical"}
 				   ListElement { text: "small part"}
