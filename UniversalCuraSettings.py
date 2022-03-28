@@ -24,6 +24,7 @@
 # Version 0.0.18 :  Change on Support creation https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
 #                   New Save Material Intent
 # Version 0.0.19:  Change on Save Material
+# Version 0.0.20:  Add Extra Quality 
 #----------------------------------------------------------------------------------------------------------------------
 from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
 from PyQt5.QtGui import QDesktopServices
