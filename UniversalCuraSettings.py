@@ -960,6 +960,8 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("ironing_monotonic",True)
         
         elif currMode == "extra quality" :  
+            modified_count += self._setValue("top_layers",5)
+            modified_count += self._setValue("bottom_layers",5)
             modified_count += self._setValue("wall_line_count",3)
             modified_count += self._setValue("speed_wall_0",25)
             modified_count += self._setValue("acceleration_wall_0",300)
