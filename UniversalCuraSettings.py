@@ -757,30 +757,7 @@ class UniversalCuraSettings(Extension, QObject,):
         if self.Major > 4 or ( self.Major == 4 and self.Minor >= 12 ) :
             modified_count += self._setValue("retraction_combing",'no_outer_surfaces')
         else :
-            modified_count += self._setValue("retraction_combing",'infill')
- 
-        #-------------------------
-        # New parameters Cura 5.0
-        #-------------------------
-        if self.Major >= 5 :
-            # Wall Transition Length	            0.4	mm          "wall_transition_length":
-            # Wall Distribution Count	            1	            "wall_distribution_count":
-            # Wall Transitioning Threshold Angle	10	°           "wall_transition_angle":
-            # Wall Transitioning Filter Distance	100	mm          "wall_transition_filter_distance":
-            # Wall Transitioning Filter Margin	    0.1	mm          "wall_transition_filter_deviation":      
-            # Wall Ordering	                        Outside To Inside	    "inset_direction"
-            # Minimum Wall Line Width	            0.34	mm       "min_wall_line_width":  
-            # Minimum Even Wall Line Width	        0.34	mm       "min_even_wall_line_width":
-            # Split Middle Line Threshold	        70	%            "wall_split_middle_threshold":
-            # Minimum Odd Wall Line Width	        0.34	mm       "min_odd_wall_line_width":
-            # Add Middle Line Threshold	            85	%            "wall_add_middle_threshold":
-            # Minimum Feature Size	                0.1	mm           "min_feature_size": 
-            # Minimum Thin Wall Line Width	        0.34	mm       "min_bead_width":     
-            # Flow Equalization Ratio	            100	%            "speed_equalize_flow_width_factor":
-            # Alternate Wall Directions	            False	         "material_alternate_walls":
-            # Remove Raft Inside Corners	        False	         "raft_remove_inside_corners":
-            # Raft Base Wall Count	                1                "raft_base_wall_count":
-            # Scale Fan Speed To 0-1	            False	         "machine_scale_fan_speed_zero_to_one":          
+            modified_count += self._setValue("retraction_combing",'infill')          
         
         modified_count += self._setValue("speed_slowdown_layers",1)
         modified_count += self._setValue("support_enable",False)
@@ -959,7 +936,33 @@ class UniversalCuraSettings(Extension, QObject,):
         
         # modified_count += self._setValue("skin_monotonic",True)
         # modified_count += self._setValue("roofing_monotonic",True)
-        
+
+        #-------------------------
+        # New parameters Cura 5.0
+        #-------------------------
+        if self.Major >= 5 :
+            # Wall Transition Length	            0.4	mm                  "wall_transition_length":
+            modified_count += self._setValue("wall_transition_length",_line_width)
+            # Wall Distribution Count	            1	                    "wall_distribution_count":
+            # Wall Transitioning Threshold Angle	10	°                   "wall_transition_angle":
+            # Wall Transitioning Filter Distance	100	mm                  "wall_transition_filter_distance":
+            # Wall Transitioning Filter Margin	    0.1	mm                  "wall_transition_filter_deviation":      
+            # Wall Ordering	                        Outside To Inside	    "inset_direction"
+            #                                                               "inside_out": "Inside To Outside",
+            #                                                               "outside_in": "Outside To Inside"
+            # Minimum Wall Line Width	            0.34	mm              "min_wall_line_width":  
+            # Minimum Even Wall Line Width	        0.34	mm              "min_even_wall_line_width":
+            # Split Middle Line Threshold	        70	%                   "wall_split_middle_threshold":
+            # Minimum Odd Wall Line Width	        0.34	mm              "min_odd_wall_line_width":
+            # Add Middle Line Threshold	            85	%                   "wall_add_middle_threshold":
+            # Minimum Feature Size	                0.1	mm                  "min_feature_size": 
+            # Minimum Thin Wall Line Width	        0.34	mm              "min_bead_width":     
+            # Flow Equalization Ratio	            100	%                   "speed_equalize_flow_width_factor":
+            # Alternate Wall Directions	            False	                "material_alternate_walls":
+            # Remove Raft Inside Corners	        False	                "raft_remove_inside_corners":
+            # Raft Base Wall Count	                1                       "raft_base_wall_count":
+            # Scale Fan Speed To 0-1	            False	                "machine_scale_fan_speed_zero_to_one":
+            
         
         # Profile Mode settings
         if currMode == "standard" : 
