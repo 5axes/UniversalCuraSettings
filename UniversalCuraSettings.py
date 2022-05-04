@@ -950,7 +950,8 @@ class UniversalCuraSettings(Extension, QObject,):
             # Wall Ordering	                        Outside To Inside	    "inset_direction"
             #                                                               "inside_out": "Inside To Outside",
             #                                                               "outside_in": "Outside To Inside"
-            # Minimum Wall Line Width	            0.34	mm              "min_wall_line_width":  
+            # Minimum Wall Line Width	            0.34	mm              "min_wall_line_width":
+            modified_count += self._setValue("min_wall_line_width",round((currNozzle*0.85),2))            
             # Minimum Even Wall Line Width	        0.34	mm              "min_even_wall_line_width":
             # Split Middle Line Threshold	        70	%                   "wall_split_middle_threshold":
             # Minimum Odd Wall Line Width	        0.34	mm              "min_odd_wall_line_width":
@@ -958,6 +959,7 @@ class UniversalCuraSettings(Extension, QObject,):
             # Minimum Feature Size	                0.1	mm                  "min_feature_size": 
             # Minimum Thin Wall Line Width	        0.34	mm              "min_bead_width":     
             # Flow Equalization Ratio	            100	%                   "speed_equalize_flow_width_factor":
+            modified_count += self._setValue("speed_equalize_flow_width_factor",100)
             # Alternate Wall Directions	            False	                "material_alternate_walls":
             # Remove Raft Inside Corners	        False	                "raft_remove_inside_corners":
             # Raft Base Wall Count	                1                       "raft_base_wall_count":
