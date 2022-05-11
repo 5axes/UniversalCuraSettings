@@ -23,12 +23,25 @@
 # Version 0.0.17 :  https://github.com/5axes/UniversalCuraSettings/issues/25
 # Version 0.0.18 :  Change on Support creation https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
 #                   New Save Material Intent
-# Version 0.0.19:  Change on Save Material
-# Version 0.0.20:  Add Extra Quality 
+# Version 0.0.19 :  Change on Save Material
+# Version 0.0.20 :  Add Extra Quality 
+#
+# Version 0.1.0 :  Update Cura 5.0
 #----------------------------------------------------------------------------------------------------------------------
-from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
-from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+
+
+VERSION_QT5 = False
+try:
+    from PyQt6.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
+    from PyQt6.QtGui import QDesktopServices
+    from PyQt6.QtWidgets import QFileDialog, QMessageBox
+except ImportError:
+    from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal, pyqtSlot, QUrl
+    from PyQt5.QtGui import QDesktopServices
+    from PyQt5.QtWidgets import QFileDialog, QMessageBox
+    VERSION_QT5 = True
+
+
 
 from UM.Extension import Extension
 from UM.PluginRegistry import PluginRegistry
@@ -124,11 +137,24 @@ class UniversalCuraSettings(Extension, QObject,):
                 # Logger.log('d', "Info Minor --> " + str(self.Minor)) 
             except:
                 pass
-                
+ 
+        # Shortcut
+        if VERSION_QT5:
+            self._qml_folder = "qml_qt5" 
+        else:
+            self._qml_folder = "qml_qt6" 
+
+        self._qml_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self._qml_folder, "UniversalCuraSettings.qml")
+
+        
         # Thanks to Aldo Hoeben / fieldOfView for this code
-        self._dialog_options = QFileDialog.Options()
-        if sys.platform == "linux" and "KDE_FULL_SESSION" in os.environ:
-            self._dialog_options |= QFileDialog.DontUseNativeDialog
+        # QFileDialog.Options
+        if VERSION_QT5:
+            self._dialog_options = QFileDialog.Options()
+            if sys.platform == "linux" and "KDE_FULL_SESSION" in os.environ:
+                self._dialog_options |= QFileDialog.DontUseNativeDialog
+        else:
+            self._dialog_options = None
 
         self.setMenuName(catalog.i18nc("@item:inmenu", "Universal Settings"))
         self.addMenuItem(catalog.i18nc("@item:inmenu", "Set Universal Settings"), self.setDefProfile)
@@ -170,8 +196,8 @@ class UniversalCuraSettings(Extension, QObject,):
     #This method builds the dialog from the qml file and registers this class
     #as the manager variable
     def _createDialogue(self):
-        qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "UniversalCuraSettings.qml")
-        component_with_context = Application.getInstance().createQmlComponent(qml_file_path, {"manager": self})
+        # qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "UniversalCuraSettings.qml")
+        component_with_context = Application.getInstance().createQmlComponent(self._qml_path, {"manager": self})
         return component_with_context
  
     # is called when a key gets released in the mode inputField (twice for some reason)
@@ -216,13 +242,24 @@ class UniversalCuraSettings(Extension, QObject,):
     #==== Previous code for Export/Import CSV =====================================================================================================    
     def exportData(self) -> None:
         # thanks to Aldo Hoeben / fieldOfView for this part of the code
-        file_name = QFileDialog.getSaveFileName(
-            parent = None,
-            caption = catalog.i18nc("@title:window", "Save as"),
-            directory = self._preferences.getValue("UniversalCuraSettings/dialog_path"),
-            filter = "CSV files (*.csv)",
-            options = self._dialog_options
-        )[0]
+        file_name = ""
+        if VERSION_QT5:
+            file_name = QFileDialog.getSaveFileName(
+                parent = None,
+                caption = catalog.i18nc("@title:window", "Save as"),
+                directory = self._preferences.getValue("import_export_tools/dialog_path"),
+                filter = "CSV files (*.csv)",
+                options = self._dialog_options
+            )[0]
+        else:
+            dialog = QFileDialog()
+            dialog.setWindowTitle(catalog.i18nc("@title:window", "Save as"))
+            dialog.setDirectory(self._preferences.getValue("import_export_tools/dialog_path"))
+            dialog.setNameFilters(["CSV files (*.csv)"])
+            dialog.setAcceptMode(QFileDialog.AcceptMode.AcceptSave)
+            dialog.setFileMode(QFileDialog.FileMode.AnyFile)
+            if dialog.exec():
+                file_name = dialog.selectedFiles()[0]
 
         if not file_name:
             Logger.log("d", "No file to export selected")
@@ -354,13 +391,24 @@ class UniversalCuraSettings(Extension, QObject,):
                 
     def importData(self) -> None:
         # thanks to Aldo Hoeben / fieldOfView for this part of the code
-        file_name = QFileDialog.getOpenFileName(
-            parent = None,
-            caption = catalog.i18nc("@title:window", "Open File"),
-            directory = self._preferences.getValue("import_export_tools/dialog_path"),
-            filter = "CSV files (*.csv)",
-            options = self._dialog_options
-        )[0]
+        file_name = ""
+        if VERSION_QT5:
+            file_name = QFileDialog.getOpenFileName(
+                parent = None,
+                caption = catalog.i18nc("@title:window", "Open File"),
+                directory = self._preferences.getValue("import_export_tools/dialog_path"),
+                filter = "CSV files (*.csv)",
+                options = self._dialog_options
+            )[0]
+        else:
+            dialog = QFileDialog()
+            dialog.setWindowTitle(catalog.i18nc("@title:window", "Open File"))
+            dialog.setDirectory(self._preferences.getValue("import_export_tools/dialog_path"))
+            dialog.setNameFilters(["CSV files (*.csv)"])
+            dialog.setAcceptMode(QFileDialog.AcceptMode.AcceptOpen)
+            dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+            if dialog.exec():
+                file_name = dialog.selectedFiles()[0]
 
         if not file_name:
             Logger.log("d", "No file to import from selected")
@@ -528,8 +576,9 @@ class UniversalCuraSettings(Extension, QObject,):
                    
         if GetExtruder == True:
             global_stack = machine_manager.activeMachine
-            extruders = list(global_stack.extruders.values())      
-            for Extrud in extruders:
+            # extruders = list(global_stack.extruders.values()) 
+            extruder_stack = CuraApplication.getInstance().getExtruderManager().getActiveExtruderStacks()            
+            for Extrud in extruder_stack:
                 PosE = int(Extrud.getMetaDataEntry("position"))
                 PosE += 1
                 GetVal= Extrud.getProperty(key,"value")
@@ -681,8 +730,9 @@ class UniversalCuraSettings(Extension, QObject,):
         #------------------------------------------------------
         # Extruder get Material (Useless for the moment )
         #------------------------------------------------------
-        extruders = list(global_stack.extruders.values())             
-        for Extrud in extruders:
+        # extruders = list(global_stack.extruders.values())   
+        extruder_stack = CuraApplication.getInstance().getExtruderManager().getActiveExtruderStacks()        
+        for Extrud in extruder_stack:
             # Material
             M_Name = Extrud.material.getMetaData().get("material", "")
             self.writeToLog("Current extruders material : " + M_Name)
@@ -707,8 +757,7 @@ class UniversalCuraSettings(Extension, QObject,):
         if self.Major > 4 or ( self.Major == 4 and self.Minor >= 12 ) :
             modified_count += self._setValue("retraction_combing",'no_outer_surfaces')
         else :
-            modified_count += self._setValue("retraction_combing",'infill')
-        
+            modified_count += self._setValue("retraction_combing",'infill')          
         
         modified_count += self._setValue("speed_slowdown_layers",1)
         modified_count += self._setValue("support_enable",False)
@@ -887,7 +936,35 @@ class UniversalCuraSettings(Extension, QObject,):
         
         # modified_count += self._setValue("skin_monotonic",True)
         # modified_count += self._setValue("roofing_monotonic",True)
-        
+
+        #-------------------------
+        # New parameters Cura 5.0
+        #-------------------------
+        if self.Major >= 5 :
+            # Wall Transition Length	            0.4	mm                  "wall_transition_length":
+            modified_count += self._setValue("wall_transition_length",_line_width)
+            # Wall Distribution Count	            1	                    "wall_distribution_count":
+            # Wall Transitioning Threshold Angle	10	°                   "wall_transition_angle":
+            # Wall Transitioning Filter Distance	100	mm                  "wall_transition_filter_distance":
+            # Wall Transitioning Filter Margin	    0.1	mm                  "wall_transition_filter_deviation":      
+            # Wall Ordering	                        Outside To Inside	    "inset_direction"
+            #                                                               "inside_out": "Inside To Outside",
+            #                                                               "outside_in": "Outside To Inside"
+            # Minimum Wall Line Width	            0.34	mm              "min_wall_line_width":
+            modified_count += self._setValue("min_wall_line_width",round((currNozzle*0.85),2))            
+            # Minimum Even Wall Line Width	        0.34	mm              "min_even_wall_line_width":
+            # Split Middle Line Threshold	        70	%                   "wall_split_middle_threshold":
+            # Minimum Odd Wall Line Width	        0.34	mm              "min_odd_wall_line_width":
+            # Add Middle Line Threshold	            85	%                   "wall_add_middle_threshold":
+            # Minimum Feature Size	                0.1	mm                  "min_feature_size": 
+            # Minimum Thin Wall Line Width	        0.34	mm              "min_bead_width":     
+            # Flow Equalization Ratio	            100	%                   "speed_equalize_flow_width_factor":
+            modified_count += self._setValue("speed_equalize_flow_width_factor",100)
+            # Alternate Wall Directions	            False	                "material_alternate_walls":
+            # Remove Raft Inside Corners	        False	                "raft_remove_inside_corners":
+            # Raft Base Wall Count	                1                       "raft_base_wall_count":
+            # Scale Fan Speed To 0-1	            False	                "machine_scale_fan_speed_zero_to_one":
+            
         
         # Profile Mode settings
         if currMode == "standard" : 
