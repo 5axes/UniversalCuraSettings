@@ -134,8 +134,8 @@ class UniversalCuraSettings(Extension, QObject,):
             try:
                 self.Major = int(CuraVersion.split(".")[0])
                 self.Minor = int(CuraVersion.split(".")[1])
-                # Logger.log('d', "Info Major --> " + str(self.Major)) 
-                # Logger.log('d', "Info Minor --> " + str(self.Minor)) 
+                Logger.log('d', "Info Major --> " + str(self.Major)) 
+                Logger.log('d', "Info Minor --> " + str(self.Minor)) 
             except:
                 pass
  
@@ -941,7 +941,8 @@ class UniversalCuraSettings(Extension, QObject,):
         #-------------------------
         # New parameters Cura 5.0
         #-------------------------
-        if self.Major >= 5 :
+        if self.Major > 4 :
+            self.writeToLog("Paramters Cura 5.0")
             # Wall Transition Length	            0.4	mm                  "wall_transition_length":
             modified_count += self._setValue("wall_transition_length",_line_width)
             # Wall Distribution Count	            1	                    "wall_distribution_count":
