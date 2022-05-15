@@ -27,6 +27,7 @@
 # Version 0.0.20 :  Add Extra Quality 
 #
 # Version 0.1.0 :  Update Cura 5.0
+# Version 0.1.1 :  Update Cura 5.0
 #----------------------------------------------------------------------------------------------------------------------
 
 
@@ -950,6 +951,7 @@ class UniversalCuraSettings(Extension, QObject,):
             # Wall Ordering	                        Outside To Inside	    "inset_direction"
             #                                                               "inside_out": "Inside To Outside",
             #                                                               "outside_in": "Outside To Inside"
+            modified_count += self._setValue("inset_direction",'inside_out')
             # Minimum Wall Line Width	            0.34	mm              "min_wall_line_width":
             modified_count += self._setValue("min_wall_line_width",round((currNozzle*0.85),2))            
             # Minimum Even Wall Line Width	        0.34	mm              "min_even_wall_line_width":
