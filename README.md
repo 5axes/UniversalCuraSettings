@@ -1,40 +1,43 @@
 # Universal Cura Settings
  
-Universal Cura Settings. 11 types of adjustment to define recommended settings for your current Cura configuration.
+Universal Cura Settings. 12 types of adjustment to define recommended settings for your current Cura configuration.
  
-- standard
-- bed adhesion
-- warping
-- top surface
-- mechanical
-- small part
-- figurine
-- prototype
-- support
-- vase
-- save material
+* standard
+* bed adhesion
+* warping
+* top surface
+* extra quality
+* mechanical
+* small part
+* figurine
+* prototype
+* support
+* vase
+* save material
 
-Standard     (general recommended settings)
+Standard		(general recommended settings)
 
-Bed adhesion (first layer settings for a better bed adhesion)
+Bed adhesion	(first layer settings for a better bed adhesion)
 
-Warping      (increase the first layer adhesoin and avoid nozzle collision with Z hop settings )
+Warping			(increase the first layer adhesoin and avoid nozzle collision with Z hop settings )
 
-Top surface  (increase the quality on top surface by using mainly Ironing options)
+Top surface		(increase the quality on top surface by using mainly Ironing options)
 
-Small part   (use of a raft adhesion solution to get a better bed adhesion)
+Extra Quality	(increase the quality of the print skin)
 
-Mechanical   (dimensionally accurate, stiff and durable)
+Small part		(use of a raft adhesion solution to get a better bed adhesion)
 
-Figurine     (fine details and good cooling)
+Mechanical		(dimensionally accurate, stiff and durable)
 
-Prototype    (fast and rought result)
+Figurine		(fine details and good cooling)
 
-Support      (easy support remove)
+Prototype		(fast and rought result)
 
-Vase         (spiralize outer contour)
+Support			(easy support remove)
 
-Save material (use the minimum material)
+Vase			(spiralize outer contour)
+
+Save material	(use the minimum material)
 
 ![menuSettings](./images/settings.jpg)
 
@@ -54,6 +57,8 @@ Select the type of settings you want to apply to your current Cura configuration
   - [warping](https://github.com/5axes/UniversalCuraSettings/discussions/13)
 
   - [top surface](https://github.com/5axes/UniversalCuraSettings/discussions/17)
+  
+  - [extra quality](https://github.com/5axes/UniversalCuraSettings/discussions/31)
         
   - [mechanical](https://github.com/5axes/UniversalCuraSettings/discussions/8)
  
@@ -68,6 +73,8 @@ Select the type of settings you want to apply to your current Cura configuration
   - [vase](https://github.com/5axes/UniversalCuraSettings/discussions/15)
  
   - [save material](https://github.com/5axes/UniversalCuraSettings/discussions/27) 
+  
+  
 
 Press the Button **APPLY** to modify your current configuration according to your choice. A message wil be display at the end of the modification with the number of modified parameters.
 
