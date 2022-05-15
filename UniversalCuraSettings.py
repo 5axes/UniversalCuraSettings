@@ -28,6 +28,7 @@
 #
 # Version 0.1.0 :  Update Cura 5.0
 # Version 0.1.1 :  Update Cura 5.0
+# Version 0.1.2 :  Change comment in the log file
 #----------------------------------------------------------------------------------------------------------------------
 
 
@@ -129,14 +130,13 @@ class UniversalCuraSettings(Extension, QObject,):
         if "master" in CuraVersion:
             # Master is always a developement version.
             self.Major=4
-            self.Minor=13
-            
+            self.Minor=13  
         else:
             try:
                 self.Major = int(CuraVersion.split(".")[0])
                 self.Minor = int(CuraVersion.split(".")[1])
-                Logger.log('d', "Info Major --> " + str(self.Major)) 
-                Logger.log('d', "Info Minor --> " + str(self.Minor)) 
+                # Logger.log('d', "Info Major --> " + str(self.Major)) 
+                # Logger.log('d', "Info Minor --> " + str(self.Minor)) 
             except:
                 pass
  
@@ -207,7 +207,7 @@ class UniversalCuraSettings(Extension, QObject,):
     def nozzleEntered(self, text) -> None:
         self._nozzle = text
 
-        self.writeToLog("Set UniversalCuraSettings/Nozzle set to : " + text)
+        # self.writeToLog("Set UniversalCuraSettings/Nozzle set to : " + text)
         self._preferences.setValue("UniversalCuraSettings/nozzle", self._nozzle)
         
     # is called when a key gets released in the mode inputField (twice for some reason)
@@ -215,7 +215,7 @@ class UniversalCuraSettings(Extension, QObject,):
     def modeEntered(self, text) -> None:
         self._mode = text
 
-        self.writeToLog("Set UniversalCuraSettings/Mode set to : " + text)
+        # self.writeToLog("Set UniversalCuraSettings/Mode set to : " + text)
         self._preferences.setValue("UniversalCuraSettings/mode", self._mode)
 
     # is called when a key gets released in the mode inputField (twice for some reason)
@@ -223,7 +223,7 @@ class UniversalCuraSettings(Extension, QObject,):
     def materialEntered(self, text) -> None:
         self._material = text
 
-        self.writeToLog("Set UniversalCuraSettings/Material set to : " + text)
+        # self.writeToLog("Set UniversalCuraSettings/Material set to : " + text)
         self._preferences.setValue("UniversalCuraSettings/material", self._material)
 
     # is called when a key gets released in the mode inputField (twice for some reason)
@@ -231,7 +231,7 @@ class UniversalCuraSettings(Extension, QObject,):
     def extruderEntered(self, text) -> None:
         self._extruder = text
 
-        self.writeToLog("Set UniversalCuraSettings/Extruder set to : " + text)
+        # self.writeToLog("Set UniversalCuraSettings/Extruder set to : " + text)
         self._preferences.setValue("UniversalCuraSettings/extruder", self._extruder) 
 
     # is called when a key gets released in the mode inputField (twice for some reason)
@@ -597,7 +597,7 @@ class UniversalCuraSettings(Extension, QObject,):
         else:
             if GetVal != c_val : 
                 stack.setProperty(key,"value",c_val)
-                text_message = "setValue Global :"
+                text_message = "setValue   Global   : "
                 text_message += key
                 text_message += " : "                
                 self.writeToLog(text_message + str(c_val)) 
@@ -655,7 +655,9 @@ class UniversalCuraSettings(Extension, QObject,):
 
     # Material_Print_Temperature according to machine_nozzle_size & self._material
     def _defineMaterial_Print_Temperature(self,c_val) -> float:
-        self.writeToLog("Material_print_temperature type : " + str(self._material))
+        self.writeToLog("------------------------------------------")
+        self.writeToLog("Material_print_temperature type    : " + str(self._material) + " |")
+        self.writeToLog("------------------------------------------")
         material_print_temperature = 200
          # Profile Mode settings
         if self._material == "pla" :
@@ -702,11 +704,11 @@ class UniversalCuraSettings(Extension, QObject,):
     # "dual"support_top_distance
     # "meshfix"		    
     def setProfile(self) -> None:
-        self.writeToLog("Cura current release : " + str(self.Major) + "." + str(self.Minor) )
-        self.writeToLog("With Profile Mode : " + self._mode)
-        self.writeToLog("With Extruder Mode : " + self._extruder)
-        self.writeToLog("With Material : " + self._material)
-        self.writeToLog("With Nozzle Size : " + self._nozzle)
+        self.writeToLog("Cura current release       : " + str(self.Major) + "." + str(self.Minor) )
+        self.writeToLog("With Profile Mode          : " + self._mode)
+        self.writeToLog("With Extruder Mode         : " + self._extruder)
+        self.writeToLog("With Material              : " + self._material)
+        self.writeToLog("With Nozzle Size           : " + self._nozzle)
         
         # Settyings from the interface
         currMode = self._mode
@@ -750,7 +752,9 @@ class UniversalCuraSettings(Extension, QObject,):
         # Global stack
         #------------------
         # Reinit
-        self.writeToLog("Global Parameters")
+        self.writeToLog("--------------------------------------------------")
+        self.writeToLog("| Universal Cura settings Init Global Parameters |")
+        self.writeToLog("--------------------------------------------------")
         modified_count += self._setValue("magic_spiralize",False)
 
         # layer_height 
@@ -955,7 +959,9 @@ class UniversalCuraSettings(Extension, QObject,):
         # New parameters Cura 5.0
         #-------------------------
         if self.Major > 4 :
-            self.writeToLog("Parameters Cura 5.0")
+            self.writeToLog("-----------------------------")
+            self.writeToLog("|    Parameters Cura 5.0    |")
+            self.writeToLog("-----------------------------")
             # Wall Transition Length	            0.4	mm                  "wall_transition_length":
             modified_count += self._setValue("wall_transition_length",_line_width)
             # Wall Distribution Count	            1	                    "wall_distribution_count":
@@ -982,8 +988,9 @@ class UniversalCuraSettings(Extension, QObject,):
             # Raft Base Wall Count	                1                       "raft_base_wall_count":
             # Scale Fan Speed To 0-1	            False	                "machine_scale_fan_speed_zero_to_one":
             
-        
-        self.writeToLog("Parameters Profile Mode : " + currMode)
+        self.writeToLog("----------------------------------------")
+        self.writeToLog("| Parameters Profile Mode : " + currMode + " |")
+        self.writeToLog("----------------------------------------")
         # Profile Mode settings
         if currMode == "standard" : 
             modified_count += self._setValue("meshfix_union_all_remove_holes",False)
@@ -1266,13 +1273,18 @@ class UniversalCuraSettings(Extension, QObject,):
 
         # Profile Material settings
         modified_count += self._setValue("material_print_temperature",self._defineMaterial_Print_Temperature(machine_nozzle_size))
-        
+            
         if currMaterial != "unknow" :
+            self.writeToLog("------------------------------")
+            self.writeToLog("|  Material preset : " + currMaterial + "  |")
+            self.writeToLog("------------------------------")        
             modified_count += self._setValue("material_flow",100)
         
         if currMaterial == "unknow" :
             # no modification
-            self.writeToLog("Material preset : unknow")
+            self.writeToLog("------------------------------")
+            self.writeToLog("|  Material preset : unknow  |")
+            self.writeToLog("------------------------------")
             
         elif currMaterial == "pla" :
             modified_count += self._setValue("material_bed_temperature",55)
@@ -1296,12 +1308,16 @@ class UniversalCuraSettings(Extension, QObject,):
         # Profile Extruder settings
         if currExtruder == "unknow" :
             # no modification
-            self.writeToLog("Extruder preset : unknow")
+            self.writeToLog("------------------------------")
+            self.writeToLog("|  Extruder preset : unknow  |")
+            self.writeToLog("------------------------------")
         elif currExtruder == "direct" :
             modified_count += self._setValue("retraction_amount",0.8)
             modified_count += self._setValue("retraction_speed",30)
         else:
-            self.writeToLog("Extruder preset : " + currExtruder)
+            self.writeToLog("------------------------------")
+            self.writeToLog("| Extruder preset : " + currExtruder + " |")
+            self.writeToLog("------------------------------")
             modified_count += self._setValue("retraction_amount",5)
             modified_count += self._setValue("retraction_speed",50)
  
