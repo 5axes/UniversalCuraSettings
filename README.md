@@ -1,6 +1,6 @@
 # Universal Cura Settings
  
-Universal Cura Settings. 9 types of adjustment to define recommended settings for your current Cura configuration.
+Universal Cura Settings. 11 types of adjustment to define recommended settings for your current Cura configuration.
  
 - standard
 - bed adhesion
@@ -12,6 +12,7 @@ Universal Cura Settings. 9 types of adjustment to define recommended settings fo
 - prototype
 - support
 - vase
+- save material
 
 Standard     (general recommended settings)
 
@@ -29,10 +30,11 @@ Figurine     (fine details and good cooling)
 
 Prototype    (fast and rought result)
 
-Support      (Easy support remove)
+Support      (easy support remove)
 
 Vase         (spiralize outer contour)
 
+Save material (use the minimum material)
 
 ![menuSettings](./images/settings.jpg)
 
@@ -64,7 +66,8 @@ Select the type of settings you want to apply to your current Cura configuration
   - [support](https://github.com/5axes/UniversalCuraSettings/discussions/22)
         
   - [vase](https://github.com/5axes/UniversalCuraSettings/discussions/15)
-        
+ 
+  - [save material](https://github.com/5axes/UniversalCuraSettings/discussions/27) 
 
 Press the Button **APPLY** to modify your current configuration according to your choice. A message wil be display at the end of the modification with the number of modified parameters.
 
