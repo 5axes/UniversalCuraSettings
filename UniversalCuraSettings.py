@@ -125,10 +125,11 @@ class UniversalCuraSettings(Extension, QObject,):
         # Logger.log('d', "Info Version CuraVersion --> " + str(Version(CuraVersion)))
         Logger.log('d', "Info CuraVersion --> " + str(CuraVersion))        
         
-        if "master" in CuraVersion or "beta" in CuraVersion or "BETA" in CuraVersion:
+        #if "master" in CuraVersion or "beta" in CuraVersion or "BETA" in CuraVersion:
+        if "master" in CuraVersion:
             # Master is always a developement version.
             self.Major=4
-            self.Minor=12
+            self.Minor=13
             
         else:
             try:
@@ -564,7 +565,7 @@ class UniversalCuraSettings(Extension, QObject,):
         return GelValStr
         
     def _setValue(self,key,c_val) -> int:
-        self.writeToLog("setValue key : " + key)
+        # self.writeToLog("setValue key : " + key)
         machine_manager = CuraApplication.getInstance().getMachineManager()  
         stack = CuraApplication.getInstance().getGlobalContainerStack()
         
@@ -586,7 +587,9 @@ class UniversalCuraSettings(Extension, QObject,):
                 if GetVal != c_val :
                     Extrud.setProperty(key,"value",c_val)
                     text_message = "setValue Extruder " + str(PosE)
-                    text_message = text_message + " : "
+                    text_message += " : "
+                    text_message += key
+                    text_message += " : "
                     self.writeToLog(text_message + str(c_val))
                     modified_c = 1
                 else:
@@ -594,7 +597,10 @@ class UniversalCuraSettings(Extension, QObject,):
         else:
             if GetVal != c_val : 
                 stack.setProperty(key,"value",c_val)
-                self.writeToLog("setValue Global : " + str(c_val)) 
+                text_message = "setValue Global :"
+                text_message += key
+                text_message += " : "                
+                self.writeToLog(text_message + str(c_val)) 
                 modified_c = 1            
             else:
                 modified_c = 0
@@ -696,10 +702,12 @@ class UniversalCuraSettings(Extension, QObject,):
     # "dual"support_top_distance
     # "meshfix"		    
     def setProfile(self) -> None:
+        self.writeToLog("Cura current release : " + str(self.Major) + "." + str(self.Minor) )
         self.writeToLog("With Profile Mode : " + self._mode)
         self.writeToLog("With Extruder Mode : " + self._extruder)
         self.writeToLog("With Material : " + self._material)
         self.writeToLog("With Nozzle Size : " + self._nozzle)
+        
         # Settyings from the interface
         currMode = self._mode
         currExtruder = self._extruder
@@ -742,6 +750,7 @@ class UniversalCuraSettings(Extension, QObject,):
         # Global stack
         #------------------
         # Reinit
+        self.writeToLog("Global Parameters")
         modified_count += self._setValue("magic_spiralize",False)
 
         # layer_height 
@@ -852,13 +861,16 @@ class UniversalCuraSettings(Extension, QObject,):
         modified_count += self._setValue("travel_avoid_distance",1)
         modified_count += self._setValue("travel_avoid_other_parts",True)
         modified_count += self._setValue("travel_avoid_supports",True)
-        modified_count += self._setValue("travel_compensate_overlapping_walls_0_enabled",False)
+        
         modified_count += self._setValue("travel_retract_before_outer_wall",True)
         
         modified_count += self._setValue("wall_line_count",3)
-        modified_count += self._setValue("wall_min_flow",15)
+        
         # modified_count += self._setValue("wall_transition_angle",25)
-        modified_count += self._setValue("wall_min_flow_retract",True)
+        if self.Major < 5 :
+            modified_count += self._setValue("wall_min_flow",15)
+            modified_count += self._setValue("wall_min_flow_retract",True)
+            modified_count += self._setValue("travel_compensate_overlapping_walls_0_enabled",False)
         
         modified_count += self._setValue("z_seam_relative",True)
         modified_count += self._setValue("z_seam_type",'sharpest_corner')
@@ -933,7 +945,8 @@ class UniversalCuraSettings(Extension, QObject,):
         
         modified_count += self._setValue("optimize_wall_printing_order",True)
         modified_count += self._setValue("adaptive_layer_height_enabled",False)
-        modified_count += self._setValue("filter_out_tiny_gaps",True)
+        if self.Major < 5 :
+            modified_count += self._setValue("filter_out_tiny_gaps",True)
         
         # modified_count += self._setValue("skin_monotonic",True)
         # modified_count += self._setValue("roofing_monotonic",True)
@@ -942,7 +955,7 @@ class UniversalCuraSettings(Extension, QObject,):
         # New parameters Cura 5.0
         #-------------------------
         if self.Major > 4 :
-            self.writeToLog("Paramters Cura 5.0")
+            self.writeToLog("Parameters Cura 5.0")
             # Wall Transition Length	            0.4	mm                  "wall_transition_length":
             modified_count += self._setValue("wall_transition_length",_line_width)
             # Wall Distribution Count	            1	                    "wall_distribution_count":
@@ -954,7 +967,8 @@ class UniversalCuraSettings(Extension, QObject,):
             #                                                               "outside_in": "Outside To Inside"
             modified_count += self._setValue("inset_direction",'inside_out')
             # Minimum Wall Line Width	            0.34	mm              "min_wall_line_width":
-            modified_count += self._setValue("min_wall_line_width",round((currNozzle*0.85),2))            
+            val_calc=float(currNozzle) * 0.85
+            modified_count += self._setValue("min_wall_line_width",round(val_calc,2))            
             # Minimum Even Wall Line Width	        0.34	mm              "min_even_wall_line_width":
             # Split Middle Line Threshold	        70	%                   "wall_split_middle_threshold":
             # Minimum Odd Wall Line Width	        0.34	mm              "min_odd_wall_line_width":
@@ -969,10 +983,12 @@ class UniversalCuraSettings(Extension, QObject,):
             # Scale Fan Speed To 0-1	            False	                "machine_scale_fan_speed_zero_to_one":
             
         
+        self.writeToLog("Parameters Profile Mode : " + currMode)
         # Profile Mode settings
         if currMode == "standard" : 
             modified_count += self._setValue("meshfix_union_all_remove_holes",False)
-            modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
+            if self.Major < 5 :
+                modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
             
             modified_count += self._setValue("retraction_enable",True)
             modified_count += self._setValue("roofing_layer_count",1)
@@ -1056,7 +1072,8 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("infill_material_flow",80)
             modified_count += self._setValue("infill_wall_line_count",0)
             modified_count += self._setValue("infill_sparse_density",5)
-            modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
+            if self.Major < 5 :
+                modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
         
         elif currMode == "small part" :
             # Profile Mode settings
@@ -1118,8 +1135,9 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_tree_branch_diameter_angle",5)
             modified_count += self._setValue("support_tree_branch_distance",0.5)
             modified_count += self._setValue("support_tree_collision_resolution",0.15)            
+            if self.Major < 5 :
+                modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
             
-            modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
             modified_count += self._setValue("skin_outline_count",2)
             
             modified_count += self._setValue("brim_line_count",2)
@@ -1143,7 +1161,9 @@ class UniversalCuraSettings(Extension, QObject,):
             
             # Fast and rought
             modified_count += self._setValue("wall_line_count",2)
-            modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
+            if self.Major < 5 :
+                modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
+            
             modified_count += self._setValue("max_skin_angle_for_expansion",64)
             
             # "Top Surface Skin Layers"
