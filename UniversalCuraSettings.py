@@ -1133,8 +1133,9 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("infill_sparse_density",8)
             
             modified_count += self._setValue("support_enable",True)
-            modified_count += self._setValue("support_structure",'tree')
-            
+            if self.Major == 4 and self.minor < 8 :
+                modified_count += self._setValue("support_tree_enable",True)
+            modified_count += self._setValue("support_structure",'tree')   
             modified_count += self._setValue("support_tree_angle",45)
             
             
@@ -1149,7 +1150,7 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("brim_line_count",2)
             modified_count += self._setValue("wall_line_count",3)
-            modified_count += self._setValue("support_tree_enable",True)
+            
             # Print Thin Walls
             modified_count += self._setValue("fill_outline_gaps",True)
             
