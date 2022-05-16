@@ -610,6 +610,11 @@ class UniversalCuraSettings(Extension, QObject,):
     # Layer_Height according to machine_nozzle_size & self._mode
     # if not defined = 0 then the value will be not set by the plugin
     def _defineLayer_Height(self,c_val) -> float:
+ 
+        self.writeToLog("------------------------------------------")
+        self.writeToLog("| defineLayer_Height type    : " + str(self._mode) + " |")
+        self.writeToLog("------------------------------------------")
+        
         layer_height = 0.5 * c_val
          # Profile Mode settings
         if self._mode == "standard" :
@@ -630,10 +635,16 @@ class UniversalCuraSettings(Extension, QObject,):
         else:
             layer_height = 0  
         
+        self.writeToLog("layer_height defined : " + str(layer_height))
         return layer_height
 
     # Line_Width according to machine_nozzle_size & self._mode
     def _defineLine_Width(self,c_val) -> float:
+    
+        self.writeToLog("------------------------------------------")
+        self.writeToLog("| defineLine_Width type    : " + str(self._mode) + " |")
+        self.writeToLog("------------------------------------------")
+        
         line_width = c_val
          # Profile Mode settings
         if self._mode == "standard" :
@@ -651,13 +662,15 @@ class UniversalCuraSettings(Extension, QObject,):
         else:
             line_width = c_val   
         
+        self.writeToLog("Line_Width defined : " + str(line_width))
+        
         return line_width
 
     # Material_Print_Temperature according to machine_nozzle_size & self._material
     def _defineMaterial_Print_Temperature(self,c_val) -> float:
-        self.writeToLog("------------------------------------------")
-        self.writeToLog("Material_print_temperature type    : " + str(self._material) + " |")
-        self.writeToLog("------------------------------------------")
+        self.writeToLog("--------------------------------------------")
+        self.writeToLog("| Material_print_temperature type    : " + str(self._material) + " |")
+        self.writeToLog("--------------------------------------------")
         material_print_temperature = 200
          # Profile Mode settings
         if self._material == "pla" :
@@ -1268,9 +1281,7 @@ class UniversalCuraSettings(Extension, QObject,):
 
         _meshfix_maximum_resolution = float(self._getValue("meshfix_maximum_resolution"))
         _meshfix_maximum_travel_resolution = min(_meshfix_maximum_resolution * _speed_travel / _speed_print, 2 * _line_width)
-        # modified_count += self._setValue("meshfix_maximum_travel_resolution",meshfix_maximum_travel_resolution)
-        
-        # Profile Extruder settings   
+        # modified_count += self._setValue("meshfix_maximum_travel_resolution",meshfix_maximum_travel_resolution) 
 
         # Profile Material settings
         modified_count += self._setValue("material_print_temperature",self._defineMaterial_Print_Temperature(machine_nozzle_size))
@@ -1309,16 +1320,16 @@ class UniversalCuraSettings(Extension, QObject,):
         # Profile Extruder settings
         if currExtruder == "unknow" :
             # no modification
-            self.writeToLog("------------------------------")
+            self.writeToLog("----------------------------")
             self.writeToLog("|  Extruder preset : unknow  |")
-            self.writeToLog("------------------------------")
+            self.writeToLog("----------------------------")
         elif currExtruder == "direct" :
             modified_count += self._setValue("retraction_amount",0.8)
             modified_count += self._setValue("retraction_speed",30)
         else:
-            self.writeToLog("------------------------------")
+            self.writeToLog("----------------------------")
             self.writeToLog("| Extruder preset : " + currExtruder + " |")
-            self.writeToLog("------------------------------")
+            self.writeToLog("----------------------------")
             modified_count += self._setValue("retraction_amount",5)
             modified_count += self._setValue("retraction_speed",50)
  
