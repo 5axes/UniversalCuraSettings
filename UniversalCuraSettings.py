@@ -1121,6 +1121,10 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("infill_material_flow",80)
             modified_count += self._setValue("infill_wall_line_count",0)
             modified_count += self._setValue("infill_sparse_density",5)
+            
+            modified_count += self._setValue("infill_pattern",'lines')
+            
+            
             if self.Major < 5 :
                 modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
         
