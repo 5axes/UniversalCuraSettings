@@ -98,6 +98,7 @@ class UniversalCuraSettings(Extension, QObject,):
         self._extruder = "unknow"
         self._material = "unknow"
         self._nozzle = "0.4"
+        self.StandardFixed=0
         
         # set the preferences to store the default value
         self._application = Application.getInstance()
@@ -765,241 +766,261 @@ class UniversalCuraSettings(Extension, QObject,):
         # Global stack
         #------------------
         # Reinit
-        self.writeToLog("--------------------------------------------------")
-        self.writeToLog("| Universal Cura settings Init Global Parameters |")
-        self.writeToLog("--------------------------------------------------")
-        modified_count += self._setValue("magic_spiralize",False)
+        if self.StandardFixed==0:
+            self.writeToLog("--------------------------------------------------")
+            self.writeToLog("| Universal Cura settings Init Global Parameters |")
+            self.writeToLog("--------------------------------------------------")
+            modified_count += self._setValue("magic_spiralize",False)
 
-        # layer_height 
-        cval=self._defineLayer_Height(machine_nozzle_size)
-        if cval>0 :
-            modified_count += self._setValue("layer_height",cval)
-            modified_count += self._setValue("layer_height_0",round((cval+0.04),1))
-        
-        # General settings
-        modified_count += self._setValue("adaptive_layer_height_threshold",250)
-        modified_count += self._setValue("adaptive_layer_height_variation",0.03)
-        modified_count += self._setValue("adhesion_type",'skirt')
-        
-        if self.Major > 4 or ( self.Major == 4 and self.Minor >= 12 ) :
-            modified_count += self._setValue("retraction_combing",'no_outer_surfaces')
-        else :
-            modified_count += self._setValue("retraction_combing",'infill')          
-        
-        modified_count += self._setValue("speed_slowdown_layers",1)
-        modified_count += self._setValue("support_enable",False)
-        modified_count += self._setValue("support_type",'buildplate')
-        modified_count += self._setValue("travel_retract_before_outer_wall",True)
+            # layer_height 
+            cval=self._defineLayer_Height(machine_nozzle_size)
+            if cval>0 :
+                modified_count += self._setValue("layer_height",cval)
+                modified_count += self._setValue("layer_height_0",round((cval+0.04),1))
+            
+            # General settings
+            modified_count += self._setValue("adaptive_layer_height_threshold",250)
+            modified_count += self._setValue("adaptive_layer_height_variation",0.03)
+            modified_count += self._setValue("adhesion_type",'skirt')
+            
+            if self.Major > 4 or ( self.Major == 4 and self.Minor >= 12 ) :
+                modified_count += self._setValue("retraction_combing",'no_outer_surfaces')
+            else :
+                modified_count += self._setValue("retraction_combing",'infill')          
+            
+            modified_count += self._setValue("speed_slowdown_layers",1)
+            modified_count += self._setValue("support_enable",False)
+            modified_count += self._setValue("support_type",'buildplate')
+            modified_count += self._setValue("travel_retract_before_outer_wall",True)
 
-        modified_count += self._setValue("skin_no_small_gaps_heuristic",False)
-        
-        modified_count += self._setValue("acceleration_enabled",True)
-        modified_count += self._setValue("acceleration_infill",1000)
-        modified_count += self._setValue("acceleration_print_layer_0",500)
-        modified_count += self._setValue("acceleration_roofing",500)
-        modified_count += self._setValue("acceleration_skirt_brim",500)
-        modified_count += self._setValue("acceleration_support_infill",1000)
-        modified_count += self._setValue("acceleration_topbottom",500)
-        modified_count += self._setValue("acceleration_travel",1000)
-        modified_count += self._setValue("acceleration_wall_0",500)
-        modified_count += self._setValue("acceleration_wall_x",800)
+            modified_count += self._setValue("skin_no_small_gaps_heuristic",False)
+            
+            modified_count += self._setValue("acceleration_enabled",True)
+            modified_count += self._setValue("acceleration_infill",1000)
+            modified_count += self._setValue("acceleration_print_layer_0",500)
+            modified_count += self._setValue("acceleration_roofing",500)
+            modified_count += self._setValue("acceleration_skirt_brim",500)
+            modified_count += self._setValue("acceleration_support_infill",1000)
+            modified_count += self._setValue("acceleration_topbottom",500)
+            modified_count += self._setValue("acceleration_travel",1000)
+            modified_count += self._setValue("acceleration_wall_0",500)
+            modified_count += self._setValue("acceleration_wall_x",800)
 
-        modified_count += self._setValue("jerk_enabled",True)
-        modified_count += self._setValue("jerk_infill",15)
-        modified_count += self._setValue("jerk_layer_0",8)
-        modified_count += self._setValue("jerk_print_layer_0",8)
-        modified_count += self._setValue("jerk_support",15)
-        modified_count += self._setValue("jerk_roofing",8)
-        modified_count += self._setValue("jerk_skirt_brim",8)
-        modified_count += self._setValue("jerk_support_infill",15)
-        modified_count += self._setValue("jerk_topbottom",8)
-        modified_count += self._setValue("jerk_travel",20)
-        modified_count += self._setValue("jerk_wall_0",8)
-        modified_count += self._setValue("jerk_wall_x",10)
-        
-        modified_count += self._setValue("top_layers",5)
-        modified_count += self._setValue("bottom_layers",5)
-        # "Skin Removal Width"
-        modified_count += self._setValue("bottom_skin_preshrink",1.2)
-        modified_count += self._setValue("brim_line_count",10)
-        
-        modified_count += self._setValue("conical_overhang_angle",70)
-        
-        modified_count += self._setValue("cool_fan_enabled",True)
-        modified_count += self._setValue("cool_fan_full_at_height",1)
-        modified_count += self._setValue("cool_fan_full_layer",5)
-        modified_count += self._setValue("cool_fan_speed",100)
-        modified_count += self._setValue("cool_min_layer_time",5)
-        modified_count += self._setValue("cool_min_speed",15)
-        
-        # https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
-        modified_count += self._setValue("gradual_support_infill_steps",0)
-        # modified_count += self._setValue("gradual_support_infill_step_height",1.5)
-        
-        modified_count += self._setValue("infill_before_walls",False)
-        modified_count += self._setValue("infill_enable_travel_optimization",True)
-        modified_count += self._setValue("infill_line_width",0.5)
-        
-        modified_count += self._setValue("infill_pattern",'zigzag')
-        
-        modified_count += self._setValue("infill_wall_line_count",1)
+            modified_count += self._setValue("jerk_enabled",True)
+            modified_count += self._setValue("jerk_infill",15)
+            modified_count += self._setValue("jerk_layer_0",8)
+            modified_count += self._setValue("jerk_print_layer_0",8)
+            modified_count += self._setValue("jerk_support",15)
+            modified_count += self._setValue("jerk_roofing",8)
+            modified_count += self._setValue("jerk_skirt_brim",8)
+            modified_count += self._setValue("jerk_support_infill",15)
+            modified_count += self._setValue("jerk_topbottom",8)
+            modified_count += self._setValue("jerk_travel",20)
+            modified_count += self._setValue("jerk_wall_0",8)
+            modified_count += self._setValue("jerk_wall_x",10)
+            
+            modified_count += self._setValue("top_layers",5)
+            modified_count += self._setValue("bottom_layers",5)
+            # "Skin Removal Width"
+            modified_count += self._setValue("bottom_skin_preshrink",1.2)
+            modified_count += self._setValue("brim_line_count",10)
+            
+            modified_count += self._setValue("conical_overhang_angle",70)
+            
+            modified_count += self._setValue("cool_fan_enabled",True)
+            modified_count += self._setValue("cool_fan_full_at_height",1)
+            modified_count += self._setValue("cool_fan_full_layer",5)
+            modified_count += self._setValue("cool_fan_speed",100)
+            modified_count += self._setValue("cool_min_layer_time",5)
+            modified_count += self._setValue("cool_min_speed",15)
+            
+            # https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
+            modified_count += self._setValue("gradual_support_infill_steps",0)
+            # modified_count += self._setValue("gradual_support_infill_step_height",1.5)
+            
+            modified_count += self._setValue("infill_before_walls",False)
+            modified_count += self._setValue("infill_enable_travel_optimization",True)
+            modified_count += self._setValue("infill_line_width",0.5)
+            
+            modified_count += self._setValue("infill_pattern",'zigzag')
+            
+            modified_count += self._setValue("infill_wall_line_count",1)
 
-        modified_count += self._setValue("ironing_enabled",False)
-        modified_count += self._setValue("limit_support_retractions",False)
+            modified_count += self._setValue("ironing_enabled",False)
+            modified_count += self._setValue("limit_support_retractions",False)
 
 
-        modified_count += self._setValue("skirt_gap",8)
-        modified_count += self._setValue("skirt_line_count",2)
-        
-        modified_count += self._setValue("small_feature_speed_factor",100)
-        modified_count += self._setValue("small_feature_speed_factor_0",50)
-        modified_count += self._setValue("small_hole_max_size",3.25)
-        modified_count += self._setValue("small_feature_max_length",5)
-        
-        modified_count += self._setValue("speed_print",40)
-        modified_count += self._setValue("speed_infill",60)
-        modified_count += self._setValue("speed_layer_0",20)
-        modified_count += self._setValue("speed_roofing",40)
-        modified_count += self._setValue("speed_topbottom",60)
-        modified_count += self._setValue("speed_travel",150)
-        modified_count += self._setValue("speed_wall_0",30)
-        modified_count += self._setValue("speed_wall_x",40)
-        
-        modified_count += self._setValue("support_enable",False)
-        modified_count += self._setValue("support_structure",'normal')
-        modified_count += self._setValue("support_type",'buildplate')
-        modified_count += self._setValue("support_angle",67)
-        modified_count += self._setValue("support_bottom_density",97)
+            modified_count += self._setValue("skirt_gap",8)
+            modified_count += self._setValue("skirt_line_count",2)
+            
+            modified_count += self._setValue("small_feature_speed_factor",100)
+            modified_count += self._setValue("small_feature_speed_factor_0",50)
+            modified_count += self._setValue("small_hole_max_size",3.25)
+            modified_count += self._setValue("small_feature_max_length",5)
+            
+            modified_count += self._setValue("speed_print",40)
+            modified_count += self._setValue("speed_infill",60)
+            modified_count += self._setValue("speed_layer_0",20)
+            modified_count += self._setValue("speed_roofing",40)
+            modified_count += self._setValue("speed_topbottom",60)
+            modified_count += self._setValue("speed_travel",150)
+            modified_count += self._setValue("speed_wall_0",30)
+            modified_count += self._setValue("speed_wall_x",40)
+            
+            modified_count += self._setValue("support_enable",False)
+            modified_count += self._setValue("support_structure",'normal')
+            modified_count += self._setValue("support_type",'buildplate')
+            modified_count += self._setValue("support_angle",67)
+            modified_count += self._setValue("support_bottom_density",97)
 
-        modified_count += self._setValue("support_roof_enable",True)
-        modified_count += self._setValue("support_xy_overrides_z",'xy_overrides_z')
-              
-        # modified_count += self._setValue("top_layers",7)
-        modified_count += self._setValue("travel_avoid_distance",1)
-        modified_count += self._setValue("travel_avoid_other_parts",True)
-        modified_count += self._setValue("travel_avoid_supports",True)
-        
-        modified_count += self._setValue("travel_retract_before_outer_wall",True)
-        
-        modified_count += self._setValue("wall_line_count",3)
-        
-        # modified_count += self._setValue("wall_transition_angle",25)
-        if self.Major < 5 :
-            modified_count += self._setValue("wall_min_flow",15)
-            modified_count += self._setValue("wall_min_flow_retract",True)
-            modified_count += self._setValue("travel_compensate_overlapping_walls_0_enabled",False)
-        
-        modified_count += self._setValue("z_seam_relative",True)
-        modified_count += self._setValue("z_seam_type",'sharpest_corner')
-        # "Hide Seam"
-        modified_count += self._setValue("z_seam_corner",'z_seam_corner_inner')
-        
-        modified_count += self._setValue("bridge_settings_enabled",True)
-        # modified_count += self._setValue("xy_offset_layer_0",-0.0625*machine_nozzle_size)
-        modified_count += self._setValue("xy_offset_layer_0",-0.125*machine_nozzle_size)
-        
-        # Settings according to value calculation
+            modified_count += self._setValue("support_roof_enable",True)
+            modified_count += self._setValue("support_xy_overrides_z",'xy_overrides_z')
+                  
+            # modified_count += self._setValue("top_layers",7)
+            modified_count += self._setValue("travel_avoid_distance",1)
+            modified_count += self._setValue("travel_avoid_other_parts",True)
+            modified_count += self._setValue("travel_avoid_supports",True)
+            
+            modified_count += self._setValue("travel_retract_before_outer_wall",True)
+            
+            modified_count += self._setValue("wall_line_count",3)
+            
+            # modified_count += self._setValue("wall_transition_angle",25)
+            if self.Major < 5 :
+                modified_count += self._setValue("wall_min_flow",15)
+                modified_count += self._setValue("wall_min_flow_retract",True)
+                modified_count += self._setValue("travel_compensate_overlapping_walls_0_enabled",False)
+            
+            modified_count += self._setValue("z_seam_relative",True)
+            modified_count += self._setValue("z_seam_type",'sharpest_corner')
+            # "Hide Seam"
+            modified_count += self._setValue("z_seam_corner",'z_seam_corner_inner')
+            
+            modified_count += self._setValue("bridge_settings_enabled",True)
+            # modified_count += self._setValue("xy_offset_layer_0",-0.0625*machine_nozzle_size)
+            modified_count += self._setValue("xy_offset_layer_0",-0.125*machine_nozzle_size)
+            
+            # Settings according to value calculation
+            _top_bottom_pattern = self._getValue("top_bottom_pattern")
+            
+            if _top_bottom_pattern != 'concentric':
+                modified_count += self._setValue("skin_overlap",12)           
+            else:
+                modified_count += self._setValue("skin_overlap",16)
+
+            _line_width = float(self._getValue("line_width"))
+            modified_count += self._setValue("skin_line_width",_line_width)
+
+            _material_flow = float(self._getValue("material_flow"))
+            if self._material != "unknow" :
+                modified_count += self._setValue("infill_material_flow",_material_flow)
+            
+            _speed_travel = float(self._getValue("speed_travel"))
+            _speed_print = float(self._getValue("speed_print"))
+            
+            _support_brim_width = float(self._getValue("support_brim_width"))
+            _skirt_brim_line_width = float(self._getValue("skirt_brim_line_width"))
+            _initial_layer_line_width_factor = float(self._getValue("initial_layer_line_width_factor"))
+            
+            _support_brim_line_count = math.ceil(_support_brim_width / (_skirt_brim_line_width * _initial_layer_line_width_factor / 100.0))
+            modified_count += self._setValue("support_brim_line_count",_support_brim_line_count)
+
+            _support_interface_pattern=self._getValue("support_interface_pattern")
+
+            _line_width = float(self._getValue("line_width"))
+            _wall_line_width = float(self._getValue("wall_line_width"))
+            _wall_line_width_0 = float(self._getValue("wall_line_width_0"))
+            _wall_line_width_x = float(self._getValue("wall_line_width_x"))
+            _wall_line_count = int(self._getValue("wall_line_count"))
+            # skin_preshrink = wall_line_width_0 + ((wall_line_count - 1) * wall_line_width_x)
+            _skin_preshrink = _wall_line_width_0 + (_wall_line_count * _wall_line_width_x)
+            _layer_height= float(self._getValue("layer_height"))
+
+            modified_count += self._setValue("infill_wipe_dist",round((_line_width*0.5),1))
+
+            
+            modified_count += self._setValue("support_roof_height",round((_layer_height*6),1))
+            modified_count += self._setValue("support_roof_offset",round((_layer_height*3),1))
+            modified_count += self._setValue("support_top_distance",_layer_height)
+
+            modified_count += self._setValue("support_wall_count",1)
+            modified_count += self._setValue("support_xy_distance",_line_width)
+            modified_count += self._setValue("support_z_distance",_layer_height)
+     
+            modified_count += self._setValue("support_bottom_distance",_layer_height)
+            modified_count += self._setValue("support_bottom_enable",True)
+            modified_count += self._setValue("support_bottom_height",round((_layer_height*4),1))
+            modified_count += self._setValue("support_brim_enable",True)
+            modified_count += self._setValue("support_brim_width",3)       
+            modified_count += self._setValue("support_infill_rate",7)
+            modified_count += self._setValue("support_join_distance",3)
+            modified_count += self._setValue("support_offset",round((_layer_height*3),1))
+            
+            modified_count += self._setValue("support_interface_enable",True)
+            modified_count += self._setValue("support_interface_line_width",round((_line_width*1.3),1))
+            
+            modified_count += self._setValue("support_interface_pattern",'zigzag')
+            modified_count += self._setValue("support_interface_skip_height",_layer_height)
+            
+            modified_count += self._setValue("optimize_wall_printing_order",True)
+            modified_count += self._setValue("adaptive_layer_height_enabled",False)
+            if self.Major < 5 :
+                modified_count += self._setValue("filter_out_tiny_gaps",True)
+            
+            # modified_count += self._setValue("skin_monotonic",True)
+            # modified_count += self._setValue("roofing_monotonic",True)
+
+            #-------------------------
+            # New parameters Cura 5.0
+            #-------------------------
+            if self.Major > 4 :
+                self.writeToLog("-----------------------------")
+                self.writeToLog("|    Parameters Cura 5.0    |")
+                self.writeToLog("-----------------------------")
+                # Wall Transition Length	            0.4	mm                  "wall_transition_length":
+                modified_count += self._setValue("wall_transition_length",_line_width)
+                # Wall Distribution Count	            1	                    "wall_distribution_count":
+                # Wall Transitioning Threshold Angle	10	°                   "wall_transition_angle":
+                # Wall Transitioning Filter Distance	100	mm                  "wall_transition_filter_distance":
+                # Wall Transitioning Filter Margin	    0.1	mm                  "wall_transition_filter_deviation":      
+                # Wall Ordering	                        Outside To Inside	    "inset_direction"
+                #                                                               "inside_out": "Inside To Outside",
+                #                                                               "outside_in": "Outside To Inside"
+                modified_count += self._setValue("inset_direction",'inside_out')
+                # Minimum Wall Line Width	            0.34	mm              "min_wall_line_width":
+                val_calc=float(currNozzle) * 0.85
+                modified_count += self._setValue("min_wall_line_width",round(val_calc,2))            
+                # Minimum Even Wall Line Width	        0.34	mm              "min_even_wall_line_width":
+                # Split Middle Line Threshold	        70	%                   "wall_split_middle_threshold":
+                # Minimum Odd Wall Line Width	        0.34	mm              "min_odd_wall_line_width":
+                # Add Middle Line Threshold	            85	%                   "wall_add_middle_threshold":
+                # Minimum Feature Size	                0.1	mm                  "min_feature_size": 
+                # Minimum Thin Wall Line Width	        0.34	mm              "min_bead_width":     
+                # Flow Equalization Ratio	            100	%                   "speed_equalize_flow_width_factor":
+                modified_count += self._setValue("speed_equalize_flow_width_factor",100)
+                # Alternate Wall Directions	            False	                "material_alternate_walls":
+                # Remove Raft Inside Corners	        False	                "raft_remove_inside_corners":
+                # Raft Base Wall Count	                1                       "raft_base_wall_count":
+                # Scale Fan Speed To 0-1	            False	                "machine_scale_fan_speed_zero_to_one":
+                self.StandardFixed=1
+ 
+        # Get actual values
         _top_bottom_pattern = self._getValue("top_bottom_pattern")
-        
-        if _top_bottom_pattern != 'concentric':
-            modified_count += self._setValue("skin_overlap",12)           
-        else:
-            modified_count += self._setValue("skin_overlap",16)
-
         _line_width = float(self._getValue("line_width"))
-        modified_count += self._setValue("skin_line_width",_line_width)
-
-        _material_flow = float(self._getValue("material_flow"))
-        if self._material != "unknow" :
-            modified_count += self._setValue("infill_material_flow",_material_flow)
-        
+        _material_flow = float(self._getValue("material_flow"))            
         _speed_travel = float(self._getValue("speed_travel"))
         _speed_print = float(self._getValue("speed_print"))
-        
         _support_brim_width = float(self._getValue("support_brim_width"))
         _skirt_brim_line_width = float(self._getValue("skirt_brim_line_width"))
-        _initial_layer_line_width_factor = float(self._getValue("initial_layer_line_width_factor"))
-        
-        _support_brim_line_count = math.ceil(_support_brim_width / (_skirt_brim_line_width * _initial_layer_line_width_factor / 100.0))
-        modified_count += self._setValue("support_brim_line_count",_support_brim_line_count)
-
+        _initial_layer_line_width_factor = float(self._getValue("initial_layer_line_width_factor"))           
+        _support_brim_line_count = self._getValue("support_brim_line_count")
         _support_interface_pattern=self._getValue("support_interface_pattern")
-
-        _line_width = float(self._getValue("line_width"))
         _wall_line_width = float(self._getValue("wall_line_width"))
         _wall_line_width_0 = float(self._getValue("wall_line_width_0"))
         _wall_line_width_x = float(self._getValue("wall_line_width_x"))
         _wall_line_count = int(self._getValue("wall_line_count"))
-        # skin_preshrink = wall_line_width_0 + ((wall_line_count - 1) * wall_line_width_x)
-        _skin_preshrink = _wall_line_width_0 + (_wall_line_count * _wall_line_width_x)
         _layer_height= float(self._getValue("layer_height"))
-
-        modified_count += self._setValue("infill_wipe_dist",round((_line_width*0.5),1))
-
-        
-        modified_count += self._setValue("support_roof_height",round((_layer_height*6),1))
-        modified_count += self._setValue("support_roof_offset",round((_layer_height*3),1))
-        modified_count += self._setValue("support_top_distance",_layer_height)
-
-        modified_count += self._setValue("support_wall_count",1)
-        modified_count += self._setValue("support_xy_distance",_line_width)
-        modified_count += self._setValue("support_z_distance",_layer_height)
- 
-        modified_count += self._setValue("support_bottom_distance",_layer_height)
-        modified_count += self._setValue("support_bottom_enable",True)
-        modified_count += self._setValue("support_bottom_height",round((_layer_height*4),1))
-        modified_count += self._setValue("support_brim_enable",True)
-        modified_count += self._setValue("support_brim_width",3)       
-        modified_count += self._setValue("support_infill_rate",7)
-        modified_count += self._setValue("support_join_distance",3)
-        modified_count += self._setValue("support_offset",round((_layer_height*3),1))
-        
-        modified_count += self._setValue("support_interface_enable",True)
-        modified_count += self._setValue("support_interface_line_width",round((_line_width*1.3),1))
-        
-        modified_count += self._setValue("support_interface_pattern",'zigzag')
-        modified_count += self._setValue("support_interface_skip_height",_layer_height)
-        
-        modified_count += self._setValue("optimize_wall_printing_order",True)
-        modified_count += self._setValue("adaptive_layer_height_enabled",False)
-        if self.Major < 5 :
-            modified_count += self._setValue("filter_out_tiny_gaps",True)
-        
-        # modified_count += self._setValue("skin_monotonic",True)
-        # modified_count += self._setValue("roofing_monotonic",True)
-
-        #-------------------------
-        # New parameters Cura 5.0
-        #-------------------------
-        if self.Major > 4 :
-            self.writeToLog("-----------------------------")
-            self.writeToLog("|    Parameters Cura 5.0    |")
-            self.writeToLog("-----------------------------")
-            # Wall Transition Length	            0.4	mm                  "wall_transition_length":
-            modified_count += self._setValue("wall_transition_length",_line_width)
-            # Wall Distribution Count	            1	                    "wall_distribution_count":
-            # Wall Transitioning Threshold Angle	10	°                   "wall_transition_angle":
-            # Wall Transitioning Filter Distance	100	mm                  "wall_transition_filter_distance":
-            # Wall Transitioning Filter Margin	    0.1	mm                  "wall_transition_filter_deviation":      
-            # Wall Ordering	                        Outside To Inside	    "inset_direction"
-            #                                                               "inside_out": "Inside To Outside",
-            #                                                               "outside_in": "Outside To Inside"
-            modified_count += self._setValue("inset_direction",'inside_out')
-            # Minimum Wall Line Width	            0.34	mm              "min_wall_line_width":
-            val_calc=float(currNozzle) * 0.85
-            modified_count += self._setValue("min_wall_line_width",round(val_calc,2))            
-            # Minimum Even Wall Line Width	        0.34	mm              "min_even_wall_line_width":
-            # Split Middle Line Threshold	        70	%                   "wall_split_middle_threshold":
-            # Minimum Odd Wall Line Width	        0.34	mm              "min_odd_wall_line_width":
-            # Add Middle Line Threshold	            85	%                   "wall_add_middle_threshold":
-            # Minimum Feature Size	                0.1	mm                  "min_feature_size": 
-            # Minimum Thin Wall Line Width	        0.34	mm              "min_bead_width":     
-            # Flow Equalization Ratio	            100	%                   "speed_equalize_flow_width_factor":
-            modified_count += self._setValue("speed_equalize_flow_width_factor",100)
-            # Alternate Wall Directions	            False	                "material_alternate_walls":
-            # Remove Raft Inside Corners	        False	                "raft_remove_inside_corners":
-            # Raft Base Wall Count	                1                       "raft_base_wall_count":
-            # Scale Fan Speed To 0-1	            False	                "machine_scale_fan_speed_zero_to_one":
+        _skin_preshrink= float(self._getValue("skin_preshrink"))
             
         self.writeToLog("----------------------------------------")
         self.writeToLog("| Parameters Profile Mode : " + currMode + " |")
