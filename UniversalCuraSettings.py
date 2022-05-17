@@ -767,12 +767,13 @@ class UniversalCuraSettings(Extension, QObject,):
         # Global stack
         #------------------
         # Reinit
-        if self.StandardFixed==0:
+        if self.StandardFixed==0 :
             self.writeToLog("--------------------------------------------------")
             self.writeToLog("| Universal Cura settings Init Global Parameters |")
             self.writeToLog("--------------------------------------------------")
             modified_count += self._setValue("magic_spiralize",False)
             modified_count += self._setValue("meshfix_union_all_remove_holes",False)
+            modified_count += self._setValue("adaptive_layer_height_enabled",False)
 
             # layer_height 
             cval=self._defineLayer_Height(machine_nozzle_size)
@@ -965,11 +966,11 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_interface_skip_height",_layer_height)
             
             modified_count += self._setValue("optimize_wall_printing_order",True)
-            modified_count += self._setValue("adaptive_layer_height_enabled",False)
             
-            
-            
-            
+
+            #-------------------------
+            # Parameters Cura 4.0
+            #-------------------------           
             if self.Major < 5 :
                 modified_count += self._setValue("filter_out_tiny_gaps",True)
             
@@ -1011,22 +1012,23 @@ class UniversalCuraSettings(Extension, QObject,):
                 self.StandardFixed=1
  
         # Get actual values
-        _top_bottom_pattern = self._getValue("top_bottom_pattern")
+        _initial_layer_line_width_factor = float(self._getValue("initial_layer_line_width_factor"))           
+        _layer_height= float(self._getValue("layer_height"))
         _line_width = float(self._getValue("line_width"))
         _material_flow = float(self._getValue("material_flow"))            
-        _speed_travel = float(self._getValue("speed_travel"))
-        _speed_print = float(self._getValue("speed_print"))
-        _support_brim_width = float(self._getValue("support_brim_width"))
+        _skin_preshrink= float(self._getValue("skin_preshrink"))
         _skirt_brim_line_width = float(self._getValue("skirt_brim_line_width"))
-        _initial_layer_line_width_factor = float(self._getValue("initial_layer_line_width_factor"))           
+        _speed_print = float(self._getValue("speed_print"))
+        _speed_travel = float(self._getValue("speed_travel"))
         _support_brim_line_count = self._getValue("support_brim_line_count")
+        _support_brim_width = float(self._getValue("support_brim_width"))
         _support_interface_pattern=self._getValue("support_interface_pattern")
+        _top_bottom_pattern = self._getValue("top_bottom_pattern")
+        _wall_line_count = int(self._getValue("wall_line_count"))
         _wall_line_width = float(self._getValue("wall_line_width"))
         _wall_line_width_0 = float(self._getValue("wall_line_width_0"))
         _wall_line_width_x = float(self._getValue("wall_line_width_x"))
-        _wall_line_count = int(self._getValue("wall_line_count"))
-        _layer_height= float(self._getValue("layer_height"))
-        _skin_preshrink= float(self._getValue("skin_preshrink"))
+
             
         self.writeToLog("----------------------------------------")
         self.writeToLog("| Parameters Profile Mode : " + currMode + " |")
@@ -1157,8 +1159,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("acceleration_print_layer_0",300)
             modified_count += self._setValue("acceleration_wall_0",300)
         
-        elif currMode == "warping" :  
-            
+        elif currMode == "warping" :              
             modified_count += self._setValue("adhesion_type",'brim')
             modified_count += self._setValue("retraction_combing",'off')
             modified_count += self._setValue("retraction_combing_max_distance",33)
