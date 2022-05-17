@@ -14,7 +14,7 @@
 # Version 0.0.10 :  Modification Figurine
 # Version 0.0.11 :  Modification Figurine
 # Version 0.0.12 :  Add Support intent
-# Version 0.0.13 :  vase
+# Version 0.0.13 :  Vase
 # Version 0.0.14 :  Update xy_offset_layer_0
 # Version 0.0.15 :  Extruder type : unknow -> no modification of the retract parameter
 #                   Nozzle Size : Not specified -> no modification of the nozzle diameter
@@ -128,7 +128,7 @@ class UniversalCuraSettings(Extension, QObject,):
         # Logger.log('d', "Info Version CuraVersion --> " + str(Version(CuraVersion)))
         Logger.log('d', "Info CuraVersion --> " + str(CuraVersion))        
         
-        #if "master" in CuraVersion or "beta" in CuraVersion or "BETA" in CuraVersion:
+        #if "master" in CuraVersion :
         if "master" in CuraVersion:
             # Master is always a developement version.
             self.Major=4
@@ -772,6 +772,7 @@ class UniversalCuraSettings(Extension, QObject,):
             self.writeToLog("| Universal Cura settings Init Global Parameters |")
             self.writeToLog("--------------------------------------------------")
             modified_count += self._setValue("magic_spiralize",False)
+            modified_count += self._setValue("meshfix_union_all_remove_holes",False)
 
             # layer_height 
             cval=self._defineLayer_Height(machine_nozzle_size)
@@ -965,6 +966,10 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("optimize_wall_printing_order",True)
             modified_count += self._setValue("adaptive_layer_height_enabled",False)
+            
+            
+            
+            
             if self.Major < 5 :
                 modified_count += self._setValue("filter_out_tiny_gaps",True)
             
