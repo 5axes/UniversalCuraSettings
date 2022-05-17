@@ -94,7 +94,7 @@ class UniversalCuraSettings(Extension, QObject,):
 
         #Initialize variables
         self._continueDialog = None
-        self._mode = "mechanical"
+        self._mode = "standard"
         self._extruder = "unknow"
         self._material = "unknow"
         self._nozzle = "0.4"
