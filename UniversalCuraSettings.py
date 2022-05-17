@@ -26,9 +26,10 @@
 # Version 0.0.19 :  Change on Save Material
 # Version 0.0.20 :  Add Extra Quality 
 #
-# Version 0.1.0 :  Update Cura 5.0
-# Version 0.1.1 :  Update Cura 5.0
-# Version 0.1.2 :  Change comment in the log file
+# Version 0.1.0  :  Update Cura 5.0
+# Version 0.1.1  :  Update Cura 5.0
+# Version 0.1.2  :  Change comment in the log file And Add self.StandardFixed = 0  
+# Version 0.1.3  :  Intent modification for Cura 5.0
 #----------------------------------------------------------------------------------------------------------------------
 
 
