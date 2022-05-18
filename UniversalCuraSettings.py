@@ -1208,7 +1208,7 @@ class UniversalCuraSettings(Extension, QObject,):
  
             modified_count += self._setValue("retraction_hop_enabled",True)
             modified_count += self._setValue("retraction_hop",_layer_height) 
-            if _layer_height < (machine_nozzle_size*0.3):
+            if _layer_height < (machine_nozzle_size*0.333):
                 modified_count += self._setValue("infill_sparse_thickness",_layer_height*2)
             else:
                 modified_count += self._setValue("infill_sparse_thickness",_layer_height)
@@ -1264,7 +1264,7 @@ class UniversalCuraSettings(Extension, QObject,):
  
             modified_count += self._setValue("skirt_gap",2)
             modified_count += self._setValue("skirt_line_count",1)
-            if _layer_height < (machine_nozzle_size*0.3):
+            if _layer_height < (machine_nozzle_size*0.333):
                 modified_count += self._setValue("infill_sparse_thickness",_layer_height*2)
             else:
                 modified_count += self._setValue("infill_sparse_thickness",_layer_height)
