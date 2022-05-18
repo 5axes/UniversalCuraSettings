@@ -940,7 +940,8 @@ class UniversalCuraSettings(Extension, QObject,):
             _layer_height= float(self._getValue("layer_height"))
 
             modified_count += self._setValue("infill_wipe_dist",round((_line_width*0.5),1))
-
+            modified_count += self._setValue("infill_sparse_thickness",_layer_height)
+            
             
             modified_count += self._setValue("support_roof_height",round((_layer_height*6),1))
             modified_count += self._setValue("support_roof_offset",round((_layer_height*3),1))
@@ -1207,6 +1208,7 @@ class UniversalCuraSettings(Extension, QObject,):
  
             modified_count += self._setValue("retraction_hop_enabled",True)
             modified_count += self._setValue("retraction_hop",_layer_height) 
+            modified_count += self._setValue("infill_sparse_thickness",_layer_height*2)
             
         elif currMode == "prototype" :
         
@@ -1259,6 +1261,7 @@ class UniversalCuraSettings(Extension, QObject,):
  
             modified_count += self._setValue("skirt_gap",2)
             modified_count += self._setValue("skirt_line_count",1)
+            modified_count += self._setValue("infill_sparse_thickness",_layer_height*2)
         
         
         elif currMode == "support" :
