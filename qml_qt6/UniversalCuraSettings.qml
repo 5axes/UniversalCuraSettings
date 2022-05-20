@@ -14,7 +14,7 @@ UM.Dialog
 {
     id: base
 
-    title: "Universal Cura Settings V0.1.3 (5.X)"
+    title: "Universal Cura Settings V0.1.4 (5.X)"
 
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal
@@ -25,12 +25,26 @@ UM.Dialog
 
     // Setting the dimensions of the dialog window
     width: 325
-    height: 175
+    height: 180
     minimumWidth: 325
-    minimumHeight: 175
+    minimumHeight: 180
 
     color: UM.Theme.getColor("main_background") //Background color of cura: "#fafafa"
-	
+
+    function boolCheck(value) //Hack to ensure a good match between python and qml.
+    {
+        if(value == "True")
+        {
+            return true
+        }else if(value == "False" || value == undefined)
+        {
+            return false
+        }
+        else
+        {
+            return value
+        }
+    }	
 	
     // Position of the window
 	// Could be use to open the Dialog always at the center of the cura windows
@@ -51,26 +65,29 @@ UM.Dialog
 	property string materialCurrent: manager.materialInput
 	property string nozzleCurrent: manager.nozzleInput
 
+
+	
     Column
     {
         id: contents
         anchors.fill: parent
+		// anchors.topMargin: UM.Theme.getSize("default_margin").height
         spacing: UM.Theme.getSize("default_margin").height
+		height: childrenRect.height	
 		
         Grid
         {
-            columns: 2;
+            columns: 2
             columnSpacing: UM.Theme.getSize("default_margin").width
             rowSpacing: UM.Theme.getSize("default_lining").height
             verticalItemAlignment: Grid.AlignVCenter
-
 
 			Label
 			{
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Extruder Type:");
 				font: UM.Theme.getFont("default");
-				color: "#000000" // UM.Theme.getColor("text");
+				color: UM.Theme.getColor("text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
@@ -103,7 +120,7 @@ UM.Dialog
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Nozzle Size:");
 				font: UM.Theme.getFont("default");
-				color: "#000000" // UM.Theme.getColor("text");
+				color: UM.Theme.getColor("text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
@@ -139,7 +156,7 @@ UM.Dialog
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Material:");
 				font: UM.Theme.getFont("default");
-				color: "#000000" // UM.Theme.getColor("text");
+				color: UM.Theme.getColor("text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
@@ -175,7 +192,7 @@ UM.Dialog
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Settings Mode:");
 				font: UM.Theme.getFont("default");
-				color: "#000000" // UM.Theme.getColor("text");
+				color: UM.Theme.getColor("text");
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
@@ -213,8 +230,21 @@ UM.Dialog
 				}
 			}	
 
-		}
+		}			
 	}
+
+	UM.CheckBox
+	{
+		id: standardvalueCheckbox
+		anchors.left: parent.left
+		// anchors.top: parent.top
+		anchors.top: contents.bottom
+		text: catalog.i18nc("@option:check","Set standard settings")
+
+		checked: boolCheck(UM.Preferences.getValue("UniversalCuraSettings/setstandardvalue"))
+		onClicked: UM.Preferences.setValue("UniversalCuraSettings/setstandardvalue", checked)
+		
+	}		
 	
 	rightButtons: [
         Button

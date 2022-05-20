@@ -91,6 +91,8 @@ class UniversalCuraSettings(Extension, QObject,):
         QObject.__init__(self, parent)
         Extension.__init__(self)
         
+        
+        
         self._Section =""
 
         #Initialize variables
@@ -109,6 +111,7 @@ class UniversalCuraSettings(Extension, QObject,):
         self._preferences.addPreference("UniversalCuraSettings/extruder", "unknow")
         self._preferences.addPreference("UniversalCuraSettings/material", "unknow")
         self._preferences.addPreference("UniversalCuraSettings/nozzle", "0.4")
+        self._preferences.addPreference("UniversalCuraSettings/setstandardvalue", False)
 
         
         # Mode
@@ -119,6 +122,8 @@ class UniversalCuraSettings(Extension, QObject,):
         self._material= self._preferences.getValue("UniversalCuraSettings/material")
         # Nozzle size
         self._nozzle= self._preferences.getValue("UniversalCuraSettings/nozzle")
+        self._setstandardvalue= bool(self._preferences.getValue("UniversalCuraSettings/setstandardvalue"))
+
         
         # Test version for futur release 4.9 or Arachne
         self.Major=1
@@ -196,6 +201,7 @@ class UniversalCuraSettings(Extension, QObject,):
     @pyqtProperty(str, notify= userModeChanged)
     def nozzleInput(self):
         return str(self._nozzle)
+
         
     #This method builds the dialog from the qml file and registers this class
     #as the manager variable
@@ -719,6 +725,8 @@ class UniversalCuraSettings(Extension, QObject,):
     # "dual"support_top_distance
     # "meshfix"		    
     def setProfile(self) -> None:
+    
+        self._setstandardvalue= bool(self._preferences.getValue("UniversalCuraSettings/setstandardvalue"))
         self.writeToLog("Cura current release       : " + str(self.Major) + "." + str(self.Minor) )
         self.writeToLog("With Profile Mode          : " + self._mode)
         self.writeToLog("With Extruder Mode         : " + self._extruder)
@@ -767,7 +775,7 @@ class UniversalCuraSettings(Extension, QObject,):
         # Global stack
         #------------------
         # Reinit
-        if self.StandardFixed==0 :
+        if self.StandardFixed==0 and self._setstandardvalue :
             self.writeToLog("--------------------------------------------------")
             self.writeToLog("| Universal Cura settings Init Global Parameters |")
             self.writeToLog("--------------------------------------------------")
@@ -1125,7 +1133,6 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("infill_pattern",'lines')
             
-            
             if self.Major < 5 :
                 modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
         
@@ -1324,14 +1331,14 @@ class UniversalCuraSettings(Extension, QObject,):
         _meshfix_maximum_travel_resolution = min(_meshfix_maximum_resolution * _speed_travel / _speed_print, 2 * _line_width)
         # modified_count += self._setValue("meshfix_maximum_travel_resolution",meshfix_maximum_travel_resolution) 
 
-        # Profile Material settings
-        modified_count += self._setValue("material_print_temperature",self._defineMaterial_Print_Temperature(machine_nozzle_size))
             
         if currMaterial != "unknow" :
             self.writeToLog("------------------------------")
             self.writeToLog("|  Material preset : " + currMaterial + "  |")
             self.writeToLog("------------------------------")        
             modified_count += self._setValue("material_flow",100)
+            # Profile Material settings
+            modified_count += self._setValue("material_print_temperature",self._defineMaterial_Print_Temperature(machine_nozzle_size))            
         
         if currMaterial == "unknow" :
             # no modification
@@ -1400,5 +1407,4 @@ class UniversalCuraSettings(Extension, QObject,):
 
         Message().hide()
         Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Universal Cura Settings").show()
-
 

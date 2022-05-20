@@ -15,7 +15,7 @@ UM.Dialog
 {
     id: base
 
-    title: "Universal Cura Settings V0.1.3 (4.X)"
+    title: "Universal Cura Settings V0.1.4 (4.X)"
 
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal
@@ -26,12 +26,26 @@ UM.Dialog
 
     // Setting the dimensions of the dialog window
     width: 325
-    height: 175
+    height: 200
     minimumWidth: 325
-    minimumHeight: 175
+    minimumHeight: 200
 
     color: UM.Theme.getColor("main_background") //Background color of cura: "#fafafa"
-	
+
+    function boolCheck(value) //Hack to ensure a good match between python and qml.
+    {
+        if(value == "True")
+        {
+            return true
+        }else if(value == "False" || value == undefined)
+        {
+            return false
+        }
+        else
+        {
+            return value
+        }
+    }	
 	
     // Position of the window
 	// Could be use to open the Dialog always at the center of the cura windows
@@ -52,11 +66,14 @@ UM.Dialog
 	property string materialCurrent: manager.materialInput
 	property string nozzleCurrent: manager.nozzleInput
 
+	
     Column
     {
         id: contents
         anchors.fill: parent
         spacing: UM.Theme.getSize("default_margin").height
+		anchors.top: standardvalueCheckbox.bottom
+		anchors.topMargin: UM.Theme.getSize("default_margin").height
 		
         Grid
         {
@@ -216,6 +233,19 @@ UM.Dialog
 
 		}
 	}
+
+	CheckBox
+    {
+        id: standardvalueCheckbox
+        anchors.top: contents.bottom
+        // anchors.topMargin: UM.Theme.getSize("default_margin").height
+        anchors.left: parent.left
+        text: catalog.i18nc("@option:check","Set standard settings")
+
+        checked: boolCheck(UM.Preferences.getValue("UniversalCuraSettings/setstandardvalue"))
+        onClicked: UM.Preferences.setValue("UniversalCuraSettings/setstandardvalue", checked)
+		
+    }
 	
 	rightButtons: [
         Button
