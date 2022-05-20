@@ -30,6 +30,9 @@
 # Version 0.1.1  :  Update Cura 5.0
 # Version 0.1.2  :  Change comment in the log file And Add self.StandardFixed = 0  
 # Version 0.1.3  :  Intent modification for Cura 5.0
+# Version 0.1.4  :  Add CheckBox Set Standard Settings 
+# Version 0.1.5  :  Add button link to the Wiki : https://github.com/5axes/UniversalCuraSettings/wiki
+#
 #----------------------------------------------------------------------------------------------------------------------
 
 
