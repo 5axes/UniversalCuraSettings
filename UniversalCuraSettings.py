@@ -1423,5 +1423,5 @@ class UniversalCuraSettings(Extension, QObject,):
             #        Extrud.qualityChanges.setName(profileName)
 
         Message().hide()
-        Message("Set values for %s Mode, %d parameters (%s)" % (currMode, modified_count, profileName) , title = "Universal Cura Settings").show()
+        Message("Set values for %s Mode, %d parameters ( %s )" % (currMode, modified_count, profileName) , title = "Universal Cura Settings").show()
 
