@@ -1128,6 +1128,8 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("bottom_layers",4)
             modified_count += self._setValue("wall_line_count",2)
             modified_count += self._setValue("infill_material_flow",80)
+            modified_count += self._setValue("support_material_flow",70)
+            
             modified_count += self._setValue("infill_wall_line_count",0)
             modified_count += self._setValue("infill_sparse_density",5)
             
