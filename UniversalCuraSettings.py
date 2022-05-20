@@ -32,6 +32,7 @@
 # Version 0.1.3  :  Intent modification for Cura 5.0
 # Version 0.1.4  :  Add CheckBox Set Standard Settings 
 # Version 0.1.5  :  Add button link to the Wiki : https://github.com/5axes/UniversalCuraSettings/wiki
+# Version 0.1.6  :  Modification on some Intent (Vase)
 #
 #----------------------------------------------------------------------------------------------------------------------
 
@@ -791,7 +792,13 @@ class UniversalCuraSettings(Extension, QObject,):
             if cval>0 :
                 modified_count += self._setValue("layer_height",cval)
                 modified_count += self._setValue("layer_height_0",round((cval+0.04),1))
-            
+
+            # Line_Width
+            cval=self._defineLine_Width(machine_nozzle_size)
+            if cval>0 :
+                modified_count += self._setValue("Line_Width",cval)
+                # modified_count += self._setValue("infill_line_width",round((cval*1.1),1))
+                
             # General settings
             modified_count += self._setValue("adaptive_layer_height_threshold",250)
             modified_count += self._setValue("adaptive_layer_height_variation",0.03)
@@ -854,7 +861,7 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("infill_before_walls",False)
             modified_count += self._setValue("infill_enable_travel_optimization",True)
-            modified_count += self._setValue("infill_line_width",0.5)
+            
             
             modified_count += self._setValue("infill_pattern",'zigzag')
             
@@ -1328,6 +1335,10 @@ class UniversalCuraSettings(Extension, QObject,):
         elif currMode == "vase" :
             # Spiralize outer contour
             modified_count += self._setValue("magic_spiralize",True)
+            modified_count += self._setValue("smooth_spiralized_contours",True)
+            modified_count += self._setValue("wall_0_material_flow",105)         
+            modified_count += self._setValue("line_width",round((1.25*machine_nozzle_size),2))
+
             
         else:
             modified_count += self._setValue("wall_line_count",3)
@@ -1398,11 +1409,12 @@ class UniversalCuraSettings(Extension, QObject,):
 
         
         # Set name to quality change if modification
-        if modified_count > 0 :
-            profileName= currMode + " " 
-            profileName= profileName + currMaterial 
-            profileName= profileName + " "
-            profileName= profileName + str(machine_nozzle_size)
+        # if modified_count > 0 :
+        profileName = currMode + " " 
+        profileName = profileName + currMaterial 
+        profileName = profileName + " "
+        profileName = profileName + str(machine_nozzle_size)
+        
             # Need to create a new Profile and not just change the name but not so easy ...
             #
             #if P_Name != "empty" :
@@ -1411,5 +1423,5 @@ class UniversalCuraSettings(Extension, QObject,):
             #        Extrud.qualityChanges.setName(profileName)
 
         Message().hide()
-        Message("Set values for %s Mode, %d parameters" % (currMode, modified_count) , title = "Universal Cura Settings").show()
+        Message("Set values for %s Mode, %d parameters (%s)" % (currMode, modified_count, profileName) , title = "Universal Cura Settings").show()
 
