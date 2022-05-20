@@ -14,7 +14,7 @@ UM.Dialog
 {
     id: base
 
-    title: "Universal Cura Settings V0.1.4 (5.X)"
+    title: "Universal Cura Settings V0.1.5 (5.X)"
 
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal
@@ -64,7 +64,8 @@ UM.Dialog
 	property string extruderCurrent: manager.extruderInput
 	property string materialCurrent: manager.materialInput
 	property string nozzleCurrent: manager.nozzleInput
-
+	property string getmodeCurrent: "standard"
+	property string getlinkCurrent: "https://github.com/5axes/UniversalCuraSettings/wiki"
 
 	
     Column
@@ -151,6 +152,13 @@ UM.Dialog
 				}
 			}	
 			
+		}
+
+        Grid
+        {
+            columns: 3
+			columnSpacing: UM.Theme.getSize("default_margin").width
+
 			Label
 			{
 				height: UM.Theme.getSize("setting_control").height;
@@ -162,8 +170,7 @@ UM.Dialog
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
 			}
 			
-			
-			//User input of Mode
+			//User input for Material
 			ComboBox {
 				id: material_input
 				objectName: "Combo_Material"
@@ -186,6 +193,23 @@ UM.Dialog
 					manager.materialEntered(cbmItems.get(currentIndex).text)
 				}
 			}
+
+			UM.SimpleButton
+			{
+				id: helpmaterialButton
+				width: UM.Theme.getSize("save_button_specs_icons").width
+				height: UM.Theme.getSize("save_button_specs_icons").height
+				iconSource: UM.Theme.getIcon("Help")
+				hoverColor: UM.Theme.getColor("small_button_text_hover")
+				color:  UM.Theme.getColor("small_button_text")
+
+				onClicked:
+				{
+				getmodeCurrent = material_input.currentText;
+				getlinkCurrent = "https://github.com/5axes/UniversalCuraSettings/wiki/" + getmodeCurrent.replace(" ","-");
+				Qt.openUrlExternally(getlinkCurrent)
+				}
+			}		
 			
 			Label
 			{
@@ -196,8 +220,7 @@ UM.Dialog
 				verticalAlignment: Text.AlignVCenter;
 				renderType: Text.NativeRendering
 				width: Math.ceil(contentWidth) //Make sure that the grid cells have an integer width.
-			}
-			
+			}	
 			
 			//User input of Mode
 			ComboBox {
@@ -229,10 +252,27 @@ UM.Dialog
 					manager.modeEntered(cbeItems.get(currentIndex).text)
 				}
 			}	
+			
+			UM.SimpleButton
+			{
+				id: helpButton
+				width: UM.Theme.getSize("save_button_specs_icons").width
+				height: UM.Theme.getSize("save_button_specs_icons").height
+				iconSource: UM.Theme.getIcon("Help")
+				hoverColor: UM.Theme.getColor("small_button_text_hover")
+				color:  UM.Theme.getColor("small_button_text")
 
+				onClicked:
+				{
+				getmodeCurrent = mode_input.currentText;
+				getlinkCurrent = "https://github.com/5axes/UniversalCuraSettings/wiki/" + getmodeCurrent.replace(" ","-");
+				Qt.openUrlExternally(getlinkCurrent)
+				}
+			}
 		}			
 	}
 
+			
 	UM.CheckBox
 	{
 		id: standardvalueCheckbox

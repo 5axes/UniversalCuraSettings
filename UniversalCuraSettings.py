@@ -111,7 +111,7 @@ class UniversalCuraSettings(Extension, QObject,):
         self._preferences.addPreference("UniversalCuraSettings/extruder", "unknow")
         self._preferences.addPreference("UniversalCuraSettings/material", "unknow")
         self._preferences.addPreference("UniversalCuraSettings/nozzle", "0.4")
-        self._preferences.addPreference("UniversalCuraSettings/setstandardvalue", False)
+        self._preferences.addPreference("UniversalCuraSettings/setstandardvalue", True)
 
         
         # Mode
