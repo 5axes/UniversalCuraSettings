@@ -137,11 +137,11 @@ class UniversalCuraSettings(Extension, QObject,):
         # Logger.log('d', "Info Version CuraVersion --> " + str(Version(CuraVersion)))
         Logger.log('d', "Info CuraVersion --> " + str(CuraVersion))        
         
-        #if "master" in CuraVersion :
+        # Test version for Cura Master
+        # https://github.com/smartavionics/Cura
         if "master" in CuraVersion:
-            # Master is always a developement version.
             self.Major=4
-            self.Minor=13  
+            self.Minor=20  
         else:
             try:
                 self.Major = int(CuraVersion.split(".")[0])
