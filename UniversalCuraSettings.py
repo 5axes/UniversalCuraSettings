@@ -1106,7 +1106,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("ironing_inset",round((machine_nozzle_size *0.375),2))
             modified_count += self._setValue("ironing_line_spacing",round((machine_nozzle_size *0.375),2))
             modified_count += self._setValue("acceleration_ironing",1000)     
-            # 30% Speed_print
+            # 130% Speed_print
             modified_count += self._setValue("speed_ironing",(_speed_print*1.3))
 
             modified_count += self._setValue("skin_monotonic",True)

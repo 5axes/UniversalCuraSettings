@@ -206,7 +206,7 @@ UM.Dialog
 				onClicked:
 				{
 				getmodeCurrent = material_input.currentText;
-				getlinkCurrent = "https://github.com/5axes/UniversalCuraSettings/wiki/" + getmodeCurrent.replace(" ","-");
+				getlinkCurrent = "https://github.com/5axes/UniversalCuraSettings/wiki/Material-" + getmodeCurrent.replace(" ","-");
 				Qt.openUrlExternally(getlinkCurrent)
 				}
 			}		
@@ -265,7 +265,7 @@ UM.Dialog
 				onClicked:
 				{
 				getmodeCurrent = mode_input.currentText;
-				getlinkCurrent = "https://github.com/5axes/UniversalCuraSettings/wiki/" + getmodeCurrent.replace(" ","-");
+				getlinkCurrent = "https://github.com/5axes/UniversalCuraSettings/wiki/Mode-" + getmodeCurrent.replace(" ","-");
 				Qt.openUrlExternally(getlinkCurrent)
 				}
 			}
