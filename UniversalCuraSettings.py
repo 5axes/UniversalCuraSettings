@@ -1225,8 +1225,11 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
  
+            # Z Hop When Retracted
             modified_count += self._setValue("retraction_hop_enabled",True)
             modified_count += self._setValue("retraction_hop",_layer_height) 
+            
+            # Infill Layer Thickness
             if _layer_height < (machine_nozzle_size*0.333):
                 modified_count += self._setValue("infill_sparse_thickness",_layer_height*2)
             else:
