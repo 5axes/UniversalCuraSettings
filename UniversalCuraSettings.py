@@ -1234,6 +1234,11 @@ class UniversalCuraSettings(Extension, QObject,):
                 modified_count += self._setValue("infill_sparse_thickness",_layer_height*2)
             else:
                 modified_count += self._setValue("infill_sparse_thickness",_layer_height)
+ 
+            modified_count += self._setValue("infill_material_flow",80)
+            modified_count += self._setValue("support_material_flow",70)
+            modified_count += self._setValue("support_interface_material_flow",80)
+
             
         elif currMode == "prototype" :
         
