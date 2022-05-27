@@ -1221,6 +1221,8 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("speed_travel",100)
             modified_count += self._setValue("speed_layer_0",18)
+            
+            modified_count += self._setValue("support_offset",round((_layer_height*3),1))
             modified_count += self._setValue("support_interface_offset",round((_line_width*0.5),1))
             
             modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
@@ -1414,6 +1416,15 @@ class UniversalCuraSettings(Extension, QObject,):
             _top_layers = math.ceil(round((_top_thickness / _layer_height), 4))
             
         modified_count += self._setValue("top_layers",_top_layers)
+
+        self.writeToLog("-------------------------------")
+        self.writeToLog("| Check For some Wrong Values |")
+        self.writeToLog("-------------------------------")
+        _support_offset = float(self._getValue("support_offset"))
+        _support_interface_offset = float(self._getValue("support_interface_offset"))
+        if _support_interface_offset >= _support_offset:
+            modified_count += self._setValue("support_interface_offset",_support_offset)
+            
 
         
         # Set name to quality change if modification
