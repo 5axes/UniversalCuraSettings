@@ -1182,7 +1182,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("jerk_print_layer_0",5)            
             modified_count += self._setValue("acceleration_print_layer_0",300)
             modified_count += self._setValue("acceleration_wall_0",300)
-        
+                
         elif currMode == "warping" :              
             modified_count += self._setValue("adhesion_type",'brim')
             modified_count += self._setValue("retraction_combing",'off')
@@ -1192,7 +1192,9 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("retraction_retract_speed",50)
             
             modified_count += self._setValue("speed_travel",100)
-        
+            if self.Major >= 5 :
+                modified_count += self._setValue("material_alternate_walls",True)
+            
         elif currMode == "figurine" :
             # for fine details and good cooling ?
             modified_count += self._setValue("infill_sparse_density",8)
