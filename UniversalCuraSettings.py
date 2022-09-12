@@ -3,6 +3,41 @@
 # 
 # UniversalCuraSettings is released under the terms of the AGPLv3 or higher.
 #
+#----------------------------------------------------------------------------------------------------------------------
+#	-  User input possibilities for extruder
+#	 - unknow
+#	 - bowden
+#	 - direct
+#
+#	- User input possibilities for nozzle size
+#	 - not specified
+#	 - 0.2
+#	 - 0.4
+#	 - 0.6
+#	 - 0.8
+#	 - 1.0
+#			
+#	- User input possibilities for Material
+#	 - unknow
+#	 - pla
+#	 - abs
+#	 - petg
+#	 - tpu
+#	
+#	- User input possibilities for Mode
+#	 - standard
+#	 - bed adhesion
+#	 - top surface
+#	 - extra quality
+#	 - warping
+#	 - mechanical
+#	 - small part
+#	 - figurine
+#	 - prototype
+#	 - support
+#	 - vase
+#	 - save material
+#----------------------------------------------------------------------------------------------------------------------
 # Version 0.0.1  :  First prototype
 # Version 0.0.2  :  Add the choice of the Nozzle Size
 # Version 0.0.3  :  New options in the different Intent
