@@ -70,7 +70,7 @@
 # Version 0.1.4  :  Add CheckBox Set Standard Settings 
 # Version 0.1.5  :  Add button link to the Wiki : https://github.com/5axes/UniversalCuraSettings/wiki
 # Version 0.1.6  :  Check For some incorect Values at the end of the modifications Ie support_interface_offset/ support_offset
-# Version 0.1.7  :   Add Small Details intent
+# Version 0.1.7  :  Add Small Details intent
 #
 #----------------------------------------------------------------------------------------------------------------------
 
@@ -1192,7 +1192,6 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("small_feature_speed_factor_0",20)
             modified_count += self._setValue("small_hole_max_size",4.0) 
             modified_count += self._setValue("fill_outline_gaps",True)
-            
             
             if self.Major >= 5 :
                 modified_count += self._setValue("wall_split_middle_threshold",70)
