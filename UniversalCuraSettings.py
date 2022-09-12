@@ -1183,7 +1183,7 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("infill_pattern",'lines')
             
-             modified_count += self._setValue("fill_outline_gaps",False)
+            modified_count += self._setValue("fill_outline_gaps",False)
             
             if self.Major < 5 :
                 modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
