@@ -240,6 +240,7 @@ UM.Dialog
 				   ListElement { text: "support"}
 				   ListElement { text: "vase"}
 				   ListElement { text: "save material"}
+				   ListElement { text: "small details"}			   
 				}
 				width: UM.Theme.getSize("setting_control").width
 				height: UM.Theme.getSize("setting_control").height
