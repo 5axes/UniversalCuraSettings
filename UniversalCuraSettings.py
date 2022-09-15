@@ -1249,7 +1249,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("infill_sparse_density",8)
             
             modified_count += self._setValue("support_enable",True)
-            if self.Major == 4 and self.minor < 7 :
+            if self.Major == 4 and self.Minor < 7 :
                 modified_count += self._setValue("support_tree_enable",True)
             modified_count += self._setValue("support_structure",'tree')   
             modified_count += self._setValue("support_tree_angle",45)
