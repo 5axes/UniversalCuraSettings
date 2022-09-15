@@ -39,6 +39,8 @@ Vase			(spiralize outer contour)
 
 Save material	(use the minimum material)
 
+Small details	(to print small details)
+
 ![menuSettings](./images/settings.jpg)
 
 ## How to use It
@@ -73,6 +75,8 @@ Select the type of settings you want to apply to your current Cura configuration
   - [vase](https://github.com/5axes/UniversalCuraSettings/discussions/15)
  
   - [save material](https://github.com/5axes/UniversalCuraSettings/discussions/27) 
+  
+  - [small details](https://github.com/5axes/UniversalCuraSettings/discussions/34) 
   
   
 
