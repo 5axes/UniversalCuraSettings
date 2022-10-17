@@ -71,6 +71,7 @@
 # Version 0.1.5  :  Add button link to the Wiki : https://github.com/5axes/UniversalCuraSettings/wiki
 # Version 0.1.6  :  Check For some incorect Values at the end of the modifications Ie support_interface_offset/ support_offset
 # Version 0.1.7  :  Add Small Details intent
+# Version 0.1.8  :  Change on the standard settings 
 #
 #----------------------------------------------------------------------------------------------------------------------
 
@@ -256,6 +257,7 @@ class UniversalCuraSettings(Extension, QObject,):
     @pyqtSlot(str)
     def nozzleEntered(self, text) -> None:
         self._nozzle = text
+        self.StandardFixed = 0
 
         # self.writeToLog("Set UniversalCuraSettings/Nozzle set to : " + text)
         self._preferences.setValue("UniversalCuraSettings/nozzle", self._nozzle)
@@ -264,7 +266,7 @@ class UniversalCuraSettings(Extension, QObject,):
     @pyqtSlot(str)
     def modeEntered(self, text) -> None:
         self._mode = text
-
+        self.StandardFixed = 0
         # self.writeToLog("Set UniversalCuraSettings/Mode set to : " + text)
         self._preferences.setValue("UniversalCuraSettings/mode", self._mode)
 
@@ -288,8 +290,9 @@ class UniversalCuraSettings(Extension, QObject,):
     @pyqtSlot(str)
     def modeApply(self, text) -> None:
         self._mode = text
+        
         self.setProfile() 
-        #self.writeToLog("Mode Apply to : " + text)
+        # self.writeToLog("Mode Apply to : " + text)
         
     #==== Previous code for Export/Import CSV =====================================================================================================    
     def exportData(self) -> None:
@@ -817,14 +820,10 @@ class UniversalCuraSettings(Extension, QObject,):
         # Global stack
         #------------------
         # Reinit
-        if self.StandardFixed==0 and self._setstandardvalue :
-            self.writeToLog("--------------------------------------------------")
-            self.writeToLog("| Universal Cura settings Init Global Parameters |")
-            self.writeToLog("--------------------------------------------------")
-            modified_count += self._setValue("magic_spiralize",False)
-            modified_count += self._setValue("meshfix_union_all_remove_holes",False)
-            modified_count += self._setValue("adaptive_layer_height_enabled",False)
-
+        if self._setstandardvalue :
+            self.writeToLog("----------------------------------------------------------")
+            self.writeToLog("| Universal Cura settings Init Layer_Height / Line_Width |")
+            self.writeToLog("----------------------------------------------------------")        
             # layer_height 
             cval=self._defineLayer_Height(machine_nozzle_size)
             if cval>0 :
@@ -836,6 +835,14 @@ class UniversalCuraSettings(Extension, QObject,):
             if cval>0 :
                 modified_count += self._setValue("Line_Width",cval)
                 # modified_count += self._setValue("infill_line_width",round((cval*1.1),1))
+                
+        if self.StandardFixed==0 and self._setstandardvalue :
+            self.writeToLog("--------------------------------------------------")
+            self.writeToLog("| Universal Cura settings Init Global Parameters |")
+            self.writeToLog("--------------------------------------------------")
+            modified_count += self._setValue("magic_spiralize",False)
+            modified_count += self._setValue("meshfix_union_all_remove_holes",False)
+            modified_count += self._setValue("adaptive_layer_height_enabled",False)
                 
             # General settings
             modified_count += self._setValue("adaptive_layer_height_threshold",250)
