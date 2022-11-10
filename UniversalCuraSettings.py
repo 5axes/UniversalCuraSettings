@@ -1256,8 +1256,9 @@ class UniversalCuraSettings(Extension, QObject,):
             if self.Major >= 5 :
                 modified_count += self._setValue("material_alternate_walls",True)
   
-            modified_count += self._setValue("material_bed_temperature",_material_bed_temperature*0.8)
-            modified_count += self._setValue("material_bed_temperature_layer_0",_material_bed_temperature*0.8)  
+            # Version 0.1.10
+            modified_count += self._setValue("material_bed_temperature",round((_material_bed_temperature*0.8),0))
+            modified_count += self._setValue("material_bed_temperature_layer_0",round((_material_bed_temperature*0.8),0))  
 
             
         elif currMode == "figurine" :
