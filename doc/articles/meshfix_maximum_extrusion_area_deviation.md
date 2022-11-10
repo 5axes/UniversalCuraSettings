@@ -2,28 +2,6 @@ Maximum Extrusion Area Deviation
 ====
 When printing lines with varying widths, it is common to have a line that should gradually get thinner towards one of its endpoints. This setting determines the step size at which these lines get thinner or wider, by controlling how close the lines must stay to the area they should ideally cover.
 
-<!--screenshot {
-"image_path": "meshfix_maximum_extrusion_area_deviation_high.png",
-"models": [{"script": "twisted_triangular_hole.scad"}],
-"camera_position": [0, 0, 60],
-"settings": {
-	"meshfix_maximum_resolution": 0.5,
-	"meshfix_maximum_extrusion_area_deviation": 2000
-},
-"colour_scheme": "line_width",
-"colours": 128
-}-->
-<!--screenshot {
-"image_path": "meshfix_maximum_extrusion_area_deviation_low.png",
-"models": [{"script": "twisted_triangular_hole.scad"}],
-"camera_position": [0, 0, 60],
-"settings": {
-	"meshfix_maximum_resolution": 0.05,
-	"meshfix_maximum_extrusion_area_deviation": 20
-},
-"colour_scheme": "line_width",
-"colours": 128
-}-->
 ![Lower resolution when allowing high deviation](images/meshfix_maximum_extrusion_area_deviation_high.png)
 ![Smooth line width when requiring low deviation](images/meshfix_maximum_extrusion_area_deviation_low.png)
 

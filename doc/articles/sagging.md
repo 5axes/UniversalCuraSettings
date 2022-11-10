@@ -26,21 +26,14 @@ When configuring bridging to reduce sagging, consider the following adjustments:
 * Increase the [fan speed](cool_fan_speed.md) to cool the material faster. This solidifies the material faster, preventing it from drooping down.
 * Print the walls from [inside to out](outer_inset_first.md). This will allow the outer wall to lean on top of the adjacent inner wall, which prevents it from falling down. This is most effective with a small [line width](wall_line_width_0.md).
 
-<!--screenshot {
-"image_path": "support_enable.png",
-"models": [{"script": "pipe_corner.scad"}],
-"camera_position": [77, 197, 40],
-"settings": {"support_enable": true},
-"colours": 64
-}-->
+
 Support
 ----
 ![A support structure supports the model](images/support_enable.png)
 
 The most common and reliable way to improve overhanging parts is to support them with a support structure during printing. This support structure is later removed after the material has solidified. Printing support is very effective at preventing sagging regardless of the size of the overhang area, but it takes extra time and material and leaves a scar where the support was attached.
 
-<!--if cura_version >= 4.7-->Cura has two techniques to generate support, indicated with the [Support Structure](support_structure.md) setting. There is a default "normal" method, and a "tree" method. The normal construction is generally more effective to reduce sagging, but will sometimes give a more uneven bottom side as well. Tree support tends to let the strings sag a bit further but also more evenly.<!--endif-->
-<!--if cura_version < 4.7:Cura has two techniques to generate support. There is a default "area support" method, which is generated if [support is enabled](support_enable.md). Alternatively, a tree support method is generated if [tree support is enabled](support_tree_enable.md). The default technique is generally more effective to reduce sagging, but will sometimes give a more uneven bottom side as well. Tree support tends to let the strings sag a bit further but also more evenly.-->
+Cura has two techniques to generate support, indicated with the [Support Structure](support_structure.md) setting. There is a default "normal" method, and a "tree" method. The normal construction is generally more effective to reduce sagging, but will sometimes give a more uneven bottom side as well. Tree support tends to let the strings sag a bit further but also more evenly.
 
 Cura's support generation will decide where to place supports automatically. In most cases this works fine, but for some models it may add too little or too much support. Luckily Cura also provides many methods to customise the support placement.
 * Adjusting the [overhang angle](support_angle.md) is the most basic way to tune how much support material is placed. You should tune this parameter such that all of your overhanging areas are supported. This setting also determines which areas get drawn in red in the Prepare stage. Reducing the overhang angle will cause more support to be printed, which reduces sagging in more parts of the print but will also take more time and material and cause more scarring.

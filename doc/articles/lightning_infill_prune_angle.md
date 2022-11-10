@@ -2,32 +2,7 @@ Lightning Infill Prune Angle
 ====
 The Lightning infill pattern produces a tree-like structure on the inside of the print which starts small, but branches out to reach all the parts of the top of the print that need to be supported from the inside. This setting indicates how far the tree's branches can overhang at the endpoints.
 
-<!--screenshot {
-"image_path": "lightning_infill_prune_angle_40.png",
-"models": [{"script": "half_sphere.scad"}],
-"camera_position": [112, 15, 9],
-"settings": {
-    "infill_pattern": "lightning",
-    "wall_line_count": 0,
-    "top_layers": 0,
-    "lightning_infill_support_angle": 40,
-    "lightning_infill_prune_angle": 40
-},
-"colours": 32
-}-->
-<!--screenshot {
-"image_path": "lightning_infill_prune_angle_70.png",
-"models": [{"script": "half_sphere.scad"}],
-"camera_position": [112, 15, 9],
-"settings": {
-    "infill_pattern": "lightning",
-    "wall_line_count": 0,
-    "top_layers": 0,
-    "lightning_infill_support_angle": 40,
-    "lightning_infill_prune_angle": 70
-},
-"colours": 32
-}-->
+
 ![At 40° the Lightning infill is pretty stable](images/lightning_infill_prune_angle_40.png)
 ![At 70° the branches overhang quite steeply](images/lightning_infill_prune_angle_70.png)
 

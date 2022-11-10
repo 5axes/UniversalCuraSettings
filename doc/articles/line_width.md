@@ -2,20 +2,6 @@ Line Width
 ====
 This is the horizontal width of the lines that the printer will place down. Normally the diameter of the nozzle opening determines how wide your lines will be, but by extruding more or less material, the printer can vary a little bit in how wide the lines will become.
 
-<!--screenshot {
-"image_path": "line_width_small.png",
-"models": [{"script": "holes_cutout.scad"}],
-"camera_position": [17, 39, 61],
-"settings": {"line_width": 0.2},
-"colours": 64
-}-->
-<!--screenshot {
-"image_path": "line_width_large.png",
-"models": [{"script": "holes_cutout.scad"}],
-"camera_position": [17, 39, 61],
-"settings": {"line_width": 0.6},
-"colours": 32
-}-->
 ![Very thin lines](images/line_width_small.png)
 ![Very wide lines](images/line_width_large.png)
 

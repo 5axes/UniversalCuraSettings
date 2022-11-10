@@ -4,43 +4,12 @@ Ironing covers the top surface with a path pattern. This setting determines whic
 
 The goal of the pattern is to create a smooth, continuous surface. If there is an interruption in the pattern, this will create a visible border on the top surface. There are two patterns available.
 
-<!--screenshot {
-"image_path": "ironing_enabled_enabled.png",
-"models": [
-    {
-        "script": "dial_brace.scad",
-        "transformation": ["scale(0.5)"]
-    }
-],
-"camera_position": [0, 14, 83],
-"settings": {
-    "layer_height": 0.2,
-    "ironing_enabled": true
-},
-"colours": 64
-}-->
 Zigzag
 ----
 ![Zigzag ironing pattern](images/ironing_enabled_enabled.png)
 
 This will make the nozzle go back and forth over the surface. It works fine and reliably for most surfaces, but will cause somewhat more borders than necessary.
 
-<!--screenshot {
-"image_path": "ironing_pattern.png",
-"models": [
-    {
-        "script": "dial_brace.scad",
-        "transformation": ["scale(0.5)"]
-    }
-],
-"camera_position": [0, 14, 83],
-"settings": {
-    "layer_height": 0.2,
-    "ironing_enabled": true,
-    "ironing_pattern": "concentric"
-},
-"colours": 64
-}-->
 Concentric
 ----
 ![Concentric ironing pattern](images/ironing_pattern.png)

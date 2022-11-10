@@ -4,20 +4,6 @@ This is a compensation measure for a printing effect where holes tend to end up 
 
 Because the hole is expanded in all directions, this setting's value effectively applies to the radius of holes, not to their diameter.
 
-<!--screenshot {
-"image_path": "hole_xy_offset_0.png",
-"models": [{"script": "rotary_tumbler_motor_lid.scad"}],
-"camera_position": [-30, 30, 111],
-"settings": {"hole_xy_offset": 0},
-"colours": 64
-}-->
-<!--screenshot {
-"image_path": "hole_xy_offset.png",
-"models": [{"script": "rotary_tumbler_motor_lid.scad"}],
-"camera_position": [-30, 30, 111],
-"settings": {"hole_xy_offset": 0.8},
-"colours": 64
-}-->
 ![The holes in this print need to fit screws and axles, but they print too small](images/hole_xy_offset_0.png)
 ![The holes have been made larger, but the rest of the shape hasn't changed](images/hole_xy_offset.png)
 

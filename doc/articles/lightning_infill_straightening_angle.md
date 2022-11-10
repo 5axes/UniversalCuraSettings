@@ -4,44 +4,7 @@ This setting determines how steeply the Lightning infill pattern may overhang in
 
 Lightning infill produces the titular lightning-like zigzag lines where it needs to support the top of the print, but those take a long time to print due to the sharp corners in the lines. So down below, it will attempt to straighten those jagged lines out, to reduce printing time. This straightening causes overhangs. The setting determines how much overhang is allowed.
 
-<!--screenshot {
-"image_path": "lightning_infill_straightening_angle_40.png",
-"models": [
-    {
-        "script": "cylinder.scad",
-        "transformation": ["scaleZ(0.5)"]
-    }
-],
-"camera_position": [36, 44, 19],
-"settings": {
-    "infill_pattern": "lightning",
-    "wall_line_count": 0,
-    "top_layers": 0,
-    "lightning_infill_support_angle": 40,
-    "lightning_infill_prune_angle": 10,
-    "lightning_infill_straightening_angle": 40
-},
-"colours": 32
-}-->
-<!--screenshot {
-"image_path": "lightning_infill_straightening_angle_10.png",
-"models": [
-    {
-        "script": "cylinder.scad",
-        "transformation": ["scaleZ(0.5)"]
-    }
-],
-"camera_position": [36, 44, 19],
-"settings": {
-    "infill_pattern": "lightning",
-    "wall_line_count": 0,
-    "top_layers": 0,
-    "lightning_infill_support_angle": 40,
-    "lightning_infill_prune_angle": 10,
-    "lightning_infill_straightening_angle": 10
-},
-"colours": 32
-}-->
+
 ![At 40°, the infill lines converge quickly into straight lines](images/lightning_infill_straightening_angle_40.png)
 ![At 10°, there are no steep overhangs in the infill any more](images/lightning_infill_straightening_angle_10.png)
 

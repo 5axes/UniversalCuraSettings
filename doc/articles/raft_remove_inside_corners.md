@@ -2,16 +2,6 @@ Remove Raft Inside Corners
 ====
 When this setting is enabled, all inside corners of the raft are completely removed, turning the raft into a [convex shape](https://en.wikipedia.org/wiki/Convex_set). The raft will only have outside corners.
 
-<!--screenshot {
-"image_path": "raft_remove_inside_corners.png",
-"models": [{"script": "microwave_hook.scad"}],
-"camera_position": [59, 59, 200],
-"settings": {
-	"adhesion_type": "raft",
-	"raft_remove_inside_corners": true
-},
-"colours": 64
-}-->
 ![The raft doesn't follow the shape of the model any more](images/raft_remove_inside_corners.png)
 
 This is effectively equivalent to having a very high [smoothing](raft_smoothing.md). Removing inside corners from the raft has a number of effects:

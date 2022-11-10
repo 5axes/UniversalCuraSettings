@@ -4,30 +4,7 @@ The Lightning infill pattern is only intended to support the print from the insi
 
 The pattern supports the top side of the print from the inside, but only the top side that is significantly overhanging, more than this angle. The pattern also has endpoints that overhang at a certain angle to create a branching tree structure, and the sides of this branching structure have an internal angle to reach further into certain areas. These three aspects of overhang can also be individually controlled with the [Lightning Infill Overhang Angle](lightning_infill_overhang_angle.md), [Lightning Infill Prune Angle](lightning_infill_prune_angle.md) and [Lightning Infill Straightening Angle](lightning_infill_straightening_angle.md) settings respectively.
 
-<!--screenshot {
-"image_path": "lightning_infill_support_angle_30.png",
-"models": [{"script": "half_sphere.scad"}],
-"camera_position": [130, 87, 47],
-"settings": {
-    "infill_pattern": "lightning",
-    "wall_line_count": 0,
-    "top_layers": 0,
-    "lightning_infill_support_angle": 30
-},
-"colours": 64
-}-->
-<!--screenshot {
-"image_path": "lightning_infill_support_angle_60.png",
-"models": [{"script": "half_sphere.scad"}],
-"camera_position": [130, 87, 47],
-"settings": {
-    "infill_pattern": "lightning",
-    "wall_line_count": 0,
-    "top_layers": 0,
-    "lightning_infill_support_angle": 60
-},
-"colours": 64
-}-->
+
 ![With a low overhang angle, much support is needed](images/lightning_infill_support_angle_30.png)
 ![With a high overhang angle, steep overhangs are allowed](images/lightning_infill_support_angle_60.png)
 
