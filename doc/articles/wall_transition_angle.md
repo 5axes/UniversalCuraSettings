@@ -2,16 +2,6 @@ Wall Transitioning Threshold Angle
 ====
 This angle indicates the angle at which Cura starts creating transitions to properly fill the space. Any corners that are sharper than this angle will get filled with variable-width lines.
 
-<!--screenshot {
-"image_path": "wall_transition_angle.png",
-"models": [{"script": "sharpening_corners.scad"}],
-"camera_position": [0, 11, 106],
-"settings": {
-	"wall_transition_angle": 11,
-	"wall_line_count": 4
-},
-"colours": 64
-}-->
 ![Wider than 10°, it's no longer creating transitions](images/wall_transition_angle.png)
 
 Effectively this turns variable line widths on or off for certain corners. If two opposite walls are almost parallel, smaller than the angle specified in this setting, the area between them gets filled with lines that may vary in their width. If they are at a greater angle from one another, the space between them gets filled with constant-width walls.

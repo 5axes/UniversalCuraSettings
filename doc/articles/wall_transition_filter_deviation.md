@@ -4,28 +4,6 @@ Some models have thin pieces hovering around the threshold where different numbe
 
 When a transition gets removed, then temporarily some of the lines can get too wide or too thin. This setting puts a limit on which transitions are filtered out by limiting how much wider or thinner the line is allowed to be.
 
-<!--screenshot {
-"image_path": "wall_transition_filter_off.png",
-"models": [{"script": "signet.scad"}],
-"camera_position": [0, 11, 106],
-"settings": {
-	"wall_transition_filter_distance": 0,
-	"wall_transition_filter_margin": 0,
-	"wall_line_count": 3
-},
-"colours": 64
-}-->
-<!--screenshot {
-"image_path": "wall_transition_filter_on.png",
-"models": [{"script": "signet.scad"}],
-"camera_position": [0, 11, 106],
-"settings": {
-	"wall_transition_filter_distance": 100,
-	"wall_transition_filter_margin": 0.2,
-	"wall_line_count": 3
-},
-"colours": 64
-}-->
 ![With a low margin, it alternates between 2 and 3 walls](images/wall_transition_filter_off.png)
 ![With a higher margin, it no longer alternates](images/wall_transition_filter_on.png)
 

@@ -2,16 +2,6 @@ Wall Line Width
 ====
 The line width for the walls can be adjusted separately from the rest of the print. This setting indicates how wide the individual wall lines will be.
 
-<!--screenshot {
-"image_path": "wall_line_width.png",
-"models": [{"script": "hive.scad"}],
-"camera_position": [-31, -31, 147],
-"settings": {
-    "wall_line_count": 2,
-    "wall_line_width": 0.8
-},
-"colours": 64
-}-->
 ![The lines for the walls are much wider than the rest](images/wall_line_width.png)
 
 Reducing the walls to a line width slightly below the nozzle size is known to be beneficial for strength. The nozzle will extrude slightly less material but its opening will overlap with the adjacent wall lines. This causes the material to be pushed aside by the previously-placed wall into its proper location. But that will also cause the plastic to fuse better to the adjacent walls. This allows the walls to fuse better together so that they can combine their strength. This greatly improves the strength of the walls.
@@ -20,10 +10,9 @@ Reducing the wall line width also allows the nozzle to print finer details. Espe
 
 Increasing the wall line width can reduce printing time. You will need fewer wall lines to get parts with similar strength. The strength will still be reduced somewhat because adjacent walls will not fuse together as much.
 
-<!--if cura_version>=5.0-->In thin parts, the line width will automatically be adjusted to make it fit the local width of the part there. There is no need to ensure that the part's width is a multiple of the line width. The [Wall Transitioning Threshold Angle](wall_transition_angle.md) determines where the line width automatically gets adjusted in sharp corners. The [Minimum Wall Line Width](min_wall_line_width.md) determines how far they can get adjusted in each direction.<!--endif-->
+In thin parts, the line width will automatically be adjusted to make it fit the local width of the part there. There is no need to ensure that the part's width is a multiple of the line width. The [Wall Transitioning Threshold Angle](wall_transition_angle.md) determines where the line width automatically gets adjusted in sharp corners. The [Minimum Wall Line Width](min_wall_line_width.md) determines how far they can get adjusted in each direction.
 
-<!--if cura_version<5.0:
-Making lines fit
+if cura_version<5.0: Making lines fit
 ----
 When printing thin parts, adjusting the wall line width is an important tool to get accurate and strong parts. Cura will only ever draw complete contours, so if a contour doesn't fit a gap will fall into the walls, which greatly compromises the strength and accuracy of the part.
 
