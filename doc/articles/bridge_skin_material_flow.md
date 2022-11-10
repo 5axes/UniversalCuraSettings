@@ -2,32 +2,6 @@ Bridge Skin Flow
 ====
 This setting adjusts the amount of material that is extruded to print bridging bottom sides.
 
-<!--screenshot {
-"image_path": "bridge_skin_density_100.png",
-"models": [{"script": "bridge.scad"}],
-"layer": 80,
-"settings": {
-    "bridge_settings_enabled": true,
-    "bridge_skin_density": 100,
-    "bridge_skin_material_flow": 100,
-    "bridge_wall_material_flow": 100
-},
-"camera_position": [0, 18, 79],
-"colours": 64
-}-->
-<!--screenshot {
-"image_path": "bridge_skin_material_flow_50.png",
-"models": [{"script": "bridge.scad"}],
-"layer": 80,
-"settings": {
-    "bridge_settings_enabled": true,
-    "bridge_skin_density": 100,
-    "bridge_skin_material_flow": 50,
-    "bridge_wall_material_flow": 100
-},
-"camera_position": [0, 18, 79],
-"colours": 64
-}-->
 ![At 100% flow, the lines are drawn at their normal line width](images/bridge_skin_density_100.png)
 ![At 50% flow, the lines are made thinner](images/bridge_skin_material_flow_50.png)
 
