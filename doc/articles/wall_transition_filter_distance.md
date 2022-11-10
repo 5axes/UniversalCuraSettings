@@ -2,28 +2,6 @@ Wall Transitioning Filter Distance
 ====
 Some models have thin pieces hovering around the threshold where different numbers of walls get used. This could make the number of walls alternate back and forth even though the actual width of the piece doesn't vary much. The alternation ruins the print quality, requiring lots of flow changes and adding more travel moves. Using this feature, transitions are removed if it would have transitioned back and forth within a certain distance.
 
-<!--screenshot {
-"image_path": "wall_transition_filter_off.png",
-"models": [{"script": "signet.scad"}],
-"camera_position": [0, 11, 106],
-"settings": {
-	"wall_transition_filter_distance": 0,
-	"wall_transition_filter_margin": 0,
-	"wall_line_count": 3
-},
-"colours": 64
-}-->
-<!--screenshot {
-"image_path": "wall_transition_filter_on.png",
-"models": [{"script": "signet.scad"}],
-"camera_position": [0, 11, 106],
-"settings": {
-	"wall_transition_filter_distance": 100,
-	"wall_transition_filter_margin": 0.2,
-	"wall_line_count": 3
-},
-"colours": 64
-}-->
 ![Without filter, it alternates between 2 and 3 walls](images/wall_transition_filter_off.png)
 ![With filter, it no longer alternates](images/wall_transition_filter_on.png)
 

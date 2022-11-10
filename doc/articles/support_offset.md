@@ -2,16 +2,6 @@ Support Horizontal Expansion
 ====
 This setting causes the support to become slightly wider, expanding horizontally in every direction.
 
-<!--screenshot {
-"image_path": "support_offset.png",
-"models": [{"script": "duct.scad"}],
-"camera_position": [47, 72, 128],
-"settings": {
-    "support_enable": true,
-    "support_offset": 1.6
-},
-"colours": 64
-}-->
 ![The support is wider than necessary to support the model](images/support_offset.png)
 
 This setting has multiple uses, depending on the material used for support and the type of model that needs supporting:

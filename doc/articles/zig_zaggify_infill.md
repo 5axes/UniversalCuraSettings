@@ -2,27 +2,6 @@ Connect Infill Lines
 ====
 This setting connects the endpoints of the infill pattern, where the infill meets the inner wall or skin, using a line that follows the edge of the infill area.
 
-<!--screenshot {
-"image_path": "infill_pattern_grid.png",
-"models": [{"script": "hexagonal_prism.scad"}],
-"camera_position": [0, 0, 180],
-"settings": {
-    "top_layers": 0,
-    "infill_pattern": "grid"
-},
-"colours": 64
-}-->
-<!--screenshot {
-"image_path": "zig_zaggify_infill_enabled.png",
-"models": [{"script": "hexagonal_prism.scad"}],
-"camera_position": [0, 0, 180],
-"settings": {
-    "top_layers": 0,
-    "infill_pattern": "grid",
-    "zig_zaggify_infill": true
-},
-"colours": 64
-}-->
 ![No connected infill lines](images/infill_pattern_grid.png)
 ![Connected infill lines](images/zig_zaggify_infill_enabled.png)
 

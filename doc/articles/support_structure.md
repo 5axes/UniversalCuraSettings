@@ -2,16 +2,7 @@ Support Structure
 ====
 With this setting you can choose which algorithm to use to construct the support structures. These constructions have vastly different properties, so choosing an algorithm will have a big influence in how well your print gets supported. There are two options available.
 
-<!--screenshot {
-"image_path": "support_type_everywhere.png",
-"models": [{"script": "duct.scad"}],
-"camera_position": [56, 127, 60],
-"settings": {
-    "support_enable": true,
-    "support_type": "everywhere"
-},
-"colours": 32
-}-->
+
 Normal
 ----
 ![Normal support construction](images/support_type_everywhere.png)
@@ -29,17 +20,7 @@ The most important downsides arise from the same properties:
 
 Since the support will usually be large and wide, an [infill pattern](support_pattern.md) is needed to support the surface properly. The zig-zag infill pattern may be used to print the support largely out of a single line, and to allow for easier removal. Other patterns can be combined with an extra [outline](support_wall_count.md) to make the support extra sturdy instead.
 
-<!--screenshot {
-"image_path": "support_structure_tree.png",
-"models": [{"script": "duct.scad"}],
-"camera_position": [56, 127, 60],
-"settings": {
-    "support_enable": true,
-    "support_structure": "tree",
-    "support_tree_collision_resolution": 0.05
-},
-"colours": 32
-}-->
+
 Tree
 ----
 ![Tree support](images/support_structure_tree.png)

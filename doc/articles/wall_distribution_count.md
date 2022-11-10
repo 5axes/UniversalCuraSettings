@@ -2,38 +2,7 @@ Wall Distribution Count
 ====
 Cura can adjust the width of wall lines to better fit the shape you're printing, but it doesn't have to adjust every wall by the same amount. It prefers to change the width of walls further towards the inside of the model. This setting determines the number of walls, counting from the inside out, that get adjusted to fit the available space.
 
-<!--screenshot {
-"image_path": "wall_distribution_count_1.png",
-"models": [
-	{
-		"script": "misaligned_ring.scad",
-		"transformation": ["scale(2)"]
-	}
-],
-"camera_position": [-11, 0, 111],
-"settings": {
-	"wall_line_count": 5,
-	"wall_distribution_count": 1
-},
-"colour_scheme": "line_width",
-"colours": 128
-}-->
-<!--screenshot {
-"image_path": "wall_distribution_count_5.png",
-"models": [
-	{
-		"script": "misaligned_ring.scad",
-		"transformation": ["scale(2)"]
-	}
-],
-"camera_position": [-11, 0, 111],
-"settings": {
-	"wall_line_count": 5,
-	"wall_distribution_count": 5
-},
-"colour_scheme": "line_width",
-"colours": 128
-}-->
+
 ![Concentrated in the middle, with big variations in line widths there](images/wall_distribution_count_1.png)
 ![Spread out over many walls](images/wall_distribution_count_5.png)
 

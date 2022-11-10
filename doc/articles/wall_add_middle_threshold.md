@@ -4,31 +4,6 @@ When printing thin pieces, Cura adjusts the width of wall lines to fit the exact
 
 This setting is the same as the [Minimum Odd Wall Line Width](min_odd_wall_line_width.md), but uses a different unit. The unit of this setting is in fractions of a line width that the width of a part needs to increase to add a new middle line.
 
-<!--screenshot {
-"image_path": "min_wall_line_width_0_34.png",
-"models": [{"script": "moon_sickle.scad"}],
-"camera_position": [0, 0, 63],
-"settings": {
-	"min_wall_line_width": 0.34,
-	"wall_line_count": 3,
-	"wall_transition_angle": 20
-},
-"layer": 14,
-"colours": 32
-}-->
-<!--screenshot {
-"image_path": "min_wall_line_width_odd_0_1.png",
-"models": [{"script": "moon_sickle.scad"}],
-"camera_position": [0, 0, 63],
-"settings": {
-	"min_odd_wall_line_width": 0.1,
-	"min_wall_line_width": 0.34,
-	"wall_line_count": 3,
-	"wall_transition_angle": 20
-},
-"layer": 14,
-"colours": 32
-}-->
 ![When the centre line is too small, the two lines around it are made wider](images/min_wall_line_width_0_34.png)
 ![Reducing this setting, the centre line starts and ends much smaller](images/min_wall_line_width_odd_0_1.png)
 
