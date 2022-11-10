@@ -72,6 +72,7 @@
 # Version 0.1.6  :  Check For some incorect Values at the end of the modifications Ie support_interface_offset/ support_offset
 # Version 0.1.7  :  Add Small Details intent
 # Version 0.1.8  :  Change on the standard settings 
+# Version 0.1.9  :  Bug Correction
 #
 #----------------------------------------------------------------------------------------------------------------------
 
@@ -1059,8 +1060,9 @@ class UniversalCuraSettings(Extension, QObject,):
                 #                                                               "outside_in": "Outside To Inside"
                 modified_count += self._setValue("inset_direction",'inside_out')
                 # Minimum Wall Line Width	            0.34	mm              "min_wall_line_width":
-                val_calc=float(currNozzle) * 0.85
-                modified_count += self._setValue("min_wall_line_width",round(val_calc,2))            
+                if currNozzle != "not specified" :
+                    val_calc=float(currNozzle) * 0.85
+                    modified_count += self._setValue("min_wall_line_width",round(val_calc,2))            
                 # Minimum Even Wall Line Width	        0.34	mm              "min_even_wall_line_width":
                 # Split Middle Line Threshold	        70	%                   "wall_split_middle_threshold":
                 # Minimum Odd Wall Line Width	        0.34	mm              "min_odd_wall_line_width":
