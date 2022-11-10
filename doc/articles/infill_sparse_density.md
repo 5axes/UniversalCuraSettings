@@ -2,26 +2,6 @@ Infill Density
 ====
 This setting configures the density of the volume inside the print, which is a major factor in the strength of the final print as well as the top surface quality. The greater the infill density, the closer the infill lines will be placed together. You can even go above 100% density, but that will result in overextrusion.
 
-<!--screenshot {
-"image_path": "infill_pattern_grid.png",
-"models": [{"script": "hexagonal_prism.scad"}],
-"camera_position": [0, 0, 180],
-"settings": {
-    "top_layers": 0,
-    "infill_pattern": "grid"
-},
-"colours": 64
-}-->
-<!--screenshot {
-"image_path": "infill_sparse_density_low.png",
-"models": [{"script": "hexagonal_prism.scad"}],
-"camera_position": [0, 0, 180],
-"settings": {
-    "top_layers": 0,
-    "infill_sparse_density": 10
-},
-"colours": 64
-}-->
 ![20% density](images/infill_pattern_grid.png)
 ![10% density](images/infill_sparse_density_low.png)
 

@@ -2,42 +2,6 @@ Infill Before Walls
 ====
 This affects the order in which things are printed. With this setting enabled, the infill of a part will be printed before the walls of that part on that layer are printed.
 
-<!--screenshot {
-"image_path": "infill_before_walls_disabled.gif",
-"models": [
-    {
-        "script": "cube.scad",
-        "transformation": ["scale(0.25)"]
-    }
-],
-"camera_position": [0, 0, 100],
-"settings": {
-    "top_layers": 0,
-    "infill_before_walls": false
-},
-"layer": 162,
-"line": [0, 1, 2, 3, 4, 7, 8, 9, 10, 12, 15, 18, 21, 24, 27],
-"colours": 32,
-"delay": 250
-}-->
-<!--screenshot {
-"image_path": "infill_before_walls_enabled.gif",
-"models": [
-    {
-        "script": "cube.scad",
-        "transformation": ["scale(0.25)"]
-    }
-],
-"camera_position": [0, 0, 100],
-"settings": {
-    "top_layers": 0,
-    "infill_before_walls": true
-},
-"layer": 162,
-"line": [0, 1, 4, 7, 10, 13, 16, 20, 21, 22, 23, 26, 27, 28, 29],
-"colours": 32,
-"delay": 250
-}-->
 ![Setting is disabled, so walls are printed first](images/infill_before_walls_disabled.gif)
 ![Setting is enabled, so infill is printed first](images/infill_before_walls_enabled.gif)
 
