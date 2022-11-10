@@ -1094,6 +1094,8 @@ class UniversalCuraSettings(Extension, QObject,):
         _wall_line_width = float(self._getValue("wall_line_width"))
         _wall_line_width_0 = float(self._getValue("wall_line_width_0"))
         _wall_line_width_x = float(self._getValue("wall_line_width_x"))
+        _material_bed_temperature = float(self._getValue("material_bed_temperature"))
+
 
             
         self.writeToLog("----------------------------------------")
@@ -1252,6 +1254,10 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("speed_travel",100)
             if self.Major >= 5 :
                 modified_count += self._setValue("material_alternate_walls",True)
+  
+            modified_count += self._setValue("material_bed_temperature",_material_bed_temperature*0.8)
+            modified_count += self._setValue("material_bed_temperature_layer_0",_material_bed_temperature*0.8)  
+
             
         elif currMode == "figurine" :
             # for fine details and good cooling ?
