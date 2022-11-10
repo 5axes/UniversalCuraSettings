@@ -73,6 +73,7 @@
 # Version 0.1.7  :  Add Small Details intent
 # Version 0.1.8  :  Change on the standard settings 
 # Version 0.1.9  :  Bug Correction
+# Version 0.1.10 :  Update Wiki and change some parameters according to this changes
 #
 #----------------------------------------------------------------------------------------------------------------------
 
