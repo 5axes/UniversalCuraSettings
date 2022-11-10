@@ -1247,7 +1247,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("retraction_combing_max_distance",33)
             modified_count += self._setValue("retraction_hop_enabled",True)
             modified_count += self._setValue("retraction_hop",_layer_height)
-            modified_count += self._setValue("retraction_retract_speed",50)
+            # modified_count += self._setValue("retraction_retract_speed",50)
             
             modified_count += self._setValue("speed_travel",100)
             if self.Major >= 5 :

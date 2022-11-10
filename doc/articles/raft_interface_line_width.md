@@ -1,7 +1,16 @@
 Raft Middle Line Width
 ====
-<!--if cura_version<5.0:This setting configures the width of the lines in the middle layer of the raft.-->
-<!--if cura_version>=5.0-->This setting configures the width of the lines in the middle layers of the raft.<!--endif-->
+
+if cura_version<5.0
+-----
+This setting configures the width of the lines in the middle layer of the raft.
+
+
+if cura_version>=5.0
+-----
+
+This setting configures the width of the lines in the middle layers of the raft.
+
 
 ![Dimensions related to the raft](images/raft_dimensions.svg)
 
