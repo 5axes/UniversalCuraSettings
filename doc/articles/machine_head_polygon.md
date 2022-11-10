@@ -1,6 +1,6 @@
 Machine Head Polygon
 ====
-This is a setting that was once used in the same way as what [Machine Head & Fans Polygon](machine_head_with_fans_polygon.md) is used for now. This setting was used to determine the collision zone around objects when printing [one at a time](../blackmagic/print_sequence.md).
+This is a setting that was once used in the same way as what [Machine Head & Fans Polygon](machine_head_with_fans_polygon.md) is used for now. This setting was used to determine the collision zone around objects when printing [one at a time](print_sequence.md).
 
 ![Dimensions of the print head](images/head_dimensions.svg)
 

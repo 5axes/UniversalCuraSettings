@@ -8,4 +8,4 @@ However, contrary to [the equivalent for top/bottom lines](skin_monotonic.md), t
 
 The monotonic order will slightly increase the length of travel moves, but this effect is very minimal.
 
-To achieve a smooth surface, consider pairing this setting with setting the [Combing Mode](travel/retraction_combing.md) to avoid skin, and perhaps to enable [Z Hops](travel/retraction_hop.md).
+To achieve a smooth surface, consider pairing this setting with setting the [Combing Mode](retraction_combing.md) to avoid skin, and perhaps to enable [Z Hops](retraction_hop.md).

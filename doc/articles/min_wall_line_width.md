@@ -33,7 +33,7 @@ Different numbers of walls
 ----
 If there is a single central line and the [Wall Distribution Count](wall_distribution_count.md) is set to 1, this setting functions exactly as it says. If the line in the middle gets thinner than a certain width, it gets removed in favour of making other lines wider. In other cases, the calculation is more complex.
 
-The precise calculation of this is complex, but an intuitive understanding can be useful. Effectively, you can simply divide the total width of the model by the [ordinary line width](../resolution/wall_line_width.md) to arrive at a certain number of walls. This can be a fraction though (such as 5.3 wall line widths). The Minimum Wall Line Width takes just that fractional part (0.3 line widths) and adds an extra wall if it exceeds the Minimum Wall Line width. With the number of walls known, it then determines the width of each of the lines according to the Wall Distribution Count.
+The precise calculation of this is complex, but an intuitive understanding can be useful. Effectively, you can simply divide the total width of the model by the [ordinary line width](wall_line_width.md) to arrive at a certain number of walls. This can be a fraction though (such as 5.3 wall line widths). The Minimum Wall Line Width takes just that fractional part (0.3 line widths) and adds an extra wall if it exceeds the Minimum Wall Line width. With the number of walls known, it then determines the width of each of the lines according to the Wall Distribution Count.
 
 ![Minimum Wall Line Width shifts the threshold of adding a new line left or right](images/min_wall_line_width.svg)
 

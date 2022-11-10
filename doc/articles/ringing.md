@@ -26,14 +26,14 @@ Cura's solutions
 If the hardware solutions are not an option, you can also reduce the ringing effect through some adjustments in Cura settings.
 
 Since the vibrations are caused by accelerating the print head, the most prominent improvements are geared towards reducing those accelerations.
-* Reducing the maximum [printing speed](../speed/speed_print.md) reduces the duration of the accelerations.
-* Reducing the [acceleration rate](../speed/acceleration_print.md) directly reduces the acceleration and will reduce the strength of the vibrations.
-* In 3D printing, [jerk](../speed/jerk_print.md) is an industry term for instantaneous velocity changes through corners. What that means is that it's essentially trying to accelerate infinitely in order to prevent needing to slow down too much in every corner. This causes very high accelerations for short amounts of time in every corner. Reducing the jerk can then also help to reduce vibrations. Instead of a brief, strong acceleration it will accelerate more slowly and for a longer time, which reduces high frequency vibrations but increases low frequency vibrations.
+* Reducing the maximum [printing speed](speed_print.md) reduces the duration of the accelerations.
+* Reducing the [acceleration rate](acceleration_print.md) directly reduces the acceleration and will reduce the strength of the vibrations.
+* In 3D printing, [jerk](jerk_print.md) is an industry term for instantaneous velocity changes through corners. What that means is that it's essentially trying to accelerate infinitely in order to prevent needing to slow down too much in every corner. This causes very high accelerations for short amounts of time in every corner. Reducing the jerk can then also help to reduce vibrations. Instead of a brief, strong acceleration it will accelerate more slowly and for a longer time, which reduces high frequency vibrations but increases low frequency vibrations.
 
 Those adjustments will make your print take longer. You can also prevent ringing in other ways though, by preventing the type of movements that cause them:
-<!--if cura_version<5.0:* Disable the [gap filling](../shell/fill_perimeter_gaps.md) technique and don't [print thin walls](../shell/fill_outline_gaps.md), since these techniques sometimes use very small line segments and extra travel moves. If a wall is being printed afterwards, the printer will still be vibrating a bit.-->
-* If your printer moves the build plate up and down rather than the print head, don't use [Z hops](../travel/retraction_hop_enabled.md). These cause the build plate to vibrate up and down long after the hop has been completed.
+<!--if cura_version<5.0:* Disable the [gap filling](fill_perimeter_gaps.md) technique and don't [print thin walls](fill_outline_gaps.md), since these techniques sometimes use very small line segments and extra travel moves. If a wall is being printed afterwards, the printer will still be vibrating a bit.-->
+* If your printer moves the build plate up and down rather than the print head, don't use [Z hops](retraction_hop_enabled.md). These cause the build plate to vibrate up and down long after the hop has been completed.
 
-You can also print the [inner walls before the outer wall](../shell/outer_inset_first.md). Since the printing of the walls doesn't usually cause as much vibrations as other parts, this allows the printer to stop vibrating before the all-important outer wall is printed.
+You can also print the [inner walls before the outer wall](outer_inset_first.md). Since the printing of the walls doesn't usually cause as much vibrations as other parts, this allows the printer to stop vibrating before the all-important outer wall is printed.
 
 Lastly, depending on the geometry of your gantry, vibrations are sometimes absorbed differently in different directions. Rotating your print by 45 degrees may help too. 

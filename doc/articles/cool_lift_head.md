@@ -16,4 +16,4 @@ There is a trade-off when slowing down the nozzle to allow the layer to cool dow
 
 With Lift Head, this trade-off is resolved. You can still slow down to a point, but for very small layers it will move the hot nozzle away, so that it doesn't transfer heat into the print any more. The head is kept close by enough that any fans on the print head will still blow on the print.
 
-The disadvantage of this is that it will effectively do a [Z hop](travel/retraction_hop.md), which brings about some [stringing](../troubleshooting/stringing.md). While lifting the head may improve the sagging and blobbiness, it will cause a different type of mess. A bit of manual post-processing with a knife can clean up the strings it causes.
+The disadvantage of this is that it will effectively do a [Z hop](retraction_hop.md), which brings about some [stringing](../troubleshooting/stringing.md). While lifting the head may improve the sagging and blobbiness, it will cause a different type of mess. A bit of manual post-processing with a knife can clean up the strings it causes.

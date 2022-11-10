@@ -1,6 +1,6 @@
 Break Up Support In Chunks
 ====
-If the zigzag [pattern](../support/support_pattern.md) is used for support, the support can be crumpled up as an easy way to remove the support. This becomes more difficult if the support is very wide. With this setting, the zigzag support is broken up into pieces that are easier to break off individually but are still wide enough to maintain their stability.
+If the zigzag [pattern](support_pattern.md) is used for support, the support can be crumpled up as an easy way to remove the support. This becomes more difficult if the support is very wide. With this setting, the zigzag support is broken up into pieces that are easier to break off individually but are still wide enough to maintain their stability.
 
 <!--screenshot {
 "image_path": "support_skip_some_zags.png",
@@ -20,4 +20,4 @@ Breaking the support up in chunks makes it easier to break the support off, beca
 
 This setting also prevents pulling off all of the support in one piece. If there are many pieces of support, they have to be taken off individually. If the support comes off easily enough otherwise, this setting may actually make it more work to pull off the support (albeit it might still be easier).
 
-This setting doesn't combine well with [Support Wall Line Count](../support/support_wall_count.md). If the support has an extra wall around it, that wall will connect the chunks again, making it harder to break pieces off.
+This setting doesn't combine well with [Support Wall Line Count](support_wall_count.md). If the support has an extra wall around it, that wall will connect the chunks again, making it harder to break pieces off.

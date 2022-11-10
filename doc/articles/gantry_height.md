@@ -1,6 +1,6 @@
 Gantry Height
 ====
-This setting measures the distance between the build plate and the gantry system to which the print head is suspended. This height is a ceiling when you're printing [one object at a time](../blackmagic/print_sequence.md), since previously printed object could collide against the gantry.
+This setting measures the distance between the build plate and the gantry system to which the print head is suspended. This height is a ceiling when you're printing [one object at a time](print_sequence.md), since previously printed object could collide against the gantry.
 
 ![Dimensions of the print head](images/head_dimensions.svg)
 

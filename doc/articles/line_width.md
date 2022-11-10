@@ -30,12 +30,12 @@ Reducing the line width allows the printer to print more details. In particular 
 
 It's not advisable to reduce the line width below 60% of the nozzle size or above 150%. Both may fail to extrude enough material.
 
-<!--if cura_version>=5.0-->In thin parts, the line width will automatically be adjusted to make it fit the local width of the part there. There is no need to ensure that the part's width is a multiple of the line width. The [Wall Transitioning Threshold Angle](../shell/wall_transition_angle.md) determines where the line width automatically gets adjusted in sharp corners. The [Minimum Wall Line Width](../shell/min_wall_line_width.md) determines how far they can get adjusted in each direction.<!--endif-->
+<!--if cura_version>=5.0-->In thin parts, the line width will automatically be adjusted to make it fit the local width of the part there. There is no need to ensure that the part's width is a multiple of the line width. The [Wall Transitioning Threshold Angle](wall_transition_angle.md) determines where the line width automatically gets adjusted in sharp corners. The [Minimum Wall Line Width](min_wall_line_width.md) determines how far they can get adjusted in each direction.<!--endif-->
 
 <!--if cura_version<5.0:
 Adjusting line widths to fit enough walls
 ----
-When printing mechanical objects that need to be thin but strong, you'll regularly run into the problem that your piece is not a clean even multiple of the line width. If it's not an even multiple, Cura will normally reduce the flow of some of the lines due to the [Compensate Wall Overlaps](../shell/travel_compensate_overlapping_walls_enabled.md) setting. This changes the flow rate through the nozzle which is detrimental to visual quality. If it is a clean multiple of the line width but not an even number, one of the walls will get reduced to 0.
+When printing mechanical objects that need to be thin but strong, you'll regularly run into the problem that your piece is not a clean even multiple of the line width. If it's not an even multiple, Cura will normally reduce the flow of some of the lines due to the [Compensate Wall Overlaps](travel_compensate_overlapping_walls_enabled.md) setting. This changes the flow rate through the nozzle which is detrimental to visual quality. If it is a clean multiple of the line width but not an even number, one of the walls will get reduced to 0.
 
 Producing clean contours with even lines can make the print stronger and look better. A hallmark skill of any expert Cura user is to be able to tweak the line width such that the desired number of contours fill the print.
 

@@ -1,6 +1,6 @@
 Absolute Extruder Prime Position
 ====
-If the [prime blob](../platform_adhesion/prime_blob_enable.md) is used, the position of this prime procedure can be adjusted with an [X](../platform_adhesion/extruder_prime_pos_x.md) and [Y](../platform_adhesion/extruder_prime_pos_y.md) position. This setting determines whether this is the position on the build plate, or a position relative to the current printer position.
+If the [prime blob](prime_blob_enable.md) is used, the position of this prime procedure can be adjusted with an [X](extruder_prime_pos_x.md) and [Y](extruder_prime_pos_y.md) position. This setting determines whether this is the position on the build plate, or a position relative to the current printer position.
 
 If this setting is enabled, the X and Y coordinates refer to a certain fixed position on the build plate. The extruder will always move there in order to create a prime blob.
 

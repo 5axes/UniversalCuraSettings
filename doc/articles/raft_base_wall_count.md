@@ -6,4 +6,4 @@ While the raft normally consists of only a linear pattern, the base layer of the
 
 Having at least one wall is almost always a good idea. The raft's lines are separate lines, with a start and an end point. Printing loose lines next to each other tends to rip some of the lines off of the build plate when the nozzle moves around. If these lines have something solid to attach to, such as a wall, they are not as prone to getting loose.
 
-Having multiple walls around the base layer improves adhesion further. It starts behaving similar to a [brim](../platform_adhesion/adhesion_type.md) then. The additional walls will take more time to print, however. One wall is enough for most prints.
+Having multiple walls around the base layer improves adhesion further. It starts behaving similar to a [brim](adhesion_type.md) then. The additional walls will take more time to print, however. One wall is enough for most prints.

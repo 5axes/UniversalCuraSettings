@@ -18,14 +18,14 @@ Reducing the inner walls to a line width slightly below the nozzle size is known
 
 Increasing the inner wall line width can reduce printing time. You will need fewer inner walls to get parts with similar strength. The strength will still be reduced somewhat because adjacent walls will not fuse together as much.
 
-<!--if cura_version>=5.0-->In thin parts, the line width will automatically be adjusted to make it fit the local width of the part there. There is no need to ensure that the part's width is a multiple of the line width. The [Wall Transitioning Threshold Angle](../shell/wall_transition_angle.md) determines where the line width automatically gets adjusted in sharp corners. The [Minimum Wall Line Width](../shell/min_wall_line_width.md) determines how far they can get adjusted in each direction.<!--endif-->
+<!--if cura_version>=5.0-->In thin parts, the line width will automatically be adjusted to make it fit the local width of the part there. There is no need to ensure that the part's width is a multiple of the line width. The [Wall Transitioning Threshold Angle](wall_transition_angle.md) determines where the line width automatically gets adjusted in sharp corners. The [Minimum Wall Line Width](min_wall_line_width.md) determines how far they can get adjusted in each direction.<!--endif-->
 
 <!--if cura_version<5.0:
 Making lines fit
 ----
 When printing thin parts, adjusting the wall line width settings is an important tool to get accurate and strong parts. Cura will only ever draw complete contours, so if a contour doesn't fit a gap will fall into the walls, which greatly compromises the strength and accuracy of the part.
 
-Cura will attempt to fill such gaps between walls if [Fill Gaps Between Walls](../shell/fill_perimeter_gaps.md) is enabled, but that technique is less than ideal for arbitrary shapes and often takes a lot of printing time. When two walls overlap, the [Compensate Wall Overlaps](../shell/travel_compensate_overlapping_walls_enabled.md) feature will reduce the wall line width to make sure that the part is dimensionally accurate, but this incurs flow changes which reduce the quality and strength of the print as well.
+Cura will attempt to fill such gaps between walls if [Fill Gaps Between Walls](fill_perimeter_gaps.md) is enabled, but that technique is less than ideal for arbitrary shapes and often takes a lot of printing time. When two walls overlap, the [Compensate Wall Overlaps](travel_compensate_overlapping_walls_enabled.md) feature will reduce the wall line width to make sure that the part is dimensionally accurate, but this incurs flow changes which reduce the quality and strength of the print as well.
 
 For an ideal fit you want the part to be an exact multiple of the wall line width so that the walls fit precisely within the part. If you know how wide your part is, this can easily be done by adjusting the width of the walls. First you see how many contours you want to fit such that the lines still have a reasonable width. Then you can see how much you need to adjust the wall line width to make the lines fit properly. Keep in mind that you can adjust the [Outer Wall Line Width](wall_line_width_0.md) and [Inner Wall Line Width](wall_line_width_x.md) separately. Count carefully how many times each type of wall will be drawn to predict the effect of changing the wall line width.
 

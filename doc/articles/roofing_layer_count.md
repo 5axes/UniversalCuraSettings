@@ -28,7 +28,7 @@ Some settings can greatly improve the quality of the top surface of the print, b
 
 Settings that can be adjusted for the top surface are:
 * [Top Surface Skin Extruder](roofing_extruder_nr.md)
-* [Top Surface Skin Flow](../material/roofing_material_flow.md)
+* [Top Surface Skin Flow](roofing_material_flow.md)
 * [Top Surface Skin Speed](./speed_roofing.md)
 * [Top Surface Skin Acceleration](./acceleration_roofing.md)
 * [Top Surface Skin Jerk](./jerk_roofing.md)

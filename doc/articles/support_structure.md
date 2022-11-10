@@ -25,7 +25,7 @@ The normal support construction has been the default for most of 3D printing his
 
 The most important downsides arise from the same properties:
 * Due to the large contact areas, the support is often hard to remove and can leave significant scars on the surface where it touched.
-* Although it is stable, it can use a lot of material and take a lot of time to print. This can be counteracted to an extent by using [conical support](../experimental/conical_overhang_enabled.md).
+* Although it is stable, it can use a lot of material and take a lot of time to print. This can be counteracted to an extent by using [conical support](conical_overhang_enabled.md).
 
 Since the support will usually be large and wide, an [infill pattern](support_pattern.md) is needed to support the surface properly. The zig-zag infill pattern may be used to print the support largely out of a single line, and to allow for easier removal. Other patterns can be combined with an extra [outline](support_wall_count.md) to make the support extra sturdy instead.
 

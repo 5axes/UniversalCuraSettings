@@ -1,6 +1,6 @@
 Print Thin Walls
 ====
-Normally, Cura will omit walls that are thinner than the <!--if cura_version<5.0:[Outer Wall Line Width](../resolution/wall_line_width_0.md)--><!--if cura_version>=5.0-->[Minimum Odd Wall Line Width](min_odd_wall_line_width.md)<!--endif-->, discarding them as being too small to print.
+Normally, Cura will omit walls that are thinner than the <!--if cura_version<5.0:[Outer Wall Line Width](wall_line_width_0.md)--><!--if cura_version>=5.0-->[Minimum Odd Wall Line Width](min_odd_wall_line_width.md)<!--endif-->, discarding them as being too small to print.
 
 If this setting is enabled, Cura will make an attempt at printing these pieces anyway. The resulting print will be inaccurate<!--if cura_version<5.0: and messy-->, but it should produce the desired shape somewhat reliably.
 
@@ -16,4 +16,4 @@ It is advisable, before resorting to this setting, to try adjusting the outer wa
 Thin pieces are printed using a very thin wall line. However this thin line may not print well. To remedy that, there is also the [Minimum Thin Wall Line Width](min_bead_width.md). That setting provides a lower bound for the line width. If it's any thinner, the line will be printed too thick, theoretically printing beyond the bounds of the model, but at least it should print reliably. Anything thinner than the [Minimum Feature Size](min_feature_size.md) will not get printed at all.
 <!--endif-->
 
-**This will only attempt to print pieces that are thin in the horizontal plane. For thin pieces in the Z direction, see the [Slicing Tolerance](../experimental/slicing_tolerance.md) setting or reduce the layer height.**
+**This will only attempt to print pieces that are thin in the horizontal plane. For thin pieces in the Z direction, see the [Slicing Tolerance](slicing_tolerance.md) setting or reduce the layer height.**
