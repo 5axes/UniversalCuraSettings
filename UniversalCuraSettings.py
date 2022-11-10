@@ -1439,8 +1439,12 @@ class UniversalCuraSettings(Extension, QObject,):
             self.writeToLog("------------------------------")
             
         elif currMaterial == "pla" :
-            modified_count += self._setValue("material_bed_temperature",55)
-            modified_count += self._setValue("material_bed_temperature_layer_0",60)
+            if currMode == "warping" :               
+                modified_count += self._setValue("material_bed_temperature",50)
+                modified_count += self._setValue("material_bed_temperature_layer_0",50)  
+            else :
+                modified_count += self._setValue("material_bed_temperature",55)
+                modified_count += self._setValue("material_bed_temperature_layer_0",60)
             
         elif currMaterial == "abs" :
             modified_count += self._setValue("cool_fan_speed",0)
@@ -1453,10 +1457,14 @@ class UniversalCuraSettings(Extension, QObject,):
         elif currMaterial == "petg" :
             modified_count += self._setValue("cool_fan_speed",30)
         
-        else:
-            modified_count += self._setValue("material_bed_temperature",60)
-            modified_count += self._setValue("material_bed_temperature_layer_0",60)           
-                       
+        else:        
+            if currMode == "warping" :               
+                modified_count += self._setValue("material_bed_temperature",50)
+                modified_count += self._setValue("material_bed_temperature_layer_0",50)  
+            else :
+                modified_count += self._setValue("material_bed_temperature",60)
+                modified_count += self._setValue("material_bed_temperature_layer_0",60) 
+            
         # Profile Extruder settings
         if currExtruder == "unknow" :
             # no modification
