@@ -230,17 +230,17 @@ UM.Dialog
 				   id: cbeItems
 				   ListElement { text: "standard"}
 				   ListElement { text: "bed adhesion"}
-				   ListElement { text: "top surface"}
 				   ListElement { text: "extra quality"}
-				   ListElement { text: "warping"}
-				   ListElement { text: "mechanical"}
-				   ListElement { text: "small part"}
+				   ListElement { text: "mechanical"}  
 				   ListElement { text: "figurine"}
 				   ListElement { text: "prototype"}
 				   ListElement { text: "support"}
-				   ListElement { text: "vase"}
 				   ListElement { text: "save material"}
-				   ListElement { text: "small details"}			   
+				   ListElement { text: "small part"}
+				   ListElement { text: "small details"}
+				   ListElement { text: "top surface"}
+				   ListElement { text: "vase"}
+				   ListElement { text: "warping"}				   
 				}
 				width: UM.Theme.getSize("setting_control").width
 				height: UM.Theme.getSize("setting_control").height
