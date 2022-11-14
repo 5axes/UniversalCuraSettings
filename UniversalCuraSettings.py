@@ -1150,10 +1150,13 @@ class UniversalCuraSettings(Extension, QObject,):
         
         elif currMode == "mechanical" :            
             modified_count += self._setValue("brim_line_count",10)
+            
+            
             modified_count += self._setValue("fill_outline_gaps",True)
             modified_count += self._setValue("wall_0_inset",0.02)
             
             modified_count += self._setValue("infill_sparse_density",15)
+            modified_count += self._setValue("infill_pattern",'grid')
             
             modified_count += self._setValue("z_seam_corner",'z_seam_corner_weighted')
  
