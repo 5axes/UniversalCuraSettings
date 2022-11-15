@@ -143,6 +143,7 @@ class UniversalCuraSettings(Extension, QObject,):
         
         self._Section =""
 
+        # Version 0.1.10
         self._scene = CuraApplication.getInstance().getController().getScene().getRoot() #type: Scene Root
         self._scene.meshDataChanged.connect(self._onSceneChanged)
         #self._scene.childrenChanged.connect(self._onSceneChanged)
@@ -305,6 +306,7 @@ class UniversalCuraSettings(Extension, QObject,):
         self.setProfile() 
         # self.writeToLog("Mode Apply to : " + text)
 
+    # Version 0.1.10
     def _onSceneChanged(self, source: SceneNode) -> None:
         new_scene_objects = set(node for node in BreadthFirstIterator(self._scene) if node.callDecoration("isSliceable"))
         if new_scene_objects != self._scene_objects:
@@ -315,7 +317,6 @@ class UniversalCuraSettings(Extension, QObject,):
         # Logger.log("d", "SceneChanged %s",str(new_scene_objects))
          
 
- 
     #==== Previous code for Export/Import CSV =====================================================================================================    
     def exportData(self) -> None:
         # thanks to Aldo Hoeben / fieldOfView for this part of the code
