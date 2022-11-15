@@ -73,7 +73,7 @@
 # Version 0.1.7  :  Add Small Details intent
 # Version 0.1.8  :  Change on the standard settings 
 # Version 0.1.9  :  Bug Correction
-# Version 0.1.10 :  Update Wiki and change some parameters according to this changes
+# Version 0.1.10 :  Update Wiki and change some parameters according to this changes add Signal for modification
 #
 #----------------------------------------------------------------------------------------------------------------------
 
@@ -92,6 +92,10 @@ except ImportError:
 
 
 from UM.Extension import Extension
+from UM.Scene.SceneNode import SceneNode
+from UM.Scene.Scene import Scene
+from UM.Scene.Iterator.BreadthFirstIterator import BreadthFirstIterator
+
 from UM.PluginRegistry import PluginRegistry
 from UM.Application import Application
 from cura.CuraApplication import CuraApplication
@@ -122,13 +126,14 @@ from UM.Application import Application
 from UM.Logger import Logger
 from UM.Message import Message
 
+
 from UM.i18n import i18nCatalog
 catalog = i18nCatalog("cura")
 
 class UniversalCuraSettings(Extension, QObject,):
   
     # The QT signal, which signals an update for user information text
-    userInfoTextChanged = pyqtSignal()
+    # userInfoTextChanged = pyqtSignal()
     userModeChanged = pyqtSignal()
     
     
@@ -136,10 +141,14 @@ class UniversalCuraSettings(Extension, QObject,):
         QObject.__init__(self, parent)
         Extension.__init__(self)
         
-        
-        
         self._Section =""
 
+        self._scene = CuraApplication.getInstance().getController().getScene().getRoot() #type: Scene Root
+        self._scene.meshDataChanged.connect(self._onSceneChanged)
+        #self._scene.childrenChanged.connect(self._onChildrenChanged)
+        # Objects loaded at the moment. We are connected to the property changed events of these objects.
+        self._scene_objects = set()  # type: Set[SceneNode]
+        
         #Initialize variables
         self._continueDialog = None
         self._mode = "standard"
@@ -219,7 +228,7 @@ class UniversalCuraSettings(Extension, QObject,):
 
         #Initialize variables
         self._continueDialog = None
- 
+        
     #===== Text Output ===================================================================================================
     # Writes the message to the log, includes timestamp, length is fixed
     def writeToLog(self, str):
@@ -295,7 +304,23 @@ class UniversalCuraSettings(Extension, QObject,):
         
         self.setProfile() 
         # self.writeToLog("Mode Apply to : " + text)
+
+    def _onSceneChanged(self, source: SceneNode) -> None:
+        # root = self._application.getController().getScene().getRoot()
+        new_scene_objects = set(node for node in BreadthFirstIterator(self._scene) if node.callDecoration("isSliceable"))
+        if new_scene_objects != self._scene_objects:
+            Logger.log("d", "New_scene_objects")
+            self.StandardFixed=0
         
+        self._scene_objects = new_scene_objects    
+        # Logger.log("d", "SceneChanged %s",str(new_scene_objects))
+         
+
+    def _onChildrenChanged(self, source: SceneNode) -> None:
+        Logger.log("d", "ChildrenChanged %s",str(self.StandardFixed))
+        self.StandardFixed=0 
+
+ 
     #==== Previous code for Export/Import CSV =====================================================================================================    
     def exportData(self) -> None:
         # thanks to Aldo Hoeben / fieldOfView for this part of the code
