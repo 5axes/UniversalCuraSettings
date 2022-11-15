@@ -145,7 +145,7 @@ class UniversalCuraSettings(Extension, QObject,):
 
         self._scene = CuraApplication.getInstance().getController().getScene().getRoot() #type: Scene Root
         self._scene.meshDataChanged.connect(self._onSceneChanged)
-        #self._scene.childrenChanged.connect(self._onChildrenChanged)
+        #self._scene.childrenChanged.connect(self._onSceneChanged)
         # Objects loaded at the moment. We are connected to the property changed events of these objects.
         self._scene_objects = set()  # type: Set[SceneNode]
         
@@ -306,7 +306,6 @@ class UniversalCuraSettings(Extension, QObject,):
         # self.writeToLog("Mode Apply to : " + text)
 
     def _onSceneChanged(self, source: SceneNode) -> None:
-        # root = self._application.getController().getScene().getRoot()
         new_scene_objects = set(node for node in BreadthFirstIterator(self._scene) if node.callDecoration("isSliceable"))
         if new_scene_objects != self._scene_objects:
             Logger.log("d", "New_scene_objects")
@@ -315,10 +314,6 @@ class UniversalCuraSettings(Extension, QObject,):
         self._scene_objects = new_scene_objects    
         # Logger.log("d", "SceneChanged %s",str(new_scene_objects))
          
-
-    def _onChildrenChanged(self, source: SceneNode) -> None:
-        Logger.log("d", "ChildrenChanged %s",str(self.StandardFixed))
-        self.StandardFixed=0 
 
  
     #==== Previous code for Export/Import CSV =====================================================================================================    
