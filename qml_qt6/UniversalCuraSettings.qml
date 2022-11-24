@@ -83,7 +83,7 @@ UM.Dialog
             rowSpacing: UM.Theme.getSize("default_lining").height
             verticalItemAlignment: Grid.AlignVCenter
 
-			Label
+			UM.Label
 			{
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Extruder Type:");
@@ -116,7 +116,7 @@ UM.Dialog
 				}
 			}	
 
-			Label
+			UM.Label
 			{
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Nozzle Size:");
@@ -159,7 +159,7 @@ UM.Dialog
             columns: 3
 			columnSpacing: UM.Theme.getSize("default_margin").width
 
-			Label
+			UM.Label
 			{
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Material:");
@@ -211,7 +211,7 @@ UM.Dialog
 				}
 			}		
 			
-			Label
+			UM.Label
 			{
 				height: UM.Theme.getSize("setting_control").height;
 				text: catalog.i18nc("@label","Settings Mode:");
@@ -288,13 +288,13 @@ UM.Dialog
 	}		
 	
 	rightButtons: [
-        Button
+        Cura.PrimaryButton
         {
             id: cancelButton
             text: catalog.i18nc("@action:button","Cancel")
             onClicked: base.reject()
         },
-        Button
+        Cura.PrimaryButton
         {
 			id: applyButton
             text: catalog.i18nc("@action:button", "Apply")
