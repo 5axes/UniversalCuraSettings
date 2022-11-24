@@ -100,7 +100,7 @@ UM.Dialog
 				objectName: "Combo_Extruder"
 				model: ListModel {
 				   id: cbItems
-				   ListElement { text: "unknow"}
+				   ListElement { text: "unknown"}
 				   ListElement { text: "bowden"}
 				   ListElement { text: "direct"}
 				}
@@ -170,7 +170,7 @@ UM.Dialog
 				objectName: "Combo_Material"
 				model: ListModel {
 				   id: cbmItems
-				   ListElement { text: "unknow"}
+				   ListElement { text: "unknown"}
 				   ListElement { text: "pla"}
 				   ListElement { text: "abs"}
 				   ListElement { text: "petg"}

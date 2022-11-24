@@ -5,7 +5,7 @@
 #
 #----------------------------------------------------------------------------------------------------------------------
 #	-  User input possibilities for extruder
-#	 - unknow
+#	 - unknown
 #	 - bowden
 #	 - direct
 #
@@ -18,7 +18,7 @@
 #	 - 1.0
 #			
 #	- User input possibilities for Material
-#	 - unknow
+#	 - unknown
 #	 - pla
 #	 - abs
 #	 - petg
@@ -53,9 +53,9 @@
 # Version 0.0.12 :  Add Support intent
 # Version 0.0.13 :  Vase
 # Version 0.0.14 :  Update xy_offset_layer_0
-# Version 0.0.15 :  Extruder type : unknow -> no modification of the retract parameter
+# Version 0.0.15 :  Extruder type : unknown -> no modification of the retract parameter
 #                   Nozzle Size : Not specified -> no modification of the nozzle diameter
-#                   Material : unknow -> no modification of the temperature parameter
+#                   Material : unknown -> no modification of the temperature parameter
 # Version 0.0.16 :  New test and parameters
 # Version 0.0.17 :  https://github.com/5axes/UniversalCuraSettings/issues/25
 # Version 0.0.18 :  Change on Support creation https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
@@ -153,8 +153,8 @@ class UniversalCuraSettings(Extension, QObject,):
         #Initialize variables
         self._continueDialog = None
         self._mode = "standard"
-        self._extruder = "unknow"
-        self._material = "unknow"
+        self._extruder = "unknown"
+        self._material = "unknown"
         self._nozzle = "0.4"
         self.StandardFixed=0
         
@@ -163,8 +163,8 @@ class UniversalCuraSettings(Extension, QObject,):
         self._preferences = self._application.getPreferences()
         self._preferences.addPreference("UniversalCuraSettings/dialog_path", "")
         self._preferences.addPreference("UniversalCuraSettings/mode", "standard")
-        self._preferences.addPreference("UniversalCuraSettings/extruder", "unknow")
-        self._preferences.addPreference("UniversalCuraSettings/material", "unknow")
+        self._preferences.addPreference("UniversalCuraSettings/extruder", "unknown")
+        self._preferences.addPreference("UniversalCuraSettings/material", "unknown")
         self._preferences.addPreference("UniversalCuraSettings/nozzle", "0.4")
         self._preferences.addPreference("UniversalCuraSettings/setstandardvalue", True)
 
@@ -1001,7 +1001,7 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("skin_line_width",_line_width)
 
             _material_flow = float(self._getValue("material_flow"))
-            if self._material != "unknow" :
+            if self._material != "unknown" :
                 modified_count += self._setValue("infill_material_flow",_material_flow)
             
             _speed_travel = float(self._getValue("speed_travel"))
@@ -1450,7 +1450,7 @@ class UniversalCuraSettings(Extension, QObject,):
         # modified_count += self._setValue("meshfix_maximum_travel_resolution",meshfix_maximum_travel_resolution) 
 
             
-        if currMaterial != "unknow" :
+        if currMaterial != "unknown" :
             self.writeToLog("------------------------------")
             self.writeToLog("|  Material preset : " + currMaterial + "  |")
             self.writeToLog("------------------------------")        
@@ -1458,11 +1458,11 @@ class UniversalCuraSettings(Extension, QObject,):
             # Profile Material settings
             modified_count += self._setValue("material_print_temperature",self._defineMaterial_Print_Temperature(machine_nozzle_size))            
         
-        if currMaterial == "unknow" :
+        if currMaterial == "unknown" :
             # no modification
-            self.writeToLog("------------------------------")
-            self.writeToLog("|  Material preset : unknow  |")
-            self.writeToLog("------------------------------")
+            self.writeToLog("-------------------------------")
+            self.writeToLog("|  Material preset : unknown  |")
+            self.writeToLog("-------------------------------")
             
         elif currMaterial == "pla" :
             if currMode == "warping" :               
@@ -1492,11 +1492,11 @@ class UniversalCuraSettings(Extension, QObject,):
                 modified_count += self._setValue("material_bed_temperature_layer_0",60) 
             
         # Profile Extruder settings
-        if currExtruder == "unknow" :
+        if currExtruder == "unknown" :
             # no modification
-            self.writeToLog("----------------------------")
-            self.writeToLog("|  Extruder preset : unknow  |")
-            self.writeToLog("----------------------------")
+            self.writeToLog("------------------------------")
+            self.writeToLog("|  Extruder preset : unknown  |")
+            self.writeToLog("------------------------------")
         elif currExtruder == "direct" :
             modified_count += self._setValue("retraction_amount",0.8)
             modified_count += self._setValue("retraction_speed",30)
