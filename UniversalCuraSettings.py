@@ -12,8 +12,11 @@
 #	- User input possibilities for nozzle size
 #	 - not specified
 #	 - 0.2
+#	 - 0.3
 #	 - 0.4
+#	 - 0.5
 #	 - 0.6
+#	 - 0.7
 #	 - 0.8
 #	 - 1.0
 #			
@@ -74,6 +77,7 @@
 # Version 0.1.8  :  Change on the standard settings 
 # Version 0.1.9  :  Bug Correction
 # Version 0.1.10 :  Update Wiki and change some parameters according to this changes add Signal for modification
+# Version 0.1.11 :  Add Nozzle 0.3 0.5 0.7
 #
 #----------------------------------------------------------------------------------------------------------------------
 
