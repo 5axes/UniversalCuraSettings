@@ -135,8 +135,11 @@ UM.Dialog
 				   id: cbnItems
 				   ListElement { text: "not specified"}
 				   ListElement { text: "0.2"}
+				   ListElement { text: "0.3"}
 				   ListElement { text: "0.4"}
+				   ListElement { text: "0.5"}
 				   ListElement { text: "0.6"}
+				   ListElement { text: "0.7"}
 				   ListElement { text: "0.8"}
 				   ListElement { text: "1.0"}
 				}
