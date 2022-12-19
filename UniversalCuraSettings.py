@@ -78,6 +78,7 @@
 # Version 0.1.9  :  Bug Correction
 # Version 0.1.10 :  Update Wiki and change some parameters according to this changes add Signal for modification
 # Version 0.1.11 :  Add Nozzle 0.3 0.5 0.7
+# Version 0.1.12 :  Change Combobox to Cura.Combobox for QT6
 #
 #----------------------------------------------------------------------------------------------------------------------
 

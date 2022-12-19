@@ -14,7 +14,7 @@ UM.Dialog
 {
     id: base
 
-    title: "Universal Cura Settings V0.1.11 (5.X)"
+    title: "Universal Cura Settings V0.1.12 (5.X)"
 
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal
@@ -95,9 +95,11 @@ UM.Dialog
 			}
 
 			//User input of extruder
-			ComboBox {
+			Cura.ComboBox {
 				id: extruder_input
 				objectName: "Combo_Extruder"
+				Layout.fillWidth: true
+				textRole: "text"
 				model: ListModel {
 				   id: cbItems
 				   ListElement { text: "unknown"}
@@ -128,8 +130,10 @@ UM.Dialog
 			}
 
 			//User input of nozzle size
-			ComboBox {
+			Cura.ComboBox {
 				id: nozzle_input
+				Layout.fillWidth: true
+				textRole: "text"
 				objectName: "Combo_Nozzle"
 				model: ListModel {
 				   id: cbnItems
@@ -174,8 +178,10 @@ UM.Dialog
 			}
 			
 			//User input for Material
-			ComboBox {
+			Cura.ComboBox {
 				id: material_input
+				Layout.fillWidth: true
+				textRole: "text"
 				objectName: "Combo_Material"
 				model: ListModel {
 				   id: cbmItems
@@ -226,8 +232,10 @@ UM.Dialog
 			}	
 			
 			//User input of Mode
-			ComboBox {
+			Cura.ComboBox {
 				id: mode_input
+				Layout.fillWidth: true
+				textRole: "text"
 				objectName: "Combo_Mode"
 				model: ListModel {
 				   id: cbeItems

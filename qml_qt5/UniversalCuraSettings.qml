@@ -15,7 +15,7 @@ UM.Dialog
 {
     id: base
 
-    title: "Universal Cura Settings V0.1.11 (4.X)"
+    title: "Universal Cura Settings V0.1.12 (4.X)"
 
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal
