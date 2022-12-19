@@ -1436,7 +1436,10 @@ class UniversalCuraSettings(Extension, QObject,):
 
             modified_count += self._setValue("support_interface_pattern",'zigzag')
             modified_count += self._setValue("support_interface_skip_height",_layer_height)
-        
+ 
+            # https://github.com/5axes/UniversalCuraSettings/discussions/22#discussioncomment-2177352
+            # modified_count += self._setValue("gradual_support_infill_steps",0)
+            # modified_count += self._setValue("gradual_support_infill_step_height",1.5) 
             
         elif currMode == "vase" :
             # Spiralize outer contour
