@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: UniversalCuraSettings\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-30 10:02+0000\n"
-"PO-Revision-Date: 2023-01-30 11:05+0200\n"
+"PO-Revision-Date: 2023-01-30 11:13+0200\n"
 "Last-Translator: 5axes <5axes@free.fr>\n"
 "Language-Team: 5axes\n"
 "Language: fr\n"
@@ -50,7 +50,7 @@ msgstr "Ouvrir Fichier"
 #: qml_qt6/UniversalCuraSettings.qml:19 qml_qt5/UniversalCuraSettings.qml:20
 msgctxt "@title"
 msgid "Universal Cura Settings Version : "
-msgstr "Version du plugin Cura Paramètres Universels : "
+msgstr "Version de Paramètres Universels Cura : "
 
 #: qml_qt6/UniversalCuraSettings.qml:88 qml_qt5/UniversalCuraSettings.qml:89
 msgctxt "@label"

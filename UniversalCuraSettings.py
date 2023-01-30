@@ -113,6 +113,7 @@ import os.path
 import sys
 import re
 import math
+import json
 
 from datetime import datetime
 # from typing import cast, Dict, List, Optional, Tuple, Any, Set
@@ -197,6 +198,11 @@ class UniversalCuraSettings(Extension, QObject,):
         self.Major=1
         self.Minor=0
 
+        ## Load the plugin version
+        pluginInfo = json.load(open(os.path.join(os.path.dirname(
+            os.path.abspath(__file__)), "plugin.json")))
+        self._pluginVersion = pluginInfo['version']
+        
         # Test version for futur release 4.9
         # Logger.log('d', "Info Version CuraVersion --> " + str(Version(CuraVersion)))
         Logger.log('d', "Info CuraVersion --> " + str(CuraVersion))        
@@ -255,8 +261,8 @@ class UniversalCuraSettings(Extension, QObject,):
         self._continueDialog.show()
  
     @pyqtProperty(str, notify= userModeChanged)
-    def curaVersion(self):
-        return str(CuraVersion)
+    def pluginVersion(self):
+        return str(self._pluginVersion)
         
     @pyqtProperty(str, notify= userModeChanged)
     def modeInput(self):
