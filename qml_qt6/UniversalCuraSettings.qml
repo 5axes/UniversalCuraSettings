@@ -14,7 +14,9 @@ UM.Dialog
 {
     id: base
 
-    title: "Universal Cura Settings V0.1.12 (5.X)"
+    property variant catalog: UM.I18nCatalog { name: "universal" }
+	
+    title: catalog.i18nc("@title","Universal Cura Settings V0.2.0 (5.X)")
 
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal
@@ -51,9 +53,6 @@ UM.Dialog
 	// But if active then you cannot switch the Dialog to an other monitor (jellespijker) 
     // x: Screen.width*0.5 - width - 100
     // y: Screen.height*0.5 
-
-    property variant catalog: UM.I18nCatalog { name: "cura" }
-    // property variant palette: SystemPalette {}
 	
     // Connecting our variable to the computed property of the manager
 	property string modeInput: manager.modeInput

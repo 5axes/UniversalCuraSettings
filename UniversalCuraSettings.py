@@ -79,7 +79,7 @@
 # Version 0.1.10 :  Update Wiki and change some parameters according to this changes add Signal for modification
 # Version 0.1.11 :  Add Nozzle 0.3 0.5 0.7
 # Version 0.1.12 :  Change Combobox to Cura.Combobox for QT6
-#
+# Version 0.2.0  :  Add Translation
 #----------------------------------------------------------------------------------------------------------------------
 
 
@@ -131,9 +131,17 @@ from UM.Application import Application
 from UM.Logger import Logger
 from UM.Message import Message
 
-
+from UM.Resources import Resources
 from UM.i18n import i18nCatalog
-catalog = i18nCatalog("cura")
+
+Resources.addSearchPath(
+    os.path.join(os.path.abspath(os.path.dirname(__file__)))
+)  # Plugin translation file import
+
+catalog = i18nCatalog("universal")
+
+if catalog.hasTranslationLoaded():
+    Logger.log("i", "Tab Anti Warping Plugin translation loaded!")
 
 class UniversalCuraSettings(Extension, QObject,):
   
