@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the TabAntiWarping package.
+# This file is distributed under the same license as the UniversalCuraSettings package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: TabAntiWarping\n"
+"Project-Id-Version: UniversalCuraSettings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-26 12:31+0000\n"
+"POT-Creation-Date: 2023-01-30 09:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,59 +17,77 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: TabAntiWarping.py:272 TabAntiWarping.py:301 TabAntiWarping.py:318
-msgctxt "@info:label"
-msgid "Info modification current profile '"
+#: UniversalCuraSettings.py:236
+msgctxt "@item:inmenu"
+msgid "Universal Settings"
 msgstr ""
 
-#: TabAntiWarping.py:272 TabAntiWarping.py:301 TabAntiWarping.py:318
-msgctxt "@info:label"
-msgid ""
-"' parameter\n"
-"New value : "
+#: UniversalCuraSettings.py:237
+msgctxt "@item:inmenu"
+msgid "Set Universal Settings"
 msgstr ""
 
-#: TabAntiWarping.py:272
-msgctxt "@info:label"
-msgid "Everywhere"
+#: UniversalCuraSettings.py:239
+msgctxt "@item:inmenu"
+msgid "Export current profile"
 msgstr ""
 
-#: TabAntiWarping.py:273 TabAntiWarping.py:302 TabAntiWarping.py:319
-msgctxt "@info:title"
-msgid "Warning ! Tab Anti Warping"
+#: UniversalCuraSettings.py:241
+msgctxt "@item:inmenu"
+msgid "Merge a profile"
 msgstr ""
 
-#: TabAntiWarping.py:318
-msgctxt "@info:label"
-msgid "100%"
+#: UniversalCuraSettings.py:340 UniversalCuraSettings.py:347
+msgctxt "@title:window"
+msgid "Save as"
 msgstr ""
 
-#: __init__.py:23
+#: UniversalCuraSettings.py:489 UniversalCuraSettings.py:496
+msgctxt "@title:window"
+msgid "Open File"
+msgstr ""
+
+#: qml_qt6/UniversalCuraSettings.qml:19
+msgctxt "@title"
+msgid "Universal Cura Settings V0.2.0 (5.X)"
+msgstr ""
+
+#: qml_qt6/UniversalCuraSettings.qml:88 qml_qt5/UniversalCuraSettings.qml:89
 msgctxt "@label"
-msgid "Tab Anti Warping"
+msgid "Extruder Type:"
 msgstr ""
 
-#: __init__.py:24
-msgctxt "@info:tooltip"
-msgid "Add Tab Anti Warping"
-msgstr ""
-
-#: qml_qt6/CustomTap.qml:42 qml_qt5/CustomTap.qml:37
+#: qml_qt6/UniversalCuraSettings.qml:123 qml_qt5/UniversalCuraSettings.qml:122
 msgctxt "@label"
-msgid "Size"
+msgid "Nozzle Size:"
 msgstr ""
 
-#: qml_qt6/CustomTap.qml:74 qml_qt5/CustomTap.qml:48
+#: qml_qt6/UniversalCuraSettings.qml:171 qml_qt5/UniversalCuraSettings.qml:161
 msgctxt "@label"
-msgid "X/Y Distance"
+msgid "Material:"
 msgstr ""
 
-#: qml_qt6/CustomTap.qml:105 qml_qt5/CustomTap.qml:59
+#: qml_qt6/UniversalCuraSettings.qml:225 qml_qt5/UniversalCuraSettings.qml:197
 msgctxt "@label"
-msgid "Number of layers"
+msgid "Settings Mode:"
 msgstr ""
 
-#: qml_qt6/CustomTap.qml:133 qml_qt5/CustomTap.qml:134
+#: qml_qt6/UniversalCuraSettings.qml:293 qml_qt5/UniversalCuraSettings.qml:247
 msgctxt "@option:check"
-msgid "Define as Capsule"
+msgid "Set standard settings"
+msgstr ""
+
+#: qml_qt6/UniversalCuraSettings.qml:304 qml_qt5/UniversalCuraSettings.qml:258
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr ""
+
+#: qml_qt6/UniversalCuraSettings.qml:310 qml_qt5/UniversalCuraSettings.qml:263
+msgctxt "@action:button"
+msgid "Apply"
+msgstr ""
+
+#: qml_qt5/UniversalCuraSettings.qml:20
+msgctxt "@title"
+msgid "Universal Cura Settings V0.2.0 (4.X)"
 msgstr ""
