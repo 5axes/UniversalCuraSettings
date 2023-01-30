@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: UniversalCuraSettings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-30 09:47+0000\n"
+"POT-Creation-Date: 2023-01-30 10:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,12 +37,12 @@ msgctxt "@item:inmenu"
 msgid "Merge a profile"
 msgstr ""
 
-#: UniversalCuraSettings.py:340 UniversalCuraSettings.py:347
+#: UniversalCuraSettings.py:344 UniversalCuraSettings.py:351
 msgctxt "@title:window"
 msgid "Save as"
 msgstr ""
 
-#: UniversalCuraSettings.py:489 UniversalCuraSettings.py:496
+#: UniversalCuraSettings.py:493 UniversalCuraSettings.py:500
 msgctxt "@title:window"
 msgid "Open File"
 msgstr ""
@@ -86,4 +86,3 @@ msgstr ""
 msgctxt "@action:button"
 msgid "Apply"
 msgstr ""
-
