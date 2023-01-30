@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: UniversalCuraSettings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-30 10:06+0000\n"
+"POT-Creation-Date: 2023-01-30 10:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,32 +17,32 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: UniversalCuraSettings.py:236
+#: UniversalCuraSettings.py:242
 msgctxt "@item:inmenu"
 msgid "Universal Settings"
 msgstr ""
 
-#: UniversalCuraSettings.py:237
+#: UniversalCuraSettings.py:243
 msgctxt "@item:inmenu"
 msgid "Set Universal Settings"
 msgstr ""
 
-#: UniversalCuraSettings.py:239
+#: UniversalCuraSettings.py:245
 msgctxt "@item:inmenu"
 msgid "Export current profile"
 msgstr ""
 
-#: UniversalCuraSettings.py:241
+#: UniversalCuraSettings.py:247
 msgctxt "@item:inmenu"
 msgid "Merge a profile"
 msgstr ""
 
-#: UniversalCuraSettings.py:344 UniversalCuraSettings.py:351
+#: UniversalCuraSettings.py:350 UniversalCuraSettings.py:357
 msgctxt "@title:window"
 msgid "Save as"
 msgstr ""
 
-#: UniversalCuraSettings.py:493 UniversalCuraSettings.py:500
+#: UniversalCuraSettings.py:499 UniversalCuraSettings.py:506
 msgctxt "@title:window"
 msgid "Open File"
 msgstr ""
