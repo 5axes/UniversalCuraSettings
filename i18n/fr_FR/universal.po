@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: UniversalCuraSettings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-30 09:47+0000\n"
-"PO-Revision-Date: 2023-01-30 10:52+0200\n"
+"POT-Creation-Date: 2023-01-30 10:02+0000\n"
+"PO-Revision-Date: 2023-01-30 11:05+0200\n"
 "Last-Translator: 5axes <5axes@free.fr>\n"
 "Language-Team: 5axes\n"
 "Language: fr\n"
@@ -25,7 +25,7 @@ msgstr "Paramètres Universels"
 #: UniversalCuraSettings.py:237
 msgctxt "@item:inmenu"
 msgid "Set Universal Settings"
-msgstr "Fixer Paramètres Universels"
+msgstr "Réglage Paramètres Universels"
 
 #: UniversalCuraSettings.py:239
 msgctxt "@item:inmenu"
@@ -37,20 +37,20 @@ msgctxt "@item:inmenu"
 msgid "Merge a profile"
 msgstr "Fusionner un profil"
 
-#: UniversalCuraSettings.py:340 UniversalCuraSettings.py:347
+#: UniversalCuraSettings.py:344 UniversalCuraSettings.py:351
 msgctxt "@title:window"
 msgid "Save as"
 msgstr "Sauver sous"
 
-#: UniversalCuraSettings.py:489 UniversalCuraSettings.py:496
+#: UniversalCuraSettings.py:493 UniversalCuraSettings.py:500
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Ouvrir Fichier"
 
-#: qml_qt6/UniversalCuraSettings.qml:19
+#: qml_qt6/UniversalCuraSettings.qml:19 qml_qt5/UniversalCuraSettings.qml:20
 msgctxt "@title"
-msgid "Universal Cura Settings V0.2.0 (5.X)"
-msgstr "Universal Cura Settings V0.2.0 (5.X)"
+msgid "Universal Cura Settings Version : "
+msgstr "Version du plugin Cura Paramètres Universels : "
 
 #: qml_qt6/UniversalCuraSettings.qml:88 qml_qt5/UniversalCuraSettings.qml:89
 msgctxt "@label"
@@ -70,12 +70,12 @@ msgstr "Matière:"
 #: qml_qt6/UniversalCuraSettings.qml:225 qml_qt5/UniversalCuraSettings.qml:197
 msgctxt "@label"
 msgid "Settings Mode:"
-msgstr "Mode réglages:"
+msgstr "Type réglages:"
 
 #: qml_qt6/UniversalCuraSettings.qml:293 qml_qt5/UniversalCuraSettings.qml:247
 msgctxt "@option:check"
 msgid "Set standard settings"
-msgstr "Définir les paramètres standard"
+msgstr "Définir les paramètres standards"
 
 #: qml_qt6/UniversalCuraSettings.qml:304 qml_qt5/UniversalCuraSettings.qml:258
 msgctxt "@action:button"
@@ -87,7 +87,10 @@ msgctxt "@action:button"
 msgid "Apply"
 msgstr "Appliquer"
 
-#: qml_qt5/UniversalCuraSettings.qml:20
-msgctxt "@title"
-msgid "Universal Cura Settings V0.2.0 (4.X)"
-msgstr "Universal Cura Settings V0.2.0 (4.X)"
+#~ msgctxt "@title"
+#~ msgid "Universal Cura Settings V0.2.0 (5.X)"
+#~ msgstr "Universal Cura Settings V0.2.0 (5.X)"
+
+#~ msgctxt "@title"
+#~ msgid "Universal Cura Settings V0.2.0 (4.X)"
+#~ msgstr "Universal Cura Settings V0.2.0 (4.X)"
