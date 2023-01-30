@@ -16,7 +16,7 @@ UM.Dialog
 
     property variant catalog: UM.I18nCatalog { name: "universal" }
 	
-    title: catalog.i18nc("@title","Universal Cura Settings V0.2.0 (5.X)")
+    title: catalog.i18nc("@title","Universal Cura Settings Version : ") + manager.curaVersion
 
     // NonModal like that the dialog to block input in the main window
     modality: Qt.NonModal

@@ -253,6 +253,10 @@ class UniversalCuraSettings(Extension, QObject,):
         if self._continueDialog is None:
             self._continueDialog = self._createDialogue()
         self._continueDialog.show()
+ 
+    @pyqtProperty(str, notify= userModeChanged)
+    def curaVersion(self):
+        return str(CuraVersion)
         
     @pyqtProperty(str, notify= userModeChanged)
     def modeInput(self):
