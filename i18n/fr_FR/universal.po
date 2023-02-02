@@ -86,11 +86,3 @@ msgstr "Annuler"
 msgctxt "@action:button"
 msgid "Apply"
 msgstr "Appliquer"
-
-#~ msgctxt "@title"
-#~ msgid "Universal Cura Settings V0.2.0 (5.X)"
-#~ msgstr "Universal Cura Settings V0.2.0 (5.X)"
-
-#~ msgctxt "@title"
-#~ msgid "Universal Cura Settings V0.2.0 (4.X)"
-#~ msgstr "Universal Cura Settings V0.2.0 (4.X)"
