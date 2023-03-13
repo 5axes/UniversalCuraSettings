@@ -80,6 +80,7 @@
 # Version 0.1.11 :  Add Nozzle 0.3 0.5 0.7
 # Version 0.1.12 :  Change Combobox to Cura.Combobox for QT6
 # Version 0.2.0  :  Add Translation
+# Version 0.2.1  :  Change location qml & i18n
 #----------------------------------------------------------------------------------------------------------------------
 
 
@@ -136,7 +137,7 @@ from UM.Resources import Resources
 from UM.i18n import i18nCatalog
 
 Resources.addSearchPath(
-    os.path.join(os.path.abspath(os.path.dirname(__file__)))
+    os.path.join(os.path.abspath(os.path.dirname(__file__)),'resources')
 )  # Plugin translation file import
 
 catalog = i18nCatalog("universal")
@@ -227,7 +228,7 @@ class UniversalCuraSettings(Extension, QObject,):
         else:
             self._qml_folder = "qml_qt6" 
 
-        self._qml_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self._qml_folder, "UniversalCuraSettings.qml")
+        self._qml_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'qml', self._qml_folder, "UniversalCuraSettings.qml")
 
         
         # Thanks to Aldo Hoeben / fieldOfView for this code
