@@ -81,6 +81,7 @@
 # Version 0.1.12 :  Change Combobox to Cura.Combobox for QT6
 # Version 0.2.0  :  Add Translation
 # Version 0.2.1  :  Change location qml & i18n
+# Version 0.2.2  :  Update for 5.4
 #----------------------------------------------------------------------------------------------------------------------
 
 
@@ -228,6 +229,7 @@ class UniversalCuraSettings(Extension, QObject,):
         else:
             self._qml_folder = "qml_qt6" 
 
+        #Localisation in Qml Folder
         self._qml_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'qml', self._qml_folder, "UniversalCuraSettings.qml")
 
         
@@ -1319,11 +1321,18 @@ class UniversalCuraSettings(Extension, QObject,):
             modified_count += self._setValue("support_structure",'tree')   
             modified_count += self._setValue("support_tree_angle",45)
             
-            
             modified_count += self._setValue("support_tree_branch_diameter",(_line_width*8))
             modified_count += self._setValue("support_tree_branch_diameter_angle",5)
-            modified_count += self._setValue("support_tree_branch_distance",0.5)
-            modified_count += self._setValue("support_tree_collision_resolution",0.15)            
+             
+            if self.Major >= 5 and self.Minor >= 4 :
+                modified_count += self._setValue("support_tree_max_diameter",(_line_width*16)) 
+                modified_count += self._setValue("support_tree_bp_diameter",(_line_width*16)) 
+                modified_count += self._setValue("support_tree_tip_diameter",(_line_width*6))  
+                modified_count += self._setValue("support_tree_rest_preference",'buildplate')          
+            else:
+                modified_count += self._setValue("support_tree_collision_resolution",0.15) 
+                modified_count += self._setValue("support_tree_branch_distance",0.5)
+                
             if self.Major < 5 :
                 modified_count += self._setValue("fill_perimeter_gaps",'nowhere')
             
