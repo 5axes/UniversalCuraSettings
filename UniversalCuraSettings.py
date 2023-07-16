@@ -1276,11 +1276,13 @@ class UniversalCuraSettings(Extension, QObject,):
             
             modified_count += self._setValue("small_feature_speed_factor_0",20)
             modified_count += self._setValue("small_hole_max_size",6.0)
-
             
         elif currMode == "bed adhesion" :
             # Profile Mode settings
             modified_count += self._setValue("adhesion_type",'brim')
+            
+            if ( self.Major >= 5 and self.Minor >= 4 ) :
+                modified_count += self._setValue("brim_smart_ordering",True)
             
             modified_count += self._setValue("brim_line_count",15)
             modified_count += self._setValue("speed_layer_0",12)
@@ -1296,6 +1298,9 @@ class UniversalCuraSettings(Extension, QObject,):
                 
         elif currMode == "warping" :              
             modified_count += self._setValue("adhesion_type",'brim')
+            if ( self.Major >= 5 and self.Minor >= 4 ) :
+                modified_count += self._setValue("brim_smart_ordering",True)
+                
             modified_count += self._setValue("retraction_combing",'off')
             modified_count += self._setValue("retraction_combing_max_distance",33)
             modified_count += self._setValue("retraction_hop_enabled",True)
