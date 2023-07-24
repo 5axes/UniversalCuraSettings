@@ -17,9 +17,9 @@ Universal Cura Settings. 12 types of adjustment to define recommended settings f
 
 Standard		(general recommended settings)
 
-Bed adhesion	(first layer settings for a better bed adhesion)
+Bed adhesion	(first layer settings for better bed adhesion)
 
-Warping			(increase the first layer adhesoin and avoid nozzle collision with Z hop settings )
+Warping			(increase the first layer adhesion and avoid nozzle collision with Z hop settings )
 
 Top surface		(increase the quality on top surface by using mainly Ironing options)
 
@@ -27,11 +27,11 @@ Extra Quality	(increase the quality of the print skin)
 
 Small part		(use of a raft adhesion solution to get a better bed adhesion)
 
-Mechanical		(dimensionally accurate, stiff and durable)
+Mechanical		(dimensionally accurate, stiff, and durable)
 
 Figurine		(fine details and good cooling)
 
-Prototype		(fast and rought result)
+Prototype		(fast and rough result)
 
 Support			(easy support remove)
 
@@ -80,11 +80,11 @@ Select the type of settings you want to apply to your current Cura configuration
   
   
 
-Press the Button **APPLY** to modify your current configuration according to your choice. A message wil be display at the end of the modification with the number of modified parameters.
+Press the Button **APPLY** to modify your current configuration according to your choice. A message will be displayed at the end of the modification with the number of modified parameters.
 
 
-## Why is it call Universal Cura Settings
+## Why is it called Universal Cura Settings
 
-Initial settings comes from some profiles released by **Jonas Idebrant** aka [printingotb](https://github.com/printingotb) on the Cura Facebook Group. The main idea was to publish an Universal Cura Settings profile based on his own printing experience. I had for a long time the idea to create a plugin which was able to set some standard parameters instead of always use profiles. When we merge the two ideas you got this UniversalCuraSettings plugin. 
+Initial settings come from some profiles released by **Jonas Idebrant** aka [printingotb](https://github.com/printingotb) on the Cura Facebook Group. The main idea was to publish a Universal Cura Settings profile based on his own printing experience. I had for a long time the idea to create a plugin that could set some standard parameters instead of always using profiles. When we merge the two ideas you get this UniversalCuraSettings plugin. 
 
-**Note : It's still a "Concept" use it carrefuly.**
+**Note: It's still a "Concept" use it carefully.**
