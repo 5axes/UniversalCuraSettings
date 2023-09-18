@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: UniversalCuraSettings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-30 10:02+0000\n"
-"PO-Revision-Date: 2023-01-30 11:13+0200\n"
+"POT-Creation-Date: 2023-07-25 14:20+0000\n"
+"PO-Revision-Date: 2023-09-18 10:52+0200\n"
 "Last-Translator: 5axes <5axes@free.fr>\n"
 "Language-Team: 5axes\n"
 "Language: fr\n"
@@ -17,72 +17,80 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Virtaal 0.7.1\n"
 
-#: UniversalCuraSettings.py:236
+#: UniversalCuraSettings.py:245
 msgctxt "@item:inmenu"
 msgid "Universal Settings"
 msgstr "Paramètres Universels"
 
-#: UniversalCuraSettings.py:237
+#: UniversalCuraSettings.py:246
 msgctxt "@item:inmenu"
 msgid "Set Universal Settings"
 msgstr "Réglage Paramètres Universels"
 
-#: UniversalCuraSettings.py:239
+#: UniversalCuraSettings.py:248
 msgctxt "@item:inmenu"
 msgid "Export current profile"
 msgstr "Exporter le Profil actuel"
 
-#: UniversalCuraSettings.py:241
+#: UniversalCuraSettings.py:250
 msgctxt "@item:inmenu"
 msgid "Merge a profile"
 msgstr "Fusionner un profil"
 
-#: UniversalCuraSettings.py:344 UniversalCuraSettings.py:351
+#: UniversalCuraSettings.py:353 UniversalCuraSettings.py:360
 msgctxt "@title:window"
 msgid "Save as"
 msgstr "Sauver sous"
 
-#: UniversalCuraSettings.py:493 UniversalCuraSettings.py:500
+#: UniversalCuraSettings.py:502 UniversalCuraSettings.py:509
 msgctxt "@title:window"
 msgid "Open File"
 msgstr "Ouvrir Fichier"
 
-#: qml_qt6/UniversalCuraSettings.qml:19 qml_qt5/UniversalCuraSettings.qml:20
+#: qml/qml_qt5/UniversalCuraSettings.qml:20
+#: qml/qml_qt6/UniversalCuraSettings.qml:19
 msgctxt "@title"
 msgid "Universal Cura Settings Version : "
 msgstr "Version de Paramètres Universels Cura : "
 
-#: qml_qt6/UniversalCuraSettings.qml:88 qml_qt5/UniversalCuraSettings.qml:89
+#: qml/qml_qt5/UniversalCuraSettings.qml:89
+#: qml/qml_qt6/UniversalCuraSettings.qml:88
 msgctxt "@label"
 msgid "Extruder Type:"
 msgstr "Type d'extrudeuse :"
 
-#: qml_qt6/UniversalCuraSettings.qml:123 qml_qt5/UniversalCuraSettings.qml:122
+#: qml/qml_qt5/UniversalCuraSettings.qml:122
+#: qml/qml_qt6/UniversalCuraSettings.qml:123
 msgctxt "@label"
 msgid "Nozzle Size:"
 msgstr "Taille de buse :"
 
-#: qml_qt6/UniversalCuraSettings.qml:171 qml_qt5/UniversalCuraSettings.qml:161
+#: qml/qml_qt5/UniversalCuraSettings.qml:161
+#: qml/qml_qt6/UniversalCuraSettings.qml:171
 msgctxt "@label"
 msgid "Material:"
 msgstr "Matière:"
 
-#: qml_qt6/UniversalCuraSettings.qml:225 qml_qt5/UniversalCuraSettings.qml:197
+#: qml/qml_qt5/UniversalCuraSettings.qml:197
+#: qml/qml_qt6/UniversalCuraSettings.qml:225
 msgctxt "@label"
 msgid "Settings Mode:"
 msgstr "Type réglages:"
 
-#: qml_qt6/UniversalCuraSettings.qml:293 qml_qt5/UniversalCuraSettings.qml:247
+#: qml/qml_qt5/UniversalCuraSettings.qml:247
+#: qml/qml_qt6/UniversalCuraSettings.qml:293
 msgctxt "@option:check"
 msgid "Set standard settings"
 msgstr "Définir les paramètres standards"
 
-#: qml_qt6/UniversalCuraSettings.qml:304 qml_qt5/UniversalCuraSettings.qml:258
+#: qml/qml_qt5/UniversalCuraSettings.qml:258
+#: qml/qml_qt6/UniversalCuraSettings.qml:304
 msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: qml_qt6/UniversalCuraSettings.qml:310 qml_qt5/UniversalCuraSettings.qml:263
+#: qml/qml_qt5/UniversalCuraSettings.qml:263
+#: qml/qml_qt6/UniversalCuraSettings.qml:310
 msgctxt "@action:button"
 msgid "Apply"
 msgstr "Appliquer"
